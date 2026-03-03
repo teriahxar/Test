@@ -17,3 +17,11 @@
  ✓ Compiled /item/[slug] in 2.1s (1929 modules)
  ○ Compiling / ...
  ✓ Compiled / in 715ms (1935 modules)
+ ✓ Compiled in 1107ms (1949 modules)
+ ✓ Compiled in 1690ms (1949 modules)
+  ▲ Next.js 14.2.35
+  - Local:        http://localhost:3000
+  - Environments: .env
+
+ ✓ Starting...
+ ✓ Ready in 3.1s

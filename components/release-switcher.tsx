@@ -2,8 +2,8 @@
 
 import { useRouter, useSearchParams } from "next/navigation";
 import { useTransition } from "react";
-import type { Release } from "@prisma/client";
 import { ChevronDown } from "lucide-react";
+import type { Release } from "@/lib/data-model";
 import { useThemeStore } from "@/lib/stores/theme-store";
 
 export function ReleaseSwitcher({

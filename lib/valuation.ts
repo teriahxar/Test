@@ -1,4 +1,4 @@
-import { Condition, type Item, type Listing, type PricePoint, type Release, type Universe } from "@prisma/client";
+import type { Condition, Item, Listing, PricePoint, Release, Universe } from "@/lib/data-model";
 import { clamp, hashString } from "@/lib/utils";
 
 const conditionWeight: Record<Condition, number> = {
@@ -31,10 +31,10 @@ export type ItemMetrics = {
 };
 
 export function calculateItemMetrics(item: ItemWithMarketData): ItemMetrics {
-  const sorted = [...item.pricePoints].sort((a, b) => a.timestamp.getTime() - b.timestamp.getTime());
+  const sorted = [...item.pricePoints].sort((a, b) => new Date(a.timestamp).getTime() - new Date(b.timestamp).getTime());
   const now = Date.now();
   const weighted = sorted.map((point) => {
-    const daysAgo = Math.max(1, (now - point.timestamp.getTime()) / (24 * 60 * 60 * 1000));
+    const daysAgo = Math.max(1, (now - new Date(point.timestamp).getTime()) / (24 * 60 * 60 * 1000));
     const recencyWeight = 1 / Math.pow(daysAgo, 0.38);
     return {
       adjustedPrice: point.price / conditionWeight[point.condition],
@@ -50,11 +50,11 @@ export function calculateItemMetrics(item: ItemWithMarketData): ItemMetrics {
   const variance = values.reduce((sum, value) => sum + Math.pow(value - average, 2), 0) / (values.length || 1);
   const volatility = Math.sqrt(variance) / (average || 1);
 
-  const recent = sorted.filter((point) => point.timestamp.getTime() >= now - 7 * 24 * 60 * 60 * 1000);
+  const recent = sorted.filter((point) => new Date(point.timestamp).getTime() >= now - 7 * 24 * 60 * 60 * 1000);
   const previous = sorted.filter(
     (point) =>
-      point.timestamp.getTime() < now - 7 * 24 * 60 * 60 * 1000 &&
-      point.timestamp.getTime() >= now - 14 * 24 * 60 * 60 * 1000
+      new Date(point.timestamp).getTime() < now - 7 * 24 * 60 * 60 * 1000 &&
+      new Date(point.timestamp).getTime() >= now - 14 * 24 * 60 * 60 * 1000
   );
   const recentAverage =
     recent.reduce((sum, point) => sum + point.price / conditionWeight[point.condition], 0) / Math.max(recent.length, 1);
@@ -63,8 +63,7 @@ export function calculateItemMetrics(item: ItemWithMarketData): ItemMetrics {
   const sevenDayChange = previousAverage ? ((recentAverage - previousAverage) / previousAverage) * 100 : 0;
 
   const confidenceScore = clamp(sorted.length / 60 + (1 - volatility) * 0.45, 0.18, 0.98);
-  const confidence =
-    confidenceScore > 0.78 ? "high" : confidenceScore > 0.5 ? "medium" : "low";
+  const confidence = confidenceScore > 0.78 ? "high" : confidenceScore > 0.5 ? "medium" : "low";
   const marketHeat =
     sevenDayChange > 9 || (confidenceScore > 0.78 && volatility < 0.16)
       ? "Hot"
@@ -93,7 +92,7 @@ function buildSparkline(pricePoints: PricePoint[]) {
   const groups = new Map<string, number[]>();
 
   pricePoints.forEach((point) => {
-    const key = point.timestamp.toISOString().slice(0, 10);
+    const key = point.timestamp.slice(0, 10);
     const value = point.price / conditionWeight[point.condition];
     groups.set(key, [...(groups.get(key) ?? []), value]);
   });

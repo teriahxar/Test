@@ -1,113 +1,105 @@
 # VaultView
 
-VaultView is a cute, highly interactive collectibles value tracker built with Next.js 14, TypeScript, Tailwind, Zustand, Recharts, Prisma, and SQLite. The app dynamically changes its full theme based on both collectible universe and release, and includes watchlists, alerts, drop tracking, recently viewed history, shareable item cards, and a no-login portfolio mode.
+VaultView is a cute, highly interactive collectibles value tracker built as a static Next.js export for GitHub Pages. It uses local generated data, local SVG artwork, dynamic universe/release theming, watchlists, drop reminders, a shareable card module, and a no-login portfolio mode.
 
 ## Stack
 
 - Next.js 14 App Router + TypeScript
 - Tailwind CSS
 - shadcn/ui-style primitives
-- Zustand for theme, watchlist, collection mode, alerts, and recently viewed state
-- Recharts for value history and sparklines
-- Prisma ORM + SQLite for local development
+- Zustand for theme, watchlist, alerts, reminders, and collection state
+- Recharts for charts and sparklines
 
-## Features
+## GitHub Pages deployment
 
-- Full-screen anime-intro-style landing page with universe portal cards
-- Theme packs by universe plus release-specific accent/background overrides
-- Trending, biggest movers, new drops, all-items dashboard tabs
-- Search typeahead, release switcher, and cute filter drawer
-- Item profile pages with value history, confidence meter, market heat, authenticity tips, and alerts
-- Watchlist page with heat badges and alert editing
-- Drop calendar with hype scores and reminder toggles
-- Collection Mode / Portfolio dashboard with Owned, Want, and Sold states
-- Shareable item card module on detail pages
-- Reduced motion and sound toggle settings
+This project is configured for a repository Pages site at:
 
-## Setup
+`https://teriahxar.github.io/Test/`
+
+The export config is in [next.config.mjs](c:\Projects\Test\next.config.mjs) and currently uses the repository base path `/Test`.
+
+If you rename the repository, update:
+
+- `basePath`
+- `assetPrefix`
+
+in [next.config.mjs](c:\Projects\Test\next.config.mjs).
+
+### Automatic deploy
+
+The workflow in [.github/workflows/deploy-pages.yml](c:\Projects\Test\.github\workflows\deploy-pages.yml) builds the static export from `main` and publishes the `out/` directory to GitHub Pages.
+
+In GitHub:
+
+1. Open repository `Settings`.
+2. Open `Pages`.
+3. Set `Source` to `GitHub Actions`.
+4. Push to `main`.
+
+## Local development
 
 ```bash
 npm install
-copy .env.example .env
-npx prisma generate
-npx prisma db execute --file prisma/init.sql --schema prisma/schema.prisma
-npm run seed
 npm run dev
 ```
 
 Open `http://localhost:3000`.
 
-## Database notes
+## Static production build
 
-This local dev build uses SQLite. The Prisma schema is structured so it can be adapted to Postgres later without changing the app’s feature model.
+```bash
+npm run build:pages
+```
 
-If you change the schema and `prisma db push` is unreliable on your machine, you can continue using `prisma db execute` with the SQL files in `prisma/` for local bootstrap.
+The static site output is generated in `out/`.
 
-## Seeded content
+## Architecture notes
 
-- 3 universes
-- 6 releases
-- 18 items
-- 30-90 price points per item
-- 5-20 active listings per item
-- 12 upcoming drops
+This GitHub Pages version is static-only:
 
-## Image Attribution / Sources
+- no Prisma runtime
+- no SQLite runtime
+- no API routes
+- all item, release, pricing, and drop data is generated from local TypeScript modules at build time
+
+The static data source lives in:
+
+- [lib/catalog.ts](c:\Projects\Test\lib\catalog.ts)
+- [lib/static-data.ts](c:\Projects\Test\lib\static-data.ts)
+- [lib/mock-drops.ts](c:\Projects\Test\lib\mock-drops.ts)
+
+## Features
+
+- anime-intro-style landing page with universe portal cards
+- universe + release theme switching via CSS variables
+- trending, movers, new drops, and all-items dashboards
+- search typeahead and release switcher
+- watchlist, alerts, reminders, and recently viewed
+- item detail pages with confidence meter, heat badge, authenticity tips, and shareable card
+- collection mode with Owned / Want / Sold and portfolio summary
+
+## Images and attribution
 
 VaultView does **not** scrape images.
 
 For this MVP:
 
-- Item artwork in `public/assets/items/*.svg` is original vector artwork created specifically for this demo.
-- Official sites were used only as visual reference sources for styling direction and naming context.
+- item visuals in `public/assets/items/*.svg` are original SVG illustrations created for this project
+- official product sites were used only as styling and reference inspiration
 
 Reference sources:
 
 - Pop Mart official site: https://www.popmart.com/us
 - Calico Critters official site: https://calicocritters.com/en-us/
 
-## How to expand or replace images legally
+The in-app footer also includes this attribution.
+
+## How to replace or expand images legally
 
 Use one of these approaches:
 
-1. Create your own original artwork or icon-based product cards and place them in `public/assets/items/`.
-2. Use images you have explicit rights or licenses to distribute.
-3. If you later use official or partner-supplied product images, store the source, license, and attribution details in your content pipeline and show them in the footer/README.
+1. Add your own original SVG or licensed artwork to `public/assets/items/`.
+2. Use images you have explicit redistribution rights for.
+3. Keep source and attribution records for any future official partner assets.
 
-Do not scrape marketplace or retailer sites for images.
-
-## API routes
-
-- `GET /api/universes`
-- `GET /api/releases?universe=pop-mart`
-- `GET /api/items?release=skullpanda&query=moon&filters={"rarity":"Rare"}`
-- `GET /api/items/[slug]`
-- `GET /api/trending?release=skullpanda`
-- `GET /api/drops?universe=pop-mart`
-- `POST /api/watchlist`
-
-## Mock valuation engine
-
-Estimated value is computed from recent sold `PricePoint` rows using:
-
-- recency weighting
-- condition normalization
-- volatility scoring
-- confidence scoring from sample count and stability
-- 7-day change computation for movers and heat
-
-## Local persistence
-
-- Watchlist, alerts, and recently viewed items use `localStorage`
-- Collection Mode / Portfolio state uses `localStorage`
-- Drop reminders use `localStorage`
-
-## Commands
-
-```bash
-npm run dev
-npm run build
-npm run start
-npm run seed
-npm run db:studio
-```
+Do not scrape retailer or marketplace websites for imagery.

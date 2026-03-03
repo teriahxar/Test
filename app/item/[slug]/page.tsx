@@ -14,9 +14,8 @@ import { ThemeSetter } from "@/components/theme-setter";
 import { ValuePill } from "@/components/value-pill";
 import { AUTHENTICITY_TIPS } from "@/lib/catalog";
 import { getItemBySlug } from "@/lib/queries";
+import { STATIC_DB } from "@/lib/static-data";
 import { formatCurrency, formatPercent } from "@/lib/utils";
-
-export const revalidate = 3600;
 
 export default async function ItemPage({ params }: { params: { slug: string } }) {
   const data = await getItemBySlug(params.slug);
@@ -128,6 +127,12 @@ export default async function ItemPage({ params }: { params: { slug: string } })
       </section>
     </SiteShell>
   );
+}
+
+export function generateStaticParams() {
+  return STATIC_DB.items.map((item) => ({
+    slug: item.slug
+  }));
 }
 
 function Metric({ label, value }: { label: string; value: string }) {

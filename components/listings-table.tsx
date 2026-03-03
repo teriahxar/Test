@@ -1,4 +1,4 @@
-import { Condition } from "@prisma/client";
+import type { Condition } from "@/lib/data-model";
 import type { DashboardItem } from "@/lib/types";
 import { formatCurrency } from "@/lib/utils";
 

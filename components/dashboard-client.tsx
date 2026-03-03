@@ -2,6 +2,7 @@
 
 import { Bell, Heart, LayoutGrid, Rows3, Sparkles } from "lucide-react";
 import { useMemo, useState } from "react";
+import { useSearchParams } from "next/navigation";
 import type { DashboardData } from "@/lib/types";
 import { formatPercent, hashString } from "@/lib/utils";
 import { FilterDrawer, type DashboardFilters } from "@/components/filter-drawer";
@@ -15,12 +16,12 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { useWatchlistStore } from "@/lib/stores/watchlist-store";
 
 export function DashboardClient({
-  data,
-  currentRelease
+  data
 }: {
   data: DashboardData;
-  currentRelease?: string;
 }) {
+  const searchParams = useSearchParams();
+  const currentRelease = searchParams.get("release") ?? undefined;
   const [layout, setLayout] = useState<"grid" | "list">("grid");
   const [filters, setFilters] = useState<DashboardFilters>({});
   const watchlistCount = useWatchlistStore((state) => state.items.length);
@@ -33,13 +34,14 @@ export function DashboardClient({
       const listingConditions = item.listings.map((listing) => listing.condition.toLowerCase());
 
       return (
+        (!currentRelease || item.release.slug === currentRelease) &&
         (!filters.rarity || item.rarity === filters.rarity) &&
         (!filters.year || years === filters.year) &&
         (!filters.tag || tags.includes(filters.tag.toLowerCase())) &&
         (!filters.condition || listingConditions.includes(filters.condition.toLowerCase()))
       );
     });
-  }, [data.items, filters]);
+  }, [currentRelease, data.items, filters]);
 
   const trending = useMemo(
     () =>
