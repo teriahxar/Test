@@ -1,0 +1,84 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+enum Condition {
+  MINT
+  EXCELLENT
+  GOOD
+  FAIR
+}
+
+model Universe {
+  id          String    @id @default(cuid())
+  name        String
+  slug        String    @unique
+  description String
+  releases    Release[]
+}
+
+model Release {
+  id           String   @id @default(cuid())
+  universeId   String
+  name         String
+  slug         String   @unique
+  releaseDate  DateTime
+  themeAccent  String?
+  themeBgStyle String?
+  universe     Universe @relation(fields: [universeId], references: [id], onDelete: Cascade)
+  items        Item[]
+
+  @@index([universeId])
+}
+
+model Item {
+  id         String       @id @default(cuid())
+  releaseId  String
+  name       String
+  slug       String       @unique
+  rarity     String
+  imageUrl   String
+  tags       String
+  createdAt  DateTime     @default(now())
+  release    Release      @relation(fields: [releaseId], references: [id], onDelete: Cascade)
+  pricePoints PricePoint[]
+  listings   Listing[]
+
+  @@index([releaseId])
+}
+
+model PricePoint {
+  id        String    @id @default(cuid())
+  itemId     String
+  source     String
+  price      Float
+  condition  Condition
+  timestamp  DateTime
+  item       Item      @relation(fields: [itemId], references: [id], onDelete: Cascade)
+
+  @@index([itemId, timestamp])
+}
+
+model Listing {
+  id          String    @id @default(cuid())
+  itemId       String
+  marketplace  String
+  price        Float
+  condition    Condition
+  url          String
+  timestamp    DateTime
+  item         Item      @relation(fields: [itemId], references: [id], onDelete: Cascade)
+
+  @@index([itemId, timestamp])
+}
+
+model UserPref {
+  id    String @id @default(cuid())
+  key   String @unique
+  value String
+}
