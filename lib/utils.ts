@@ -34,3 +34,21 @@ export function clamp(value: number, min: number, max: number) {
 export function hashString(input: string) {
   return Array.from(input).reduce((acc, char) => (acc << 5) - acc + char.charCodeAt(0), 0);
 }
+
+const BASE_PATH = process.env.NODE_ENV === "production" ? "/Test" : "";
+
+export function withBasePath(path: string) {
+  if (!path || /^https?:\/\//.test(path) || path.startsWith("data:")) {
+    return path;
+  }
+
+  if (!path.startsWith("/")) {
+    return path;
+  }
+
+  if (!BASE_PATH || path === BASE_PATH || path.startsWith(`${BASE_PATH}/`)) {
+    return path;
+  }
+
+  return `${BASE_PATH}${path}`;
+}

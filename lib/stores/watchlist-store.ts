@@ -2,6 +2,7 @@
 
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
+import { withBasePath } from "@/lib/utils";
 
 export type AlertRule = {
   below?: number;
@@ -44,7 +45,7 @@ export const useWatchlistStore = create<WatchlistState>()(
           }
 
           return {
-            items: [{ ...item, addedAt: new Date().toISOString() }, ...state.items]
+            items: [{ ...item, imageUrl: withBasePath(item.imageUrl), addedAt: new Date().toISOString() }, ...state.items]
           };
         }),
       updateAlert: (slug, alert) =>
@@ -61,7 +62,21 @@ export const useWatchlistStore = create<WatchlistState>()(
         }))
     }),
     {
-      name: "vaultview-watchlist"
+      name: "vaultview-watchlist",
+      migrate: (persistedState) => {
+        if (!persistedState || typeof persistedState !== "object") {
+          return persistedState as WatchlistState;
+        }
+
+        const state = persistedState as WatchlistState;
+        return {
+          ...state,
+          items: (state.items ?? []).map((item) => ({
+            ...item,
+            imageUrl: withBasePath(item.imageUrl)
+          }))
+        };
+      }
     }
   )
 );

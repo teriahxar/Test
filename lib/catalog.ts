@@ -1,3 +1,5 @@
+import { withBasePath } from "@/lib/utils";
+
 export const IMAGE_ATTRIBUTION = [
   {
     label: "Pop Mart official site",
@@ -64,9 +66,9 @@ export const SEEDED_UNIVERSES = [
         releaseDate: "2025-07-18",
         stickerSet: "moonparade",
         items: [
-          { name: "Skullpanda Moonlit Waltz", rarity: "Ultra Rare", imageUrl: "/assets/items/skullpanda-moon.svg", tags: ["moon", "goth-cute", "mask"] },
-          { name: "Skullpanda Velvet Voltage", rarity: "Rare", imageUrl: "/assets/items/skullpanda-velvet.svg", tags: ["pink", "fashion", "neon"] },
-          { name: "Skullpanda Mirror Circus", rarity: "Secret", imageUrl: "/assets/items/skullpanda-circus.svg", tags: ["secret", "circus", "chrome"] }
+          { name: "Skullpanda Moonlit Waltz", rarity: "Ultra Rare", imageUrl: withBasePath("/assets/items/skullpanda-moon.svg"), tags: ["moon", "goth-cute", "mask"] },
+          { name: "Skullpanda Velvet Voltage", rarity: "Rare", imageUrl: withBasePath("/assets/items/skullpanda-velvet.svg"), tags: ["pink", "fashion", "neon"] },
+          { name: "Skullpanda Mirror Circus", rarity: "Secret", imageUrl: withBasePath("/assets/items/skullpanda-circus.svg"), tags: ["secret", "circus", "chrome"] }
         ]
       },
       {
@@ -75,9 +77,9 @@ export const SEEDED_UNIVERSES = [
         releaseDate: "2025-10-04",
         stickerSet: "sparklepop",
         items: [
-          { name: "Dimoo Bubble Transit", rarity: "Rare", imageUrl: "/assets/items/dimoo-bubble.svg", tags: ["bubble", "dreamy", "blue"] },
-          { name: "Dimoo Cloud Postcard", rarity: "Common", imageUrl: "/assets/items/dimoo-cloud.svg", tags: ["cloud", "postcard", "soft"] },
-          { name: "Dimoo Nightglow Parade", rarity: "Chase", imageUrl: "/assets/items/dimoo-nightglow.svg", tags: ["glow", "parade", "chase"] }
+          { name: "Dimoo Bubble Transit", rarity: "Rare", imageUrl: withBasePath("/assets/items/dimoo-bubble.svg"), tags: ["bubble", "dreamy", "blue"] },
+          { name: "Dimoo Cloud Postcard", rarity: "Common", imageUrl: withBasePath("/assets/items/dimoo-cloud.svg"), tags: ["cloud", "postcard", "soft"] },
+          { name: "Dimoo Nightglow Parade", rarity: "Chase", imageUrl: withBasePath("/assets/items/dimoo-nightglow.svg"), tags: ["glow", "parade", "chase"] }
         ]
       }
     ]
@@ -94,9 +96,9 @@ export const SEEDED_UNIVERSES = [
         releaseDate: "2025-05-10",
         stickerSet: "pastelplayroom",
         items: [
-          { name: "Baby Star Carousel", rarity: "Common", imageUrl: "/assets/items/baby-carousel.svg", tags: ["carousel", "baby", "nursery"] },
-          { name: "Baby Garden Parade", rarity: "Rare", imageUrl: "/assets/items/baby-garden.svg", tags: ["garden", "spring", "wagon"] },
-          { name: "Baby Picnic Twins", rarity: "Limited", imageUrl: "/assets/items/baby-picnic.svg", tags: ["picnic", "twins", "limited"] }
+          { name: "Baby Star Carousel", rarity: "Common", imageUrl: withBasePath("/assets/items/baby-carousel.svg"), tags: ["carousel", "baby", "nursery"] },
+          { name: "Baby Garden Parade", rarity: "Rare", imageUrl: withBasePath("/assets/items/baby-garden.svg"), tags: ["garden", "spring", "wagon"] },
+          { name: "Baby Picnic Twins", rarity: "Limited", imageUrl: withBasePath("/assets/items/baby-picnic.svg"), tags: ["picnic", "twins", "limited"] }
         ]
       },
       {
@@ -105,9 +107,9 @@ export const SEEDED_UNIVERSES = [
         releaseDate: "2025-09-21",
         stickerSet: "ginghamgarden",
         items: [
-          { name: "Village Garden Tea Cart", rarity: "Rare", imageUrl: "/assets/items/garden-teacart.svg", tags: ["tea", "cart", "floral"] },
-          { name: "Village Garden Hedge Set", rarity: "Common", imageUrl: "/assets/items/garden-hedge.svg", tags: ["hedge", "patio", "green"] },
-          { name: "Village Garden Lantern Arch", rarity: "Limited", imageUrl: "/assets/items/garden-lantern.svg", tags: ["lantern", "arch", "evening"] }
+          { name: "Village Garden Tea Cart", rarity: "Rare", imageUrl: withBasePath("/assets/items/garden-teacart.svg"), tags: ["tea", "cart", "floral"] },
+          { name: "Village Garden Hedge Set", rarity: "Common", imageUrl: withBasePath("/assets/items/garden-hedge.svg"), tags: ["hedge", "patio", "green"] },
+          { name: "Village Garden Lantern Arch", rarity: "Limited", imageUrl: withBasePath("/assets/items/garden-lantern.svg"), tags: ["lantern", "arch", "evening"] }
         ]
       }
     ]
@@ -124,9 +126,9 @@ export const SEEDED_UNIVERSES = [
         releaseDate: "2025-08-14",
         stickerSet: "pixelparty",
         items: [
-          { name: "Pixel Pocket Smoke", rarity: "Rare", imageUrl: "/assets/items/pixel-smoke.svg", tags: ["pixel", "smoke", "handheld"] },
-          { name: "Pixel Pocket Lime", rarity: "Common", imageUrl: "/assets/items/pixel-lime.svg", tags: ["lime", "transparent", "retro"] },
-          { name: "Pixel Pocket Aurora", rarity: "Limited", imageUrl: "/assets/items/pixel-aurora.svg", tags: ["aurora", "iridescent", "drop"] }
+          { name: "Pixel Pocket Smoke", rarity: "Rare", imageUrl: withBasePath("/assets/items/pixel-smoke.svg"), tags: ["pixel", "smoke", "handheld"] },
+          { name: "Pixel Pocket Lime", rarity: "Common", imageUrl: withBasePath("/assets/items/pixel-lime.svg"), tags: ["lime", "transparent", "retro"] },
+          { name: "Pixel Pocket Aurora", rarity: "Limited", imageUrl: withBasePath("/assets/items/pixel-aurora.svg"), tags: ["aurora", "iridescent", "drop"] }
         ]
       },
       {
@@ -135,9 +137,9 @@ export const SEEDED_UNIVERSES = [
         releaseDate: "2025-11-29",
         stickerSet: "glossghost",
         items: [
-          { name: "Mono Ghost Variant", rarity: "Chase", imageUrl: "/assets/items/ghost-variant.svg", tags: ["ghost", "chase", "gloss"] },
-          { name: "Mono Ghost Ivory", rarity: "Common", imageUrl: "/assets/items/ghost-ivory.svg", tags: ["ivory", "soft", "vinyl"] },
-          { name: "Mono Ghost Chroma", rarity: "Rare", imageUrl: "/assets/items/ghost-chroma.svg", tags: ["chroma", "gradient", "display"] }
+          { name: "Mono Ghost Variant", rarity: "Chase", imageUrl: withBasePath("/assets/items/ghost-variant.svg"), tags: ["ghost", "chase", "gloss"] },
+          { name: "Mono Ghost Ivory", rarity: "Common", imageUrl: withBasePath("/assets/items/ghost-ivory.svg"), tags: ["ivory", "soft", "vinyl"] },
+          { name: "Mono Ghost Chroma", rarity: "Rare", imageUrl: withBasePath("/assets/items/ghost-chroma.svg"), tags: ["chroma", "gradient", "display"] }
         ]
       }
     ]

@@ -2,6 +2,7 @@
 
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
+import { withBasePath } from "@/lib/utils";
 
 export type CollectionStatus = "owned" | "want" | "sold";
 
@@ -30,7 +31,7 @@ export const useCollectionStore = create<CollectionState>()(
         set((state) => {
           const next = state.entries.filter((item) => item.slug !== entry.slug);
           return {
-            entries: [{ ...entry, updatedAt: new Date().toISOString() }, ...next]
+            entries: [{ ...entry, imageUrl: withBasePath(entry.imageUrl), updatedAt: new Date().toISOString() }, ...next]
           };
         }),
       removeStatus: (slug) =>
@@ -39,7 +40,21 @@ export const useCollectionStore = create<CollectionState>()(
         }))
     }),
     {
-      name: "vaultview-collection"
+      name: "vaultview-collection",
+      migrate: (persistedState) => {
+        if (!persistedState || typeof persistedState !== "object") {
+          return persistedState as CollectionState;
+        }
+
+        const state = persistedState as CollectionState;
+        return {
+          ...state,
+          entries: (state.entries ?? []).map((entry) => ({
+            ...entry,
+            imageUrl: withBasePath(entry.imageUrl)
+          }))
+        };
+      }
     }
   )
 );
