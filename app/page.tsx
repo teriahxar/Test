@@ -1,80 +1,74 @@
-import { ArrowRight, Sparkles, TrendingUp } from "lucide-react";
+import Link from "next/link";
+import { ArrowRight, Sparkles, Star } from "lucide-react";
 import { SiteShell } from "@/components/site-shell";
-import { UniverseCard } from "@/components/universe-card";
-import { getUniverses } from "@/lib/queries";
+import { SparkleButton } from "@/components/sparkle-button";
+import { StickerPack } from "@/components/sticker-pack";
+import { UniversePortalCard } from "@/components/universe-portal-card";
+import { SEEDED_UNIVERSES } from "@/lib/catalog";
 
-export const revalidate = 3600;
-
-const universeEyebrows: Record<string, string> = {
-  "pop-mart": "Glossy momentum",
-  "calico-critters": "Cottage demand",
-  other: "Cross-category radar"
-};
-
-export default async function HomePage() {
-  const universes = await getUniverses();
-
+export default function HomePage() {
   return (
-    <SiteShell className="space-y-10 page-enter">
-      <section className="grid gap-6 rounded-[36px] border border-white/30 bg-white/20 p-6 backdrop-blur-xl lg:grid-cols-[1.3fr_0.7fr] lg:p-8">
-        <div className="space-y-6">
-          <div className="inline-flex items-center gap-2 rounded-full bg-white/55 px-4 py-2 text-xs font-semibold uppercase tracking-[0.28em] text-foreground/80">
-            <Sparkles className="h-4 w-4" />
-            Choose your collectible universe
-          </div>
-          <div className="space-y-4">
-            <h1 className="max-w-3xl font-display text-5xl font-semibold tracking-tight md:text-6xl">
-              Current value, trend shifts, watchlists, and drop timing for the pieces collectors actually revisit.
-            </h1>
-            <p className="max-w-2xl text-base leading-7 text-muted-foreground">
-              VaultView adapts its full visual system to the line you browse, so Pop Mart feels playful, Calico feels
-              cozy, and every release can carry its own atmosphere.
-            </p>
-          </div>
-          <div className="flex flex-wrap gap-3 text-sm text-muted-foreground">
-            <span className="inline-flex items-center gap-2 rounded-full border border-border bg-card/70 px-4 py-2">
-              <TrendingUp className="h-4 w-4 text-primary" />
-              Daily trending rotation
-            </span>
-            <span className="inline-flex items-center gap-2 rounded-full border border-border bg-card/70 px-4 py-2">
-              <ArrowRight className="h-4 w-4 text-primary" />
-              Sticky watchlist + alerts
-            </span>
-          </div>
-        </div>
-        <div className="grid gap-4 rounded-[30px] border border-white/40 bg-card/70 p-5 shadow-vault">
-          <div>
-            <p className="text-xs uppercase tracking-[0.24em] text-muted-foreground">What’s seeded</p>
-            <h2 className="mt-2 font-display text-2xl font-semibold">Mocked collector market engine</h2>
-          </div>
-          <div className="grid gap-3 sm:grid-cols-3 lg:grid-cols-1">
-            <Stat value={`${universes.length}`} label="Universes" />
-            <Stat value={`${universes.reduce((sum, universe) => sum + universe.releases.length, 0)}`} label="Releases" />
-            <Stat value="18+" label="Tracked items" />
-          </div>
-        </div>
-      </section>
-
-      <section className="grid gap-5 xl:grid-cols-3">
-        {universes.map((universe, index) => (
-          <UniverseCard
-            key={universe.id}
-            slug={universe.slug}
-            name={universe.name}
-            description={universe.description}
-            eyebrow={universeEyebrows[universe.slug] ?? `Market watch ${index + 1}`}
+    <SiteShell hideHeader className="page-enter">
+      <div className="relative min-h-screen overflow-hidden px-4 py-6 md:px-8">
+        {Array.from({ length: 14 }).map((_, index) => (
+          <span
+            key={index}
+            className="sparkle-dot"
+            style={{
+              left: `${8 + (index * 7) % 82}%`,
+              top: `${10 + (index * 13) % 72}%`,
+              width: `${4 + (index % 3) * 3}px`,
+              height: `${4 + (index % 3) * 3}px`,
+              animationDelay: `${index * 0.35}s`
+            }}
           />
         ))}
-      </section>
-    </SiteShell>
-  );
-}
+        <section className="mx-auto flex min-h-[40vh] max-w-6xl flex-col items-center justify-center text-center">
+          <div className="relative">
+            <StickerPack names={["sparkle", "heart", "star", "cloud"]} className="-inset-16 opacity-80" />
+            <div className="relative inline-flex items-center gap-2 rounded-full border border-white/60 bg-white/70 px-4 py-2 text-xs font-semibold uppercase tracking-[0.28em] text-muted-foreground shadow-sm">
+              <Sparkles className="h-4 w-4 text-primary" />
+              Choose your collectible universe
+            </div>
+          </div>
+          <h1 className="mt-8 max-w-5xl font-display text-5xl font-semibold leading-[0.95] md:text-7xl">
+            VaultView makes collectible value tracking feel like opening a dreamy little app intro.
+          </h1>
+          <p className="mt-5 max-w-3xl text-base leading-7 text-muted-foreground md:text-lg">
+            Pick a universe, watch the whole visual world transform, and fall straight into trending figures, cozy sets,
+            watchlists, alerts, drops, and your own cute portfolio mode.
+          </p>
+          <div className="mt-6 flex flex-wrap items-center justify-center gap-3">
+            <Link
+              href="#portals"
+              className="vault-button-primary inline-flex items-center gap-2 rounded-full px-5 py-3 text-sm font-bold text-primary-foreground shadow-glow transition-transform hover:-translate-y-0.5"
+            >
+              Start Exploring
+              <ArrowRight className="h-4 w-4" />
+            </Link>
+            <span className="inline-flex items-center gap-2 rounded-full border border-white/60 bg-white/75 px-4 py-2 text-sm font-semibold text-foreground">
+              <Star className="h-4 w-4 text-accent" />
+              daily trend rotation + local alerts
+            </span>
+          </div>
+        </section>
 
-function Stat({ value, label }: { value: string; label: string }) {
-  return (
-    <div className="rounded-[24px] bg-muted/60 p-4">
-      <p className="font-display text-3xl font-semibold">{value}</p>
-      <p className="mt-1 text-sm text-muted-foreground">{label}</p>
-    </div>
+        <section id="portals" className="mx-auto mt-8 max-w-6xl pb-10">
+          <div className="grid gap-5 xl:grid-cols-3">
+            {SEEDED_UNIVERSES.map((universe) => (
+              <UniversePortalCard
+                key={universe.slug}
+                slug={universe.slug}
+                title={universe.name.toUpperCase()}
+                description={universe.description}
+                portalCopy={universe.portalCopy}
+                thumbnails={universe.releases.flatMap((release) => release.items.map((item) => item.imageUrl)).slice(0, 3)}
+                stickerNames={universe.slug === "pop-mart" ? ["heart", "sparkle", "star", "moon"] : universe.slug === "calico-critters" ? ["bow", "flower", "berry", "leaf"] : ["pixel", "spark", "bolt", "swirl"]}
+              />
+            ))}
+          </div>
+        </section>
+      </div>
+    </SiteShell>
   );
 }

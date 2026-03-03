@@ -15,6 +15,7 @@ export type WatchlistEntry = {
   universeSlug: string;
   releaseSlug: string;
   estimatedValue: number;
+  heat: "Hot" | "Warm" | "Cooling";
   sparkline: number[];
   alert: AlertRule;
   addedAt: string;

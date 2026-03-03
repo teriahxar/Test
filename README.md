@@ -1,77 +1,113 @@
 # VaultView
 
-VaultView is a Next.js 14 collectibles market tracker with a dynamic theme pack system, mocked market valuation engine, Prisma + SQLite data model, watchlist alerts, and release-aware dashboards.
+VaultView is a cute, highly interactive collectibles value tracker built with Next.js 14, TypeScript, Tailwind, Zustand, Recharts, Prisma, and SQLite. The app dynamically changes its full theme based on both collectible universe and release, and includes watchlists, alerts, drop tracking, recently viewed history, shareable item cards, and a no-login portfolio mode.
 
 ## Stack
 
 - Next.js 14 App Router + TypeScript
 - Tailwind CSS
-- shadcn/ui-style component primitives
-- Zustand for theme, watchlist, alerts, and recently viewed state
+- shadcn/ui-style primitives
+- Zustand for theme, watchlist, collection mode, alerts, and recently viewed state
 - Recharts for value history and sparklines
 - Prisma ORM + SQLite for local development
 
-## Commands
+## Features
+
+- Full-screen anime-intro-style landing page with universe portal cards
+- Theme packs by universe plus release-specific accent/background overrides
+- Trending, biggest movers, new drops, all-items dashboard tabs
+- Search typeahead, release switcher, and cute filter drawer
+- Item profile pages with value history, confidence meter, market heat, authenticity tips, and alerts
+- Watchlist page with heat badges and alert editing
+- Drop calendar with hype scores and reminder toggles
+- Collection Mode / Portfolio dashboard with Owned, Want, and Sold states
+- Shareable item card module on detail pages
+- Reduced motion and sound toggle settings
+
+## Setup
 
 ```bash
 npm install
 copy .env.example .env
-npx prisma db push
+npx prisma generate
+npx prisma db execute --file prisma/init.sql --schema prisma/schema.prisma
 npm run seed
 npm run dev
 ```
 
-Optional:
+Open `http://localhost:3000`.
 
-```bash
-npm run build
-npm run start
-npm run db:studio
-```
+## Database notes
 
-## Included mocked functionality
+This local dev build uses SQLite. The Prisma schema is structured so it can be adapted to Postgres later without changing the app’s feature model.
+
+If you change the schema and `prisma db push` is unreliable on your machine, you can continue using `prisma db execute` with the SQL files in `prisma/` for local bootstrap.
+
+## Seeded content
 
 - 3 universes
-- 6 seeded releases
-- 18 seeded items
+- 6 releases
+- 18 items
 - 30-90 price points per item
 - 5-20 active listings per item
-- 12 upcoming drops in the calendar
-- Daily-rotating trending order
-- Weighted value estimation and confidence scoring from sold comps
-- Persistent theme packs, watchlist entries, alert thresholds, and reminders
+- 12 upcoming drops
+
+## Image Attribution / Sources
+
+VaultView does **not** scrape images.
+
+For this MVP:
+
+- Item artwork in `public/assets/items/*.svg` is original vector artwork created specifically for this demo.
+- Official sites were used only as visual reference sources for styling direction and naming context.
+
+Reference sources:
+
+- Pop Mart official site: https://www.popmart.com/us
+- Calico Critters official site: https://calicocritters.com/en-us/
+
+## How to expand or replace images legally
+
+Use one of these approaches:
+
+1. Create your own original artwork or icon-based product cards and place them in `public/assets/items/`.
+2. Use images you have explicit rights or licenses to distribute.
+3. If you later use official or partner-supplied product images, store the source, license, and attribution details in your content pipeline and show them in the footer/README.
+
+Do not scrape marketplace or retailer sites for images.
 
 ## API routes
 
 - `GET /api/universes`
 - `GET /api/releases?universe=pop-mart`
-- `GET /api/items?release=skullpanda&query=moon&filters=Rare`
+- `GET /api/items?release=skullpanda&query=moon&filters={"rarity":"Rare"}`
 - `GET /api/items/[slug]`
 - `GET /api/trending?release=skullpanda`
 - `GET /api/drops?universe=pop-mart`
 - `POST /api/watchlist`
 
-## Mock valuation model
+## Mock valuation engine
 
-The app computes `estimatedValue` from recent sold `PricePoint` rows using:
+Estimated value is computed from recent sold `PricePoint` rows using:
 
-- recency weighting so newer sales matter more
-- condition normalization to compare sold prices across listing quality
-- volatility analysis from normalized sold prices
-- a confidence score that increases with sample count and decreases with volatility
+- recency weighting
+- condition normalization
+- volatility scoring
+- confidence scoring from sample count and stability
+- 7-day change computation for movers and heat
 
-## Swapping in real marketplace integrations later
+## Local persistence
 
-The current schema is already normalized around `PricePoint` and `Listing`, so replacing mock generation with real ingestion is straightforward:
+- Watchlist, alerts, and recently viewed items use `localStorage`
+- Collection Mode / Portfolio state uses `localStorage`
+- Drop reminders use `localStorage`
 
-1. Add provider adapters that map external sold comps into `PricePoint`.
-2. Add provider adapters that map current listings into `Listing`.
-3. Schedule import jobs per universe/release/item.
-4. Preserve the valuation pipeline in `lib/valuation.ts` so UI contracts stay stable.
-5. Extend sources such as eBay sold comps, Whatnot, Mercari, StockX-like marketplaces, or retailer drop feeds by normalizing provider-specific fields before persistence.
+## Commands
 
-## Notes
-
-- Theme packs are controlled through CSS variables on the root element and persisted with Zustand.
-- Release themes can override accent and background styling while keeping the base universe identity.
-- Watchlist alerts and reminders are intentionally client-side for local dev without auth.
+```bash
+npm run dev
+npm run build
+npm run start
+npm run seed
+npm run db:studio
+```

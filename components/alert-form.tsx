@@ -4,8 +4,8 @@ import { useState } from "react";
 import type { DashboardItem } from "@/lib/types";
 import { useWatchlistStore } from "@/lib/stores/watchlist-store";
 import { useToastStore } from "@/lib/stores/toast-store";
-import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import { SparkleButton } from "@/components/sparkle-button";
 
 export function AlertForm({ item }: { item: DashboardItem }) {
   const watchlist = useWatchlistStore((state) => state.items);
@@ -18,15 +18,15 @@ export function AlertForm({ item }: { item: DashboardItem }) {
   const [above, setAbove] = useState(existing?.alert.above?.toString() ?? "");
 
   return (
-    <div className="rounded-[28px] border border-border bg-card/80 p-5 shadow-vault">
-      <p className="font-display text-xl font-semibold">Watchlist + alerts</p>
-      <p className="mt-2 text-sm text-muted-foreground">Save threshold reminders locally in your browser.</p>
+    <div className="sticker-card rounded-[30px] p-5">
+      <p className="font-display text-2xl font-semibold">Watchlist + alerts</p>
+      <p className="mt-2 text-sm text-muted-foreground">Save local reminders for when this collectible gets extra tempting.</p>
       <div className="mt-5 grid gap-3">
-        <Input placeholder="Notify below USD" value={below} onChange={(event) => setBelow(event.target.value)} />
-        <Input placeholder="Notify above USD" value={above} onChange={(event) => setAbove(event.target.value)} />
+        <Input placeholder="Alert me below..." value={below} onChange={(event) => setBelow(event.target.value)} className="h-12 bg-white/80" />
+        <Input placeholder="Alert me above..." value={above} onChange={(event) => setAbove(event.target.value)} className="h-12 bg-white/80" />
       </div>
       <div className="mt-4 flex flex-wrap gap-3">
-        <Button
+        <SparkleButton
           onClick={() => {
             const nextAlert = {
               below: below ? Number(below) : undefined,
@@ -41,29 +41,37 @@ export function AlertForm({ item }: { item: DashboardItem }) {
                 universeSlug: item.release.universe.slug,
                 releaseSlug: item.release.slug,
                 estimatedValue: item.metrics.estimatedValue,
+                heat: item.metrics.marketHeat,
                 sparkline: item.metrics.sparkline,
                 alert: nextAlert
               });
             } else {
               updateAlert(item.slug, nextAlert);
             }
-            push({ title: "Alert saved", description: item.name });
+
+            push({ title: "Saved! We’ll keep an eye out ✨", description: item.name });
           }}
         >
           Save alert
-        </Button>
-        <Button variant="outline" onClick={() => toggleItem({
-          slug: item.slug,
-          name: item.name,
-          imageUrl: item.imageUrl,
-          universeSlug: item.release.universe.slug,
-          releaseSlug: item.release.slug,
-          estimatedValue: item.metrics.estimatedValue,
-          sparkline: item.metrics.sparkline,
-          alert: {}
-        })}>
-          {existing ? "Remove from watchlist" : "Add to watchlist"}
-        </Button>
+        </SparkleButton>
+        <SparkleButton
+          variant="secondary"
+          onClick={() =>
+            toggleItem({
+              slug: item.slug,
+              name: item.name,
+              imageUrl: item.imageUrl,
+              universeSlug: item.release.universe.slug,
+              releaseSlug: item.release.slug,
+              estimatedValue: item.metrics.estimatedValue,
+              heat: item.metrics.marketHeat,
+              sparkline: item.metrics.sparkline,
+              alert: existing?.alert ?? {}
+            })
+          }
+        >
+          {existing ? "Remove watch" : "Add to watchlist"}
+        </SparkleButton>
       </div>
     </div>
   );

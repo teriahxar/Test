@@ -1,16 +1,18 @@
 "use client";
 
-import { Grid2X2, LayoutList } from "lucide-react";
+import { Bell, Heart, LayoutGrid, Rows3, Sparkles } from "lucide-react";
 import { useMemo, useState } from "react";
 import type { DashboardData } from "@/lib/types";
 import { formatPercent, hashString } from "@/lib/utils";
-import { Button } from "@/components/ui/button";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { SearchBox } from "@/components/search-box";
-import { FilterDrawer } from "@/components/filter-drawer";
-import { ReleaseSwitcher } from "@/components/release-switcher";
+import { FilterDrawer, type DashboardFilters } from "@/components/filter-drawer";
 import { ItemCard } from "@/components/item-card";
 import { PersonalizedFeed } from "@/components/personalized-feed";
+import { ReleaseSwitcher } from "@/components/release-switcher";
+import { SearchBox } from "@/components/search-box";
+import { SparkleButton } from "@/components/sparkle-button";
+import { StickerPack } from "@/components/sticker-pack";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { useWatchlistStore } from "@/lib/stores/watchlist-store";
 
 export function DashboardClient({
   data,
@@ -20,112 +22,167 @@ export function DashboardClient({
   currentRelease?: string;
 }) {
   const [layout, setLayout] = useState<"grid" | "list">("grid");
-  const [rarity, setRarity] = useState<string | undefined>();
-
+  const [filters, setFilters] = useState<DashboardFilters>({});
+  const watchlistCount = useWatchlistStore((state) => state.items.length);
   const dailySeed = new Date().toISOString().slice(0, 10);
+
+  const filteredItems = useMemo(() => {
+    return data.items.filter((item) => {
+      const tags = item.tags.split(",").map((tag) => tag.trim().toLowerCase());
+      const years = `${new Date(item.release.releaseDate).getFullYear()}`;
+      const listingConditions = item.listings.map((listing) => listing.condition.toLowerCase());
+
+      return (
+        (!filters.rarity || item.rarity === filters.rarity) &&
+        (!filters.year || years === filters.year) &&
+        (!filters.tag || tags.includes(filters.tag.toLowerCase())) &&
+        (!filters.condition || listingConditions.includes(filters.condition.toLowerCase()))
+      );
+    });
+  }, [data.items, filters]);
+
   const trending = useMemo(
     () =>
-      [...data.items]
+      [...filteredItems]
         .sort((a, b) => {
-          const scoreA = a.metrics.sevenDayChange * 1.35 + Math.abs(hashString(`${a.slug}-${dailySeed}`) % 18);
-          const scoreB = b.metrics.sevenDayChange * 1.35 + Math.abs(hashString(`${b.slug}-${dailySeed}`) % 18);
+          const scoreA = a.metrics.sevenDayChange * 1.3 + Math.abs(hashString(`${a.slug}-${dailySeed}`) % 20);
+          const scoreB = b.metrics.sevenDayChange * 1.3 + Math.abs(hashString(`${b.slug}-${dailySeed}`) % 20);
           return scoreB - scoreA;
         })
         .slice(0, 6),
-    [dailySeed, data.items]
+    [dailySeed, filteredItems]
   );
   const movers = useMemo(
-    () => [...data.items].sort((a, b) => Math.abs(b.metrics.sevenDayChange) - Math.abs(a.metrics.sevenDayChange)).slice(0, 6),
-    [data.items]
+    () => [...filteredItems].sort((a, b) => Math.abs(b.metrics.sevenDayChange) - Math.abs(a.metrics.sevenDayChange)).slice(0, 6),
+    [filteredItems]
   );
   const newDrops = useMemo(
     () =>
-      [...data.items]
+      [...filteredItems]
         .sort((a, b) => new Date(b.release.releaseDate).getTime() - new Date(a.release.releaseDate).getTime())
         .slice(0, 6),
-    [data.items]
+    [filteredItems]
   );
-  const filteredAll = useMemo(
-    () => data.items.filter((item) => !rarity || item.rarity === rarity),
-    [data.items, rarity]
+  const tags = useMemo(
+    () => [...new Set(data.items.flatMap((item) => item.tags.split(",").map((tag) => tag.trim())).filter(Boolean))],
+    [data.items]
   );
 
   return (
     <div className="space-y-8">
-      <section className="flex flex-col gap-5 rounded-[32px] border border-white/35 bg-white/20 p-5 backdrop-blur-xl md:p-6">
-        <div className="flex flex-col gap-4 xl:flex-row xl:items-center xl:justify-between">
-          <div>
-            <p className="text-xs uppercase tracking-[0.28em] text-muted-foreground">Universe dashboard</p>
-            <h1 className="mt-2 font-display text-4xl font-semibold">{data.universe.name}</h1>
-            <p className="mt-3 max-w-2xl text-sm leading-6 text-muted-foreground">{data.universe.description}</p>
-          </div>
-          <div className="flex flex-col gap-3 sm:flex-row">
-            <ReleaseSwitcher universeSlug={data.universe.slug} releases={data.universe.releases} currentRelease={currentRelease} />
-            <div className="flex gap-2">
-              <FilterDrawer rarity={rarity} setRarity={setRarity} />
-              <div className="inline-flex rounded-full border border-border bg-card/70 p-1">
-                <button
-                  type="button"
-                  aria-label="Grid view"
-                  className={`rounded-full p-2 ${layout === "grid" ? "bg-primary text-primary-foreground" : ""}`}
-                  onClick={() => setLayout("grid")}
-                >
-                  <Grid2X2 className="h-4 w-4" />
-                </button>
-                <button
-                  type="button"
-                  aria-label="List view"
-                  className={`rounded-full p-2 ${layout === "list" ? "bg-primary text-primary-foreground" : ""}`}
-                  onClick={() => setLayout("list")}
-                >
-                  <LayoutList className="h-4 w-4" />
-                </button>
+      <section className="sticker-card sticky top-[88px] z-30 overflow-hidden rounded-[34px] p-5 md:p-6">
+        <StickerPack names={["sparkle", "heart", "star", "cloud"]} className="opacity-70" />
+        <div className="relative space-y-5">
+          <div className="flex flex-col gap-4 xl:flex-row xl:items-end xl:justify-between">
+            <div className="max-w-2xl">
+              <div className="inline-flex items-center gap-2 rounded-full bg-white/75 px-4 py-2 text-xs font-semibold uppercase tracking-[0.26em] text-muted-foreground">
+                <Sparkles className="h-4 w-4 text-primary" />
+                Universe dashboard
               </div>
+              <h1 className="mt-4 font-display text-4xl font-semibold md:text-5xl">{data.universe.name}</h1>
+              <p className="mt-3 text-sm leading-6 text-muted-foreground">{data.universe.description}</p>
+            </div>
+            <div className="flex flex-wrap items-center gap-3">
+              <ReleaseSwitcher universeSlug={data.universe.slug} releases={data.universe.releases} currentRelease={currentRelease} />
+              <SearchBox items={data.items} />
+            </div>
+          </div>
+          <div className="flex flex-col gap-3 lg:flex-row lg:items-center lg:justify-between">
+            <div className="flex flex-wrap gap-2">
+              <FilterDrawer filters={filters} setFilters={setFilters} tags={tags} />
+              <div className="inline-flex items-center gap-2 rounded-full border border-white/60 bg-white/75 px-4 py-2 text-sm font-semibold">
+                <Heart className="h-4 w-4 text-primary" />
+                {watchlistCount} watching
+              </div>
+              <div className="inline-flex items-center gap-2 rounded-full border border-white/60 bg-white/75 px-4 py-2 text-sm font-semibold">
+                <Bell className="h-4 w-4 text-accent" />
+                local alerts
+              </div>
+            </div>
+            <div className="inline-flex rounded-full border border-white/60 bg-white/75 p-1 shadow-sm">
+              <button
+                type="button"
+                aria-label="Grid view"
+                className={`rounded-full p-2 ${layout === "grid" ? "bg-primary text-primary-foreground" : ""}`}
+                onClick={() => setLayout("grid")}
+              >
+                <LayoutGrid className="h-4 w-4" />
+              </button>
+              <button
+                type="button"
+                aria-label="List view"
+                className={`rounded-full p-2 ${layout === "list" ? "bg-primary text-primary-foreground" : ""}`}
+                onClick={() => setLayout("list")}
+              >
+                <Rows3 className="h-4 w-4" />
+              </button>
             </div>
           </div>
         </div>
-        <SearchBox items={data.items} universeSlug={data.universe.slug} />
       </section>
 
       <PersonalizedFeed items={data.items} />
 
       <Tabs defaultValue="trending" className="space-y-6">
-        <TabsList>
+        <TabsList className="bg-white/70">
           <TabsTrigger value="trending">Trending</TabsTrigger>
           <TabsTrigger value="movers">Biggest Movers</TabsTrigger>
           <TabsTrigger value="new">New Drops</TabsTrigger>
           <TabsTrigger value="all">All Items</TabsTrigger>
         </TabsList>
         <TabsContent value="trending">
+          <CategoryHeader
+            title="Trending now"
+            subtitle="Daily rotation keeps the home shelf feeling alive."
+          />
           <MarketGrid items={trending} layout={layout} />
         </TabsContent>
         <TabsContent value="movers">
+          <CategoryHeader
+            title="Biggest movers"
+            subtitle="Seven-day swings that make the browse loop addictive."
+          />
           <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-3">
             {movers.map((item) => (
-              <div key={item.id} className="rounded-[26px] border border-border bg-card/80 p-5 shadow-vault">
-                <p className="text-xs uppercase tracking-[0.18em] text-muted-foreground">7d move</p>
+              <div key={item.id} className="sticker-card rounded-[28px] p-5">
+                <p className="text-xs uppercase tracking-[0.22em] text-muted-foreground">7d move</p>
                 <p className="mt-2 font-display text-2xl font-semibold">{item.name}</p>
                 <p className="mt-3 inline-flex rounded-full bg-primary/10 px-3 py-1 text-sm font-semibold text-primary">
                   {formatPercent(item.metrics.sevenDayChange)}
                 </p>
-                <p className="mt-3 text-sm text-muted-foreground">{item.release.name}</p>
+                <p className="mt-2 text-sm text-muted-foreground">{item.release.name}</p>
               </div>
             ))}
           </div>
         </TabsContent>
         <TabsContent value="new">
+          <CategoryHeader title="New drops" subtitle="Fresher release windows and recent additions." />
           <MarketGrid items={newDrops} layout={layout} />
         </TabsContent>
         <TabsContent value="all">
-          {filteredAll.length ? (
-            <MarketGrid items={filteredAll} layout={layout} />
+          <div className="flex items-center justify-between gap-3">
+            <CategoryHeader title="All items" subtitle="Swipe through everything in this collectible universe." />
+            <SparkleButton variant="secondary">{filteredItems.length} results</SparkleButton>
+          </div>
+          {filteredItems.length ? (
+            <MarketGrid items={filteredItems} layout={layout} />
           ) : (
-            <div className="rounded-[30px] border border-dashed border-border bg-card/70 p-10 text-center text-muted-foreground">
-              No items match the current filter.
+            <div className="sticker-card rounded-[30px] p-10 text-center">
+              <p className="font-display text-2xl font-semibold">No matches in this dreamy little corner.</p>
+              <p className="mt-2 text-muted-foreground">Try clearing one filter and the shelf will refill instantly.</p>
             </div>
           )}
         </TabsContent>
       </Tabs>
+    </div>
+  );
+}
+
+function CategoryHeader({ title, subtitle }: { title: string; subtitle: string }) {
+  return (
+    <div className="mb-4">
+      <h2 className="font-display text-2xl font-semibold">{title}</h2>
+      <p className="text-sm text-muted-foreground">{subtitle}</p>
     </div>
   );
 }

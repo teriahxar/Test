@@ -1,4 +1,3 @@
-import { unstable_cache } from "next/cache";
 import { prisma } from "@/lib/db";
 import { UPCOMING_DROPS } from "@/lib/mock-drops";
 import { calculateItemMetrics, calculateTrendingScore, type ItemWithMarketData } from "@/lib/valuation";
@@ -21,64 +20,57 @@ const itemInclude = {
   }
 } as const;
 
-export const getUniverses = unstable_cache(
-  () =>
-    prisma.universe.findMany({
-      include: {
-        releases: {
-          orderBy: {
-            releaseDate: "desc"
-          }
-        }
-      },
-      orderBy: {
-        name: "asc"
-      }
-    }),
-  ["universes"],
-  { revalidate: 3600 }
-);
-
-export const getUniverseDashboard = unstable_cache(
-  async (slug: string, releaseSlug?: string) => {
-    const universe = await prisma.universe.findUnique({
-      where: { slug },
-      include: {
-        releases: {
-          orderBy: {
-            releaseDate: "desc"
-          }
+export async function getUniverses() {
+  return prisma.universe.findMany({
+    include: {
+      releases: {
+        orderBy: {
+          releaseDate: "desc"
         }
       }
-    });
-
-    if (!universe) {
-      return null;
+    },
+    orderBy: {
+      name: "asc"
     }
+  });
+}
 
-    const items = await prisma.item.findMany({
-      where: {
-        release: {
-          universe: {
-            slug
-          },
-          ...(releaseSlug ? { slug: releaseSlug } : {})
+export async function getUniverseDashboard(slug: string, releaseSlug?: string) {
+  const universe = await prisma.universe.findUnique({
+    where: { slug },
+    include: {
+      releases: {
+        orderBy: {
+          releaseDate: "desc"
         }
-      },
-      include: itemInclude,
-      orderBy: {
-        createdAt: "desc"
       }
-    });
+    }
+  });
 
-    return {
-      universe,
-      items: items.map(attachMetrics)
-    };
-  },
-  ["universe-dashboard"],
-  { revalidate: 3600 }
-);
+  if (!universe) {
+    return null;
+  }
+
+  const items = await prisma.item.findMany({
+    where: {
+      release: {
+        universe: {
+          slug
+        },
+        ...(releaseSlug ? { slug: releaseSlug } : {})
+      }
+    },
+    include: itemInclude,
+    orderBy: {
+      createdAt: "desc"
+    }
+  });
+
+  return {
+    universe,
+    items: items.map(attachMetrics)
+  };
+}
 
 export async function getItemBySlug(slug: string) {
   const item = await prisma.item.findUnique({
@@ -110,6 +102,10 @@ export async function getItems(params: {
   universe?: string;
   query?: string;
   rarity?: string;
+  year?: string;
+  condition?: string;
+  tag?: string;
+  slugs?: string[];
 }) {
   const releaseWhere = {
     ...(params.release ? { slug: params.release } : {}),
@@ -120,13 +116,26 @@ export async function getItems(params: {
     where: {
       ...(params.query ? { name: { contains: params.query } } : {}),
       ...(params.rarity ? { rarity: params.rarity } : {}),
+      ...(params.slugs?.length ? { slug: { in: params.slugs } } : {}),
       ...(params.release || params.universe ? { release: releaseWhere } : {})
     },
     include: itemInclude,
     take: 60
   });
 
-  return items.map(attachMetrics);
+  return items
+    .map(attachMetrics)
+    .filter((item) => {
+      const releaseYear = `${new Date(item.release.releaseDate).getFullYear()}`;
+      const tags = item.tags.split(",").map((tag) => tag.trim().toLowerCase());
+      const conditions = item.listings.map((listing) => listing.condition.toLowerCase());
+
+      return (
+        (!params.year || releaseYear === params.year) &&
+        (!params.tag || tags.includes(params.tag.toLowerCase())) &&
+        (!params.condition || conditions.includes(params.condition.toLowerCase()))
+      );
+    });
 }
 
 export async function getReleases(universeSlug?: string) {

@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import Link from "next/link";
 import { useMemo } from "react";
 import type { DashboardItem } from "@/lib/types";
@@ -10,8 +11,8 @@ export function PersonalizedFeed({ items }: { items: DashboardItem[] }) {
   const recent = useWatchlistStore((state) => state.recentlyViewed);
 
   const feedItems = useMemo(() => {
-    const slugs = [...watchlist.map((entry) => entry.slug), ...recent];
-    return [...new Set(slugs)]
+    const slugs = [...new Set([...watchlist.map((entry) => entry.slug), ...recent])];
+    return slugs
       .map((slug) => items.find((item) => item.slug === slug))
       .filter(Boolean)
       .slice(0, 4) as DashboardItem[];
@@ -25,16 +26,14 @@ export function PersonalizedFeed({ items }: { items: DashboardItem[] }) {
     <section className="space-y-4">
       <div>
         <p className="text-xs uppercase tracking-[0.24em] text-muted-foreground">Your feed</p>
-        <h2 className="mt-2 font-display text-2xl font-semibold">Saved and recently viewed in this universe</h2>
+        <h2 className="mt-2 font-display text-2xl font-semibold">Saved and revisited picks</h2>
       </div>
       <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-4">
         {feedItems.map((item) => (
-          <Link
-            key={item.id}
-            href={`/item/${item.slug}`}
-            className="rounded-[26px] border border-border bg-card/80 p-4 shadow-vault transition-transform hover:-translate-y-1"
-          >
-            <img src={item.imageUrl} alt={item.name} className="h-40 w-full rounded-[20px] object-cover" />
+          <Link key={item.id} href={`/item/${item.slug}`} className="sticker-card rounded-[28px] p-4 transition-transform hover:-translate-y-1">
+            <div className="relative h-44 w-full overflow-hidden rounded-[22px] bg-white/70">
+              <Image src={item.imageUrl} alt={item.name} fill className="object-cover" />
+            </div>
             <p className="mt-3 font-display text-lg font-semibold">{item.name}</p>
             <p className="text-sm text-muted-foreground">{item.release.name}</p>
           </Link>

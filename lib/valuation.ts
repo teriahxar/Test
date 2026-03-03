@@ -20,12 +20,14 @@ export type ItemMetrics = {
   estimatedValue: number;
   confidence: "low" | "medium" | "high";
   confidenceScore: number;
+  samplePoints: number;
   low: number;
   average: number;
   high: number;
   sevenDayChange: number;
   sparkline: number[];
   volatility: number;
+  marketHeat: "Hot" | "Warm" | "Cooling";
 };
 
 export function calculateItemMetrics(item: ItemWithMarketData): ItemMetrics {
@@ -63,6 +65,12 @@ export function calculateItemMetrics(item: ItemWithMarketData): ItemMetrics {
   const confidenceScore = clamp(sorted.length / 60 + (1 - volatility) * 0.45, 0.18, 0.98);
   const confidence =
     confidenceScore > 0.78 ? "high" : confidenceScore > 0.5 ? "medium" : "low";
+  const marketHeat =
+    sevenDayChange > 9 || (confidenceScore > 0.78 && volatility < 0.16)
+      ? "Hot"
+      : sevenDayChange > -4
+        ? "Warm"
+        : "Cooling";
 
   const sparkline = buildSparkline(sorted);
 
@@ -70,12 +78,14 @@ export function calculateItemMetrics(item: ItemWithMarketData): ItemMetrics {
     estimatedValue: Number(estimatedValue.toFixed(2)),
     confidence,
     confidenceScore: Number(confidenceScore.toFixed(2)),
+    samplePoints: sorted.length,
     low: Number(Math.min(...values).toFixed(2)),
     average: Number(average.toFixed(2)),
     high: Number(Math.max(...values).toFixed(2)),
     sevenDayChange: Number(sevenDayChange.toFixed(2)),
     sparkline,
-    volatility: Number(volatility.toFixed(2))
+    volatility: Number(volatility.toFixed(2)),
+    marketHeat
   };
 }
 

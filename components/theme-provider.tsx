@@ -2,7 +2,7 @@
 
 import { useEffect, useMemo } from "react";
 import type { ReactNode } from "react";
-import { buildThemeVariables, getThemePack } from "@/lib/themes";
+import { buildThemeVariables, getResolvedTheme } from "@/lib/themes";
 import { useThemeStore } from "@/lib/stores/theme-store";
 
 export function ThemeProvider({ children }: { children: ReactNode }) {
@@ -13,35 +13,41 @@ export function ThemeProvider({ children }: { children: ReactNode }) {
   const previewUniverse = useThemeStore((state) => state.previewUniverse);
   const previewRelease = useThemeStore((state) => state.previewRelease);
   const reducedMotion = useThemeStore((state) => state.reducedMotion);
-  const resolvedTheme = useMemo(() => {
-    const universe = previewUniverse ?? pinnedUniverse ?? selectedUniverse;
-    const release = previewUniverse ? previewRelease : (pinnedUniverse ? pinnedRelease : selectedRelease);
-    const pack = getThemePack(universe);
+  const setReducedMotion = useThemeStore((state) => state.setReducedMotion);
+  const soundEnabled = useThemeStore((state) => state.soundEnabled);
 
-    return {
-      vars: buildThemeVariables(universe, release),
-      themeId: pack.id,
-      buttonStyle: pack.buttonStyle
-    };
-  }, [
-    pinnedRelease,
-    pinnedUniverse,
-    previewRelease,
-    previewUniverse,
-    selectedRelease,
-    selectedUniverse
-  ]);
+  const theme = useMemo(() => {
+    const universe = previewUniverse ?? pinnedUniverse ?? selectedUniverse;
+    const release = previewUniverse ? previewRelease : pinnedUniverse ? pinnedRelease : selectedRelease;
+    return getResolvedTheme(universe, release);
+  }, [pinnedRelease, pinnedUniverse, previewRelease, previewUniverse, selectedRelease, selectedUniverse]);
+
+  useEffect(() => {
+    if (typeof window === "undefined") {
+      return;
+    }
+
+    const query = window.matchMedia("(prefers-reduced-motion: reduce)");
+    if (query.matches) {
+      setReducedMotion(true);
+    }
+  }, [setReducedMotion]);
 
   useEffect(() => {
     const root = document.documentElement;
-    Object.entries(resolvedTheme.vars).forEach(([key, value]) => {
-      root.style.setProperty(key, value);
-    });
-    root.dataset.theme = resolvedTheme.themeId;
+    Object.entries(buildThemeVariables(theme.universeSlug, previewUniverse ? previewRelease : (pinnedUniverse ? pinnedRelease : selectedRelease))).forEach(
+      ([key, value]) => {
+        root.style.setProperty(key, value);
+      }
+    );
+    root.dataset.theme = theme.id;
     root.dataset.motion = reducedMotion ? "reduced" : "full";
-    root.dataset.button = resolvedTheme.buttonStyle;
+    root.dataset.button = theme.buttonStyle;
+    root.dataset.pattern = theme.patternClass;
+    root.dataset.stickers = theme.stickerSet;
+    root.dataset.sound = soundEnabled ? "on" : "off";
     root.classList.toggle("reduced-motion", reducedMotion);
-  }, [resolvedTheme, reducedMotion]);
+  }, [pinnedRelease, pinnedUniverse, previewRelease, previewUniverse, reducedMotion, selectedRelease, soundEnabled, theme]);
 
   return <>{children}</>;
 }

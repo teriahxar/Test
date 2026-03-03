@@ -2,7 +2,6 @@
 
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
-import { buildThemeVariables, getThemePack } from "@/lib/themes";
 
 type ThemeState = {
   selectedUniverse: string;
@@ -10,6 +9,7 @@ type ThemeState = {
   pinnedUniverse?: string;
   pinnedRelease?: string;
   reducedMotion: boolean;
+  soundEnabled: boolean;
   previewUniverse?: string;
   previewRelease?: string;
   setUniverse: (universe: string, release?: string) => void;
@@ -17,32 +17,26 @@ type ThemeState = {
   pinTheme: (universe?: string, release?: string) => void;
   clearPin: () => void;
   setReducedMotion: (enabled: boolean) => void;
-  resolveTheme: () => {
-    universe: string;
-    release?: string;
-    vars: Record<string, string>;
-    themeId: string;
-    cardClass: string;
-    buttonStyle: string;
-  };
+  setSoundEnabled: (enabled: boolean) => void;
 };
 
 export const useThemeStore = create<ThemeState>()(
   persist(
-    (set, get) => ({
+    (set) => ({
       selectedUniverse: "other",
       selectedRelease: undefined,
       pinnedUniverse: undefined,
       pinnedRelease: undefined,
       reducedMotion: false,
+      soundEnabled: false,
       previewUniverse: undefined,
       previewRelease: undefined,
       setUniverse: (selectedUniverse, selectedRelease) =>
         set((state) =>
           state.selectedUniverse === selectedUniverse &&
           state.selectedRelease === selectedRelease &&
-          state.previewUniverse === undefined &&
-          state.previewRelease === undefined
+          !state.previewUniverse &&
+          !state.previewRelease
             ? state
             : { ...state, selectedUniverse, selectedRelease, previewUniverse: undefined, previewRelease: undefined }
         ),
@@ -60,29 +54,14 @@ export const useThemeStore = create<ThemeState>()(
         ),
       clearPin: () =>
         set((state) =>
-          state.pinnedUniverse === undefined && state.pinnedRelease === undefined
+          !state.pinnedUniverse && !state.pinnedRelease
             ? state
             : { ...state, pinnedUniverse: undefined, pinnedRelease: undefined }
         ),
       setReducedMotion: (reducedMotion) =>
         set((state) => (state.reducedMotion === reducedMotion ? state : { ...state, reducedMotion })),
-      resolveTheme: () => {
-        const state = get();
-        const universe = state.previewUniverse ?? state.pinnedUniverse ?? state.selectedUniverse;
-        const release = state.previewUniverse
-          ? state.previewRelease
-          : (state.pinnedUniverse ? state.pinnedRelease : state.selectedRelease);
-        const pack = getThemePack(universe);
-
-        return {
-          universe,
-          release,
-          vars: buildThemeVariables(universe, release),
-          themeId: pack.id,
-          cardClass: pack.cardClass,
-          buttonStyle: pack.buttonStyle
-        };
-      }
+      setSoundEnabled: (soundEnabled) =>
+        set((state) => (state.soundEnabled === soundEnabled ? state : { ...state, soundEnabled }))
     }),
     {
       name: "vaultview-theme"

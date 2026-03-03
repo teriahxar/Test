@@ -1,5 +1,4 @@
-import { formatCurrency } from "@/lib/utils";
-import { Badge } from "@/components/ui/badge";
+import { ValueCounter } from "@/components/value-counter";
 
 export function ValuePill({
   value,
@@ -8,12 +7,14 @@ export function ValuePill({
   value: number;
   confidence: "low" | "medium" | "high";
 }) {
-  const tone = confidence === "high" ? "default" : confidence === "medium" ? "outline" : "accent";
-
   return (
-    <div className="inline-flex items-center gap-3 rounded-full bg-white/65 px-3 py-2 shadow-sm">
-      <span className="font-display text-lg font-semibold">{formatCurrency(value)}</span>
-      <Badge variant={tone}>Confidence {confidence}</Badge>
+    <div className="inline-flex items-center gap-3 rounded-full border border-white/60 bg-white/80 px-4 py-2 shadow-sm">
+      <span className="font-display text-lg font-semibold">
+        <ValueCounter value={value} />
+      </span>
+      <span className="rounded-full bg-primary/10 px-3 py-1 text-xs font-semibold capitalize text-primary">
+        {confidence}
+      </span>
     </div>
   );
 }

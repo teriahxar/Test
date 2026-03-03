@@ -1,9 +1,11 @@
 "use client";
 
+import Image from "next/image";
 import Link from "next/link";
 import { useMemo } from "react";
 import type { DashboardItem } from "@/lib/types";
 import { useWatchlistStore } from "@/lib/stores/watchlist-store";
+import { MarketHeatBadge } from "@/components/market-heat-badge";
 
 export function RecentlyViewed({ items }: { items: DashboardItem[] }) {
   const slugs = useWatchlistStore((state) => state.recentlyViewed);
@@ -20,18 +22,21 @@ export function RecentlyViewed({ items }: { items: DashboardItem[] }) {
     <section className="space-y-4">
       <div>
         <p className="text-xs uppercase tracking-[0.24em] text-muted-foreground">Recently viewed</p>
-        <h2 className="mt-2 font-display text-2xl font-semibold">Pick up where you left off</h2>
+        <h2 className="mt-2 font-display text-2xl font-semibold">You were clearly onto something</h2>
       </div>
       <div className="flex gap-4 overflow-x-auto pb-2">
         {recentItems.map((item) => (
-          <Link
-            key={item.id}
-            href={`/item/${item.slug}`}
-            className="min-w-[220px] rounded-[24px] border border-border bg-card/80 p-3 shadow-vault"
-          >
-            <img src={item.imageUrl} alt={item.name} className="h-36 w-full rounded-[18px] object-cover" />
-            <p className="mt-3 font-medium">{item.name}</p>
-            <p className="text-sm text-muted-foreground">{item.release.name}</p>
+          <Link key={item.id} href={`/item/${item.slug}`} className="sticker-card min-w-[240px] rounded-[28px] p-3">
+            <div className="relative h-40 w-full overflow-hidden rounded-[22px] bg-white/70">
+              <Image src={item.imageUrl} alt={item.name} fill className="object-cover" />
+            </div>
+            <div className="mt-3 flex items-start justify-between gap-2">
+              <div>
+                <p className="font-display text-lg font-semibold">{item.name}</p>
+                <p className="text-sm text-muted-foreground">{item.release.name}</p>
+              </div>
+              <MarketHeatBadge heat={item.metrics.marketHeat} />
+            </div>
           </Link>
         ))}
       </div>

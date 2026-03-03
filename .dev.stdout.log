@@ -5,28 +5,15 @@
   ▲ Next.js 14.2.35
   - Local:        http://localhost:3000
   - Environments: .env
-  - Experiments (use with caution):
-    · typedRoutes
 
  ✓ Starting...
- ✓ Ready in 4.8s
- ○ Compiling / ...
- ✓ Compiled / in 10.6s (595 modules)
- GET / 200 in 11586ms
- GET / 200 in 84ms
+ ✓ Ready in 2.9s
  ○ Compiling /[universe] ...
- ✓ Compiled /[universe] in 10.3s (1860 modules)
- GET /favicon.ico 200 in 10324ms
- GET / 200 in 349ms
- GET /favicon.ico 200 in 519ms
- GET / 200 in 56ms
- GET /favicon.ico 200 in 105ms
- GET / 200 in 66ms
- GET /favicon.ico 200 in 95ms
- GET / 200 in 103ms
- GET /favicon.ico 200 in 94ms
- ✓ Compiled in 1012ms (1225 modules)
- GET / 200 in 302ms
- ✓ Compiled /[universe] in 304ms (945 modules)
- GET /favicon.ico 200 in 606ms
- GET / 200 in 69ms
+ ✓ Compiled /[universe] in 7.1s (1864 modules)
+ GET /pop-mart 200 in 9298ms
+ GET /pop-mart 200 in 242ms
+ GET /favicon.ico 200 in 89ms
+ ○ Compiling /item/[slug] ...
+ ✓ Compiled /item/[slug] in 2.1s (1929 modules)
+ ○ Compiling / ...
+ ✓ Compiled / in 715ms (1935 modules)

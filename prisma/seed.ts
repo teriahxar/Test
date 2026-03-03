@@ -1,4 +1,5 @@
 import { Condition, PrismaClient } from "@prisma/client";
+import { SEEDED_UNIVERSES } from "../lib/catalog";
 import { slugify } from "../lib/utils";
 import { RELEASE_THEME_OVERRIDES } from "../lib/themes";
 
@@ -11,90 +12,6 @@ const conditionMultipliers: Record<Condition, number> = {
   GOOD: 0.92,
   FAIR: 0.81
 };
-
-const universes = [
-  {
-    name: "Pop Mart",
-    slug: "pop-mart",
-    description: "Designer blind box figures with fast-moving secondary market swings.",
-    releases: [
-      {
-        name: "Skullpanda",
-        slug: "skullpanda",
-        releaseDate: "2025-07-18",
-        items: [
-          ["Skullpanda Moonlit Waltz", "Ultra Rare"],
-          ["Skullpanda Velvet Voltage", "Rare"],
-          ["Skullpanda Mirror Circus", "Secret"]
-        ]
-      },
-      {
-        name: "Dimoo",
-        slug: "dimoo",
-        releaseDate: "2025-10-04",
-        items: [
-          ["Dimoo Bubble Transit", "Rare"],
-          ["Dimoo Cloud Postcard", "Common"],
-          ["Dimoo Nightglow Parade", "Chase"]
-        ]
-      }
-    ]
-  },
-  {
-    name: "Calico Critters",
-    slug: "calico-critters",
-    description: "Cozy miniature sets with surprising collector demand and nostalgic scarcity.",
-    releases: [
-      {
-        name: "Baby Series",
-        slug: "baby-series",
-        releaseDate: "2025-05-10",
-        items: [
-          ["Baby Star Carousel", "Common"],
-          ["Baby Garden Parade", "Rare"],
-          ["Baby Picnic Twins", "Limited"]
-        ]
-      },
-      {
-        name: "Village Garden",
-        slug: "village-garden",
-        releaseDate: "2025-09-21",
-        items: [
-          ["Village Garden Tea Cart", "Rare"],
-          ["Village Garden Hedge Set", "Common"],
-          ["Village Garden Lantern Arch", "Limited"]
-        ]
-      }
-    ]
-  },
-  {
-    name: "Other",
-    slug: "other",
-    description: "A rotating index of modern collectibles spanning vinyl, pins, and mini brick sets.",
-    releases: [
-      {
-        name: "Retro Handhelds",
-        slug: "retro-handhelds",
-        releaseDate: "2025-08-14",
-        items: [
-          ["Pixel Pocket Smoke", "Rare"],
-          ["Pixel Pocket Lime", "Common"],
-          ["Pixel Pocket Aurora", "Limited"]
-        ]
-      },
-      {
-        name: "Designer Vinyl",
-        slug: "designer-vinyl",
-        releaseDate: "2025-11-29",
-        items: [
-          ["Mono Ghost Variant", "Chase"],
-          ["Mono Ghost Ivory", "Common"],
-          ["Mono Ghost Chroma", "Rare"]
-        ]
-      }
-    ]
-  }
-];
 
 function seededNumber(seed: string, min: number, max: number) {
   const value = Array.from(seed).reduce((acc, char) => acc + char.charCodeAt(0), 0);
@@ -110,7 +27,7 @@ async function main() {
   await prisma.universe.deleteMany();
   await prisma.userPref.deleteMany();
 
-  for (const universe of universes) {
+  for (const universe of SEEDED_UNIVERSES) {
     const createdUniverse = await prisma.universe.create({
       data: {
         name: universe.name,
@@ -128,12 +45,13 @@ async function main() {
           slug: release.slug,
           releaseDate: new Date(release.releaseDate),
           themeAccent: override?.accent,
-          themeBgStyle: override?.bgStyle
+          themeBgStyle: override?.bgStyle,
+          stickerSet: release.stickerSet
         }
       });
 
-      for (const [itemName, rarity] of release.items) {
-        const slug = slugify(itemName);
+      for (const itemSeed of release.items) {
+        const slug = slugify(itemSeed.name);
         const basePrice = seededNumber(slug, 28, 180);
         const trendBias = seededNumber(`${slug}-trend`, -0.18, 0.26);
         const pointCount = Math.round(seededNumber(`${slug}-points`, 34, 88));
@@ -142,11 +60,11 @@ async function main() {
         const item = await prisma.item.create({
           data: {
             releaseId: createdRelease.id,
-            name: itemName,
+            name: itemSeed.name,
             slug,
-            rarity,
-            imageUrl: `https://placehold.co/600x600/F3F4F6/111827?text=${encodeURIComponent(itemName)}`,
-            tags: [universe.slug, release.slug, rarity.toLowerCase()].join(", ")
+            rarity: itemSeed.rarity,
+            imageUrl: itemSeed.imageUrl,
+            tags: [universe.slug, release.slug, itemSeed.rarity.toLowerCase(), ...itemSeed.tags].join(", ")
           }
         });
 

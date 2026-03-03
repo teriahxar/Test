@@ -13,6 +13,7 @@ CREATE TABLE "Release" (
     "releaseDate" DATETIME NOT NULL,
     "themeAccent" TEXT,
     "themeBgStyle" TEXT,
+    "stickerSet" TEXT,
     CONSTRAINT "Release_universeId_fkey" FOREIGN KEY ("universeId") REFERENCES "Universe" ("id") ON DELETE CASCADE ON UPDATE CASCADE
 );
 

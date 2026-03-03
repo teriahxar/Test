@@ -12,25 +12,26 @@ export function PriceChart({ data }: { data: Point[] }) {
   return (
     <div className="h-[320px] w-full">
       <ResponsiveContainer width="100%" height="100%">
-        <AreaChart data={data}>
+        <AreaChart data={data} margin={{ left: 4, right: 8, top: 20, bottom: 0 }}>
           <defs>
             <linearGradient id="vault-gradient" x1="0" y1="0" x2="0" y2="1">
-              <stop offset="5%" stopColor="hsl(var(--primary))" stopOpacity={0.35} />
-              <stop offset="95%" stopColor="hsl(var(--primary))" stopOpacity={0.02} />
+              <stop offset="5%" stopColor="var(--chart-stroke)" stopOpacity={0.38} />
+              <stop offset="95%" stopColor="var(--chart-stroke)" stopOpacity={0.04} />
             </linearGradient>
           </defs>
-          <CartesianGrid stroke="rgba(120,120,120,0.12)" vertical={false} />
-          <XAxis dataKey="timestamp" tickLine={false} axisLine={false} minTickGap={32} />
-          <YAxis tickFormatter={(value) => `$${value}`} tickLine={false} axisLine={false} width={48} />
+          <CartesianGrid stroke="var(--chart-grid)" vertical={false} />
+          <XAxis dataKey="timestamp" tickLine={false} axisLine={false} minTickGap={30} fontSize={12} />
+          <YAxis tickFormatter={(value) => `$${value}`} tickLine={false} axisLine={false} width={48} fontSize={12} />
           <Tooltip
             contentStyle={{
               background: "rgba(255,255,255,0.96)",
-              borderRadius: 18,
-              border: "1px solid rgba(0,0,0,0.08)"
+              borderRadius: 20,
+              border: "1px solid rgba(255,255,255,0.7)",
+              boxShadow: "0 12px 24px rgba(0,0,0,0.08)"
             }}
             formatter={(value: number) => formatCurrency(value)}
           />
-          <Area type="monotone" dataKey="value" stroke="hsl(var(--primary))" fill="url(#vault-gradient)" strokeWidth={3} />
+          <Area type="monotone" dataKey="value" stroke="var(--chart-stroke)" fill="url(#vault-gradient)" strokeWidth={3} />
         </AreaChart>
       </ResponsiveContainer>
     </div>

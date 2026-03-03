@@ -30,6 +30,7 @@ model Release {
   releaseDate  DateTime
   themeAccent  String?
   themeBgStyle String?
+  stickerSet   String?
   universe     Universe @relation(fields: [universeId], references: [id], onDelete: Cascade)
   items        Item[]
 

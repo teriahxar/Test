@@ -11,23 +11,23 @@ const readableCondition: Record<Condition, string> = {
 
 export function ListingsTable({ listings }: { listings: DashboardItem["listings"] }) {
   return (
-    <div className="overflow-hidden rounded-[26px] border border-border bg-card/80">
+    <div className="overflow-hidden rounded-[30px] border border-white/60 bg-white/80 shadow-vault">
       <div className="overflow-x-auto">
-        <table className="w-full min-w-[680px] text-left text-sm">
-          <thead className="bg-muted/80 text-muted-foreground">
+        <table className="w-full min-w-[720px] text-left text-sm">
+          <thead className="bg-white/80 text-muted-foreground">
             <tr>
-              <th className="px-4 py-3 font-medium">Marketplace</th>
-              <th className="px-4 py-3 font-medium">Price</th>
-              <th className="px-4 py-3 font-medium">Condition</th>
-              <th className="px-4 py-3 font-medium">Timestamp</th>
-              <th className="px-4 py-3 font-medium">Link</th>
+              <th className="px-4 py-3 font-semibold">Marketplace</th>
+              <th className="px-4 py-3 font-semibold">Price</th>
+              <th className="px-4 py-3 font-semibold">Condition</th>
+              <th className="px-4 py-3 font-semibold">Timestamp</th>
+              <th className="px-4 py-3 font-semibold">Link</th>
             </tr>
           </thead>
           <tbody>
             {listings.map((listing) => (
-              <tr key={listing.id} className="border-t border-border">
-                <td className="px-4 py-3">{listing.marketplace}</td>
-                <td className="px-4 py-3 font-semibold">{formatCurrency(listing.price)}</td>
+              <tr key={listing.id} className="border-t border-border/70">
+                <td className="px-4 py-3 font-semibold">{listing.marketplace}</td>
+                <td className="px-4 py-3">{formatCurrency(listing.price)}</td>
                 <td className="px-4 py-3">{readableCondition[listing.condition]}</td>
                 <td className="px-4 py-3 text-muted-foreground">
                   {new Date(listing.timestamp).toLocaleString("en-US", {
@@ -38,8 +38,8 @@ export function ListingsTable({ listings }: { listings: DashboardItem["listings"
                   })}
                 </td>
                 <td className="px-4 py-3">
-                  <a href={listing.url} className="text-primary underline-offset-4 hover:underline">
-                    View
+                  <a href={listing.url} className="font-semibold text-primary underline-offset-4 hover:underline">
+                    Placeholder
                   </a>
                 </td>
               </tr>
