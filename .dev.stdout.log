@@ -25,3 +25,12 @@
 
  ✓ Starting...
  ✓ Ready in 3.1s
+ ○ Compiling / ...
+ ✓ Compiled / in 8s (636 modules)
+ GET / 200 in 8655ms
+ ○ Compiling /[universe] ...
+ ✓ Compiled /[universe] in 13.9s (1884 modules)
+ GET / 200 in 8168ms
+ GET /favicon.ico 500 in 483ms
+ GET / 200 in 73ms
+ GET /favicon.ico 500 in 40ms
