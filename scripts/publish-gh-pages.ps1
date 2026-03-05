@@ -38,12 +38,20 @@ if ($status) {
 }
 
 $apiPath = Join-Path $repoRoot "app\api"
-$apiBackupPath = Join-Path $repoRoot "app\api.__pages_backup__"
+$tmpDir = Join-Path $repoRoot ".tmp"
+$apiBackupPath = Join-Path $tmpDir "api.__pages_backup__"
 $outDir = Join-Path $repoRoot "out"
 $worktreePath = Join-Path $env:TEMP ("trinket-gh-pages-" + [Guid]::NewGuid().ToString("N"))
 $worktreeAdded = $false
 
 try {
+  if (-not (Test-Path $tmpDir)) {
+    New-Item -Path $tmpDir -ItemType Directory | Out-Null
+  }
+  if (Test-Path $apiBackupPath) {
+    Remove-Item -Path $apiBackupPath -Recurse -Force
+  }
+
   if (Test-Path $apiPath) {
     Move-Item -Path $apiPath -Destination $apiBackupPath
   }
@@ -99,6 +107,9 @@ finally {
       Remove-Item -Path $apiPath -Recurse -Force
     }
     Move-Item -Path $apiBackupPath -Destination $apiPath
+  }
+  if (Test-Path $tmpDir) {
+    Remove-Item -Path $tmpDir -Recurse -Force
   }
 
   if ($worktreeAdded) {
