@@ -15,6 +15,20 @@ Require-Command git
 Require-Command npm
 Require-Command robocopy
 
+function Invoke-Checked {
+  param(
+    [Parameter(Mandatory = $true)]
+    [scriptblock]$Script,
+    [Parameter(Mandatory = $true)]
+    [string]$OnError
+  )
+
+  & $Script
+  if ($LASTEXITCODE -ne 0) {
+    throw "$OnError (exit code: $LASTEXITCODE)"
+  }
+}
+
 $repoRoot = Resolve-Path (Join-Path $PSScriptRoot "..")
 Set-Location $repoRoot
 
@@ -27,6 +41,7 @@ $apiPath = Join-Path $repoRoot "app\api"
 $apiBackupPath = Join-Path $repoRoot "app\api.__pages_backup__"
 $outDir = Join-Path $repoRoot "out"
 $worktreePath = Join-Path $env:TEMP ("trinket-gh-pages-" + [Guid]::NewGuid().ToString("N"))
+$worktreeAdded = $false
 
 try {
   if (Test-Path $apiPath) {
@@ -35,7 +50,7 @@ try {
 
   $env:GITHUB_PAGES = "1"
   $env:NEXT_PUBLIC_BASE_PATH = "/$RepositoryName"
-  npm run build:pages
+  Invoke-Checked -Script { npm run build:pages } -OnError "Static build failed"
 
   if (-not (Test-Path $outDir)) {
     throw "Build output folder not found: $outDir"
@@ -48,10 +63,11 @@ try {
   }
 
   if ($branchExists) {
-    git worktree add $worktreePath $Branch
+    Invoke-Checked -Script { git worktree add $worktreePath $Branch } -OnError "Failed to attach git worktree"
   } else {
-    git worktree add -b $Branch $worktreePath
+    Invoke-Checked -Script { git worktree add -b $Branch $worktreePath } -OnError "Failed to create gh-pages worktree"
   }
+  $worktreeAdded = $true
 
   $rcLog = Join-Path $env:TEMP ("trinket-robocopy-" + [Guid]::NewGuid().ToString("N") + ".log")
   robocopy $outDir $worktreePath /MIR /XD .git /R:1 /W:1 /NFL /NDL /NJH /NJS /NP /LOG:$rcLog | Out-Null
@@ -66,23 +82,28 @@ try {
     New-Item -Path $noJekyllPath -ItemType File | Out-Null
   }
 
-  git -C $worktreePath add -A
+  Invoke-Checked -Script { git -C $worktreePath add -A } -OnError "Failed to stage gh-pages content"
   git -C $worktreePath diff --cached --quiet
   if ($LASTEXITCODE -eq 0) {
     Write-Output "No publish changes detected."
   } else {
     $timestamp = Get-Date -Format "yyyy-MM-dd HH:mm:ss zzz"
-    git -C $worktreePath commit -m ("Publish TRinket static site " + $timestamp)
-    git -C $worktreePath push origin $Branch
+    Invoke-Checked -Script { git -C $worktreePath commit -m ("Publish TRinket static site " + $timestamp) } -OnError "Failed to commit gh-pages publish"
+    Invoke-Checked -Script { git -C $worktreePath push origin $Branch } -OnError "Failed to push gh-pages"
     Write-Output "Published static site to $Branch."
   }
 }
 finally {
   if (Test-Path $apiBackupPath) {
+    if (Test-Path $apiPath) {
+      Remove-Item -Path $apiPath -Recurse -Force
+    }
     Move-Item -Path $apiBackupPath -Destination $apiPath
   }
 
-  git worktree remove $worktreePath --force 2>$null
+  if ($worktreeAdded) {
+    git worktree remove $worktreePath --force 2>$null
+  }
   if (Test-Path $worktreePath) {
     Remove-Item -Path $worktreePath -Recurse -Force
   }
