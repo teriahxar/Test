@@ -48,8 +48,8 @@ The `Item` model includes:
 - 2 universes: Pop Mart, Calico Critters
 - 6 releases total
 - 24 items total (12 per universe)
-- 30–90 price points per item
-- 5–20 listings per item
+- 30-90 price points per item
+- 5-20 listings per item
 - 12 upcoming drops
 
 Source files:
@@ -128,6 +128,35 @@ Estimated value is a weighted average of recent price points with condition norm
 - UI always surfaces last-updated timestamp + source labels
 
 MVP data is mocked and should not be treated as real-time trading guidance.
+
+## GitHub Pages Deployment (Static-Only, Stable)
+
+Use branch publishing for predictable deploys:
+
+1. GitHub -> `Settings` -> `Pages`
+2. Source: `Deploy from a branch`
+3. Branch: `gh-pages`
+4. Folder: `/(root)`
+5. Save
+
+Publish latest UI changes from local `main`:
+
+```bash
+npm install
+npm run publish:pages
+```
+
+This publish flow:
+
+- builds static output with `basePath=/Test`
+- temporarily excludes `app/api` during static export
+- publishes `out/` contents to the `gh-pages` branch
+- avoids queued/failing custom Pages workflow runs
+
+Notes:
+
+- Old workflow entries can still appear in Actions history; they are historical.
+- This approach does not modify your latest app UI code on `main`; it only updates deployment artifacts on `gh-pages`.
 
 ## Future Real Integrations
 
