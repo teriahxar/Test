@@ -13,7 +13,6 @@ function Require-Command([string]$Name) {
 
 Require-Command git
 Require-Command npm
-Require-Command robocopy
 
 function Invoke-Checked {
   param(
@@ -82,13 +81,14 @@ try {
   }
   $worktreeAdded = $true
 
-  $rcLog = Join-Path $env:TEMP ("trinket-robocopy-" + [Guid]::NewGuid().ToString("N") + ".log")
-  robocopy $outDir $worktreePath /MIR /XD .git /R:1 /W:1 /NFL /NDL /NJH /NJS /NP /LOG:$rcLog | Out-Null
-  if ($LASTEXITCODE -ge 8) {
-    $details = Get-Content $rcLog -ErrorAction SilentlyContinue
-    throw "robocopy failed with exit code $LASTEXITCODE. $details"
+  Get-ChildItem -Path $worktreePath -Force |
+    Where-Object { $_.Name -ne ".git" } |
+    Remove-Item -Recurse -Force
+
+  Get-ChildItem -Path $outDir -Force | ForEach-Object {
+    $destination = Join-Path $worktreePath $_.Name
+    Copy-Item -Path $_.FullName -Destination $destination -Recurse -Force
   }
-  Remove-Item $rcLog -ErrorAction SilentlyContinue
 
   $noJekyllPath = Join-Path $worktreePath ".nojekyll"
   if (-not (Test-Path $noJekyllPath)) {
@@ -118,7 +118,11 @@ finally {
   }
 
   if ($worktreeAdded) {
-    git worktree remove $worktreePath --force 2>$null
+    try {
+      git worktree remove $worktreePath --force 2>$null
+    } catch {
+      Write-Output "Warning: unable to remove temporary worktree cleanly."
+    }
   }
   if (Test-Path $worktreePath) {
     Remove-Item -Path $worktreePath -Recurse -Force
