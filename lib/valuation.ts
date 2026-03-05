@@ -20,6 +20,8 @@ export type ItemMetrics = {
   estimatedValue: number;
   confidence: "low" | "medium" | "high";
   confidenceScore: number;
+  lastUpdated: string;
+  sourceLabels: string[];
   samplePoints: number;
   low: number;
   average: number;
@@ -77,6 +79,8 @@ export function calculateItemMetrics(item: ItemWithMarketData): ItemMetrics {
     estimatedValue: Number(estimatedValue.toFixed(2)),
     confidence,
     confidenceScore: Number(confidenceScore.toFixed(2)),
+    lastUpdated: sorted.at(-1)?.timestamp ?? new Date().toISOString(),
+    sourceLabels: [...new Set(sorted.slice(-12).map((point) => point.source))],
     samplePoints: sorted.length,
     low: Number(Math.min(...values).toFixed(2)),
     average: Number(average.toFixed(2)),

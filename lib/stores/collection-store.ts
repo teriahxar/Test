@@ -40,7 +40,7 @@ export const useCollectionStore = create<CollectionState>()(
         }))
     }),
     {
-      name: "vaultview-collection",
+      name: "trinket-collection",
       migrate: (persistedState) => {
         if (!persistedState || typeof persistedState !== "object") {
           return persistedState as CollectionState;

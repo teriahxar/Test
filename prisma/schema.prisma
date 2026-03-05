@@ -19,6 +19,7 @@ model Universe {
   name        String
   slug        String    @unique
   description String
+  themeKey    String
   releases    Release[]
 }
 
@@ -38,15 +39,21 @@ model Release {
 }
 
 model Item {
-  id         String       @id @default(cuid())
-  releaseId  String
-  name       String
-  slug       String       @unique
-  rarity     String
-  imageUrl   String
-  tags       String
-  createdAt  DateTime     @default(now())
-  release    Release      @relation(fields: [releaseId], references: [id], onDelete: Cascade)
+  id                     String       @id @default(cuid())
+  releaseId              String
+  name                   String
+  slug                   String       @unique
+  rarity                 String
+  releaseDate            DateTime
+  imageLocalPath         String
+  officialProductPageUrl String
+  imageCreditText        String
+  brandName              String
+  itemAccentColor        String
+  itemBgStyle            String
+  tags                   String
+  createdAt              DateTime     @default(now())
+  release                Release      @relation(fields: [releaseId], references: [id], onDelete: Cascade)
   pricePoints PricePoint[]
   listings   Listing[]
 

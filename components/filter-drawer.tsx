@@ -6,20 +6,25 @@ import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
 import { SparkleButton } from "@/components/sparkle-button";
 
 export type DashboardFilters = {
+  release?: string;
   rarity?: string;
   year?: string;
   condition?: string;
   tag?: string;
+  minPrice?: number;
+  maxPrice?: number;
 };
 
 export function FilterDrawer({
   filters = {},
   setFilters,
-  tags
+  tags,
+  releases
 }: {
   filters: DashboardFilters;
   setFilters: (filters: DashboardFilters) => void;
   tags: string[];
+  releases: string[];
 }) {
   const [open, setOpen] = useState(false);
 
@@ -37,6 +42,12 @@ export function FilterDrawer({
             <p className="text-xs uppercase tracking-[0.24em] text-muted-foreground">Filter drawer</p>
             <h2 className="mt-2 font-display text-2xl font-semibold">Make the feed extra specific</h2>
           </div>
+          <FilterSection
+            label="Release / series"
+            options={releases}
+            active={filters.release}
+            onChange={(value) => setFilters({ ...filters, release: filters.release === value ? undefined : value })}
+          />
           <FilterSection
             label="Rarity"
             options={["Common", "Rare", "Ultra Rare", "Chase", "Secret", "Limited"]}
@@ -61,6 +72,31 @@ export function FilterDrawer({
             active={filters.tag}
             onChange={(value) => setFilters({ ...filters, tag: filters.tag === value ? undefined : value })}
           />
+          <div className="space-y-3">
+            <p className="text-sm font-semibold">Price range</p>
+            <div className="grid grid-cols-2 gap-3">
+              <input
+                type="number"
+                min={0}
+                placeholder="Min"
+                value={filters.minPrice ?? ""}
+                onChange={(event) =>
+                  setFilters({ ...filters, minPrice: event.target.value ? Number(event.target.value) : undefined })
+                }
+                className="h-10 rounded-full border border-border bg-white/75 px-4 text-sm"
+              />
+              <input
+                type="number"
+                min={0}
+                placeholder="Max"
+                value={filters.maxPrice ?? ""}
+                onChange={(event) =>
+                  setFilters({ ...filters, maxPrice: event.target.value ? Number(event.target.value) : undefined })
+                }
+                className="h-10 rounded-full border border-border bg-white/75 px-4 text-sm"
+              />
+            </div>
+          </div>
           <SparkleButton variant="secondary" onClick={() => setFilters({})}>
             Clear filters
           </SparkleButton>

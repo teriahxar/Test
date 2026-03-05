@@ -8,6 +8,7 @@ import { useThemeStore } from "@/lib/stores/theme-store";
 export function ThemeProvider({ children }: { children: ReactNode }) {
   const selectedUniverse = useThemeStore((state) => state.selectedUniverse);
   const selectedRelease = useThemeStore((state) => state.selectedRelease);
+  const selectedItemTheme = useThemeStore((state) => state.selectedItemTheme);
   const pinnedUniverse = useThemeStore((state) => state.pinnedUniverse);
   const pinnedRelease = useThemeStore((state) => state.pinnedRelease);
   const previewUniverse = useThemeStore((state) => state.previewUniverse);
@@ -16,10 +17,10 @@ export function ThemeProvider({ children }: { children: ReactNode }) {
   const setReducedMotion = useThemeStore((state) => state.setReducedMotion);
   const soundEnabled = useThemeStore((state) => state.soundEnabled);
 
-  const theme = useMemo(() => {
+  const computed = useMemo(() => {
     const universe = previewUniverse ?? pinnedUniverse ?? selectedUniverse;
     const release = previewUniverse ? previewRelease : pinnedUniverse ? pinnedRelease : selectedRelease;
-    return getResolvedTheme(universe, release);
+    return { universe, release, theme: getResolvedTheme(universe, release) };
   }, [pinnedRelease, pinnedUniverse, previewRelease, previewUniverse, selectedRelease, selectedUniverse]);
 
   useEffect(() => {
@@ -35,19 +36,26 @@ export function ThemeProvider({ children }: { children: ReactNode }) {
 
   useEffect(() => {
     const root = document.documentElement;
-    Object.entries(buildThemeVariables(theme.universeSlug, previewUniverse ? previewRelease : (pinnedUniverse ? pinnedRelease : selectedRelease))).forEach(
+    Object.entries(
+      buildThemeVariables(
+        computed.universe,
+        computed.release,
+        selectedItemTheme ? { accent: selectedItemTheme.accent, bgStyle: selectedItemTheme.bgStyle } : undefined
+      )
+    ).forEach(
       ([key, value]) => {
         root.style.setProperty(key, value);
       }
     );
-    root.dataset.theme = theme.id;
+    root.dataset.theme = computed.theme.id;
+    root.dataset.itemTheme = selectedItemTheme?.slug ?? "";
     root.dataset.motion = reducedMotion ? "reduced" : "full";
-    root.dataset.button = theme.buttonStyle;
-    root.dataset.pattern = theme.patternClass;
-    root.dataset.stickers = theme.stickerSet;
+    root.dataset.button = computed.theme.buttonStyle;
+    root.dataset.pattern = computed.theme.patternClass;
+    root.dataset.stickers = computed.theme.stickerSet;
     root.dataset.sound = soundEnabled ? "on" : "off";
     root.classList.toggle("reduced-motion", reducedMotion);
-  }, [pinnedRelease, pinnedUniverse, previewRelease, previewUniverse, reducedMotion, selectedRelease, soundEnabled, theme]);
+  }, [computed, reducedMotion, selectedItemTheme, soundEnabled]);
 
   return <>{children}</>;
 }

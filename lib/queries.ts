@@ -1,7 +1,7 @@
 import { STATIC_DB } from "@/lib/static-data";
 import { calculateItemMetrics, calculateTrendingScore, type ItemWithMarketData } from "@/lib/valuation";
 
-function attachRelations(item: typeof STATIC_DB.items[number]): ItemWithMarketData {
+function attachRelations(item: (typeof STATIC_DB.items)[number]): ItemWithMarketData {
   const release = STATIC_DB.releases.find((entry) => entry.id === item.releaseId)!;
   return {
     ...item,
@@ -12,10 +12,12 @@ function attachRelations(item: typeof STATIC_DB.items[number]): ItemWithMarketDa
 }
 
 function attachMetrics(item: ItemWithMarketData) {
+  const metrics = calculateItemMetrics(item);
   return {
     ...item,
+    imageUrl: item.imageLocalPath,
     rawItem: item,
-    metrics: calculateItemMetrics(item)
+    metrics
   };
 }
 
@@ -58,7 +60,7 @@ export async function getItemBySlug(slug: string) {
     .filter((entry) => entry.releaseId === item.releaseId && entry.slug !== slug)
     .map(attachRelations)
     .map(attachMetrics)
-    .slice(0, 6);
+    .slice(0, 8);
 
   return {
     item: attachMetrics(itemWithRelations),
@@ -74,14 +76,17 @@ export async function getItems(params: {
   year?: string;
   condition?: string;
   tag?: string;
+  minPrice?: number;
+  maxPrice?: number;
   slugs?: string[];
 }) {
   return STATIC_DB.items
     .map(attachRelations)
     .filter((item) => {
-      const releaseYear = `${new Date(item.release.releaseDate).getFullYear()}`;
+      const releaseYear = `${new Date(item.releaseDate).getFullYear()}`;
       const tags = item.tags.split(",").map((tag) => tag.trim().toLowerCase());
-      const conditions = item.listings.map((listing) => listing.condition.toLowerCase());
+      const listingConditions = item.listings.map((listing) => listing.condition.toLowerCase());
+      const metrics = calculateItemMetrics(item);
       return (
         (!params.query || item.name.toLowerCase().includes(params.query.toLowerCase())) &&
         (!params.rarity || item.rarity === params.rarity) &&
@@ -90,7 +95,9 @@ export async function getItems(params: {
         (!params.slugs?.length || params.slugs.includes(item.slug)) &&
         (!params.year || releaseYear === params.year) &&
         (!params.tag || tags.includes(params.tag.toLowerCase())) &&
-        (!params.condition || conditions.includes(params.condition.toLowerCase()))
+        (!params.condition || listingConditions.includes(params.condition.toLowerCase())) &&
+        (!params.minPrice || metrics.estimatedValue >= params.minPrice) &&
+        (!params.maxPrice || metrics.estimatedValue <= params.maxPrice)
       );
     })
     .map(attachMetrics)
@@ -103,13 +110,22 @@ export async function getReleases(universeSlug?: string) {
     .sort((a, b) => b.releaseDate.localeCompare(a.releaseDate));
 }
 
-export async function getTrending(releaseSlug?: string) {
+export async function getTrending(universeSlug?: string) {
   return STATIC_DB.items
     .map(attachRelations)
-    .filter((item) => !releaseSlug || item.release.slug === releaseSlug)
+    .filter((item) => !universeSlug || item.release.universe.slug === universeSlug)
     .map(attachMetrics)
     .sort((a, b) => calculateTrendingScore(b.rawItem) - calculateTrendingScore(a.rawItem))
-    .slice(0, 8);
+    .slice(0, 12);
+}
+
+export async function getMovers(universeSlug?: string) {
+  return STATIC_DB.items
+    .map(attachRelations)
+    .filter((item) => !universeSlug || item.release.universe.slug === universeSlug)
+    .map(attachMetrics)
+    .sort((a, b) => Math.abs(b.metrics.sevenDayChange) - Math.abs(a.metrics.sevenDayChange))
+    .slice(0, 12);
 }
 
 export async function getDrops(universeSlug?: string) {

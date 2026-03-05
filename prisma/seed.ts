@@ -32,7 +32,8 @@ async function main() {
       data: {
         name: universe.name,
         slug: universe.slug,
-        description: universe.description
+        description: universe.description,
+        themeKey: universe.themeKey
       }
     });
 
@@ -63,7 +64,13 @@ async function main() {
             name: itemSeed.name,
             slug,
             rarity: itemSeed.rarity,
-            imageUrl: itemSeed.imageUrl,
+            releaseDate: new Date(itemSeed.releaseDate),
+            imageLocalPath: itemSeed.imageLocalPath,
+            officialProductPageUrl: itemSeed.officialProductPageUrl,
+            imageCreditText: itemSeed.imageCreditText,
+            brandName: itemSeed.brandName,
+            itemAccentColor: itemSeed.itemAccentColor,
+            itemBgStyle: itemSeed.itemBgStyle,
             tags: [universe.slug, release.slug, itemSeed.rarity.toLowerCase(), ...itemSeed.tags].join(", ")
           }
         });
@@ -78,7 +85,7 @@ async function main() {
 
           return {
             itemId: item.id,
-            source: index % 2 === 0 ? "Mercari" : "eBay",
+            source: index % 2 === 0 ? "Marketplace comps" : "Recent sales",
             price: Number((rawPrice * conditionMultipliers[condition]).toFixed(2)),
             condition,
             timestamp: new Date(Date.now() - daysAgo * 24 * 60 * 60 * 1000)

@@ -10,14 +10,14 @@ export function DropCalendarClient({ drops }: { drops: UpcomingDrop[] }) {
   const [reminders, setReminders] = useState<string[]>([]);
 
   useEffect(() => {
-    const saved = JSON.parse(window.localStorage.getItem("vaultview-reminders") ?? "[]") as string[];
+    const saved = JSON.parse(window.localStorage.getItem("trinket-reminders") ?? "[]") as string[];
     setReminders(saved);
   }, []);
 
   const toggle = (id: string) => {
     const next = reminders.includes(id) ? reminders.filter((entry) => entry !== id) : [...reminders, id];
     setReminders(next);
-    window.localStorage.setItem("vaultview-reminders", JSON.stringify(next));
+    window.localStorage.setItem("trinket-reminders", JSON.stringify(next));
   };
 
   const months = [...new Set(drops.map((drop) => drop.date.slice(0, 7)))];

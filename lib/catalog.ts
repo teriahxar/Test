@@ -2,84 +2,255 @@ import { withBasePath } from "@/lib/utils";
 
 export const IMAGE_ATTRIBUTION = [
   {
-    label: "Pop Mart official site",
+    label: "Pop Mart Official",
     url: "https://www.popmart.com/us"
   },
   {
-    label: "Calico Critters official site",
+    label: "Calico Critters Official",
     url: "https://calicocritters.com/en-us/"
   }
 ];
 
 export const AUTHENTICITY_TIPS: Record<string, string[]> = {
-  skullpanda: [
-    "Check that the paint around the eyes stays crisp and symmetrical.",
-    "Official boxes use dense matte stock with clean foil details, not fuzzy print.",
-    "Base stamps should feel intentional, not soft or shallow."
+  "labubu-forest-party": [
+    "Confirm print registration is clean on the box front logo.",
+    "Check face paint edges for crisp transitions, not bleeding.",
+    "Official blind-box foil should reflect evenly, never patchy."
   ],
-  dimoo: [
-    "Look for smooth gradient paint on the cheeks and hair swirls.",
-    "Packaging windows should sit flush without cloudy glue marks.",
-    "Tiny accessory charms should match the release color story exactly."
+  "hirono-garden-daydream": [
+    "Texture on matte vinyl should feel smooth and even.",
+    "Accessory alignment should match the insert artwork.",
+    "Base mold marks should be shallow and consistent."
   ],
-  "baby-series": [
-    "Fabric bows and tiny outfit details should be neatly stitched.",
-    "Official flocking feels soft and even, not patchy.",
-    "Printed insert art should have warm tones, not washed-out beige."
+  "mokoko-sweet-bloom": [
+    "Pastel paint gradients should blend without striping.",
+    "Small charms should have clean edges and no burrs.",
+    "Card insert colors should not look gray or washed."
   ],
-  "village-garden": [
-    "Florals and lattice details should be sharply molded.",
-    "Wood-tone parts should not feel overly glossy.",
-    "Paper accessories should align cleanly without crooked folds."
+  "baby-treat-cart": [
+    "Fabric and flocking should feel soft, not sparse.",
+    "Printed graphics should keep linework sharp at edges.",
+    "Plastic joints should fit snugly without wobble."
   ],
-  "retro-handhelds": [
-    "Button legends should be centered and consistent in size.",
-    "Transparent shells should stay clear with no smoky fogging.",
-    "Back labels should use crisp micro text instead of blurred gray blocks."
+  "flora-rabbit-bakery-set": [
+    "Tiny pastry prints should be centered and legible.",
+    "Basket textures should look crisp under direct light.",
+    "Official packaging tabs should lock tightly."
   ],
-  "designer-vinyl": [
-    "The vinyl finish should be smooth with no gritty overspray.",
-    "Signature or stamp placement should match the official release notes.",
-    "Edges around horns and ears should remain defined, not melted."
+  "maple-cat-forest-swing": [
+    "Paint on wood-like parts should avoid glossy sheen.",
+    "Hanging parts should connect without loose hooks.",
+    "Clothing seams should stay tidy and symmetrical."
   ]
 };
 
 export const STICKER_SETS: Record<string, string[]> = {
-  sparklepop: ["heart", "star", "sparkle", "cloud"],
-  moonparade: ["moon", "sparkle", "cross", "heart"],
-  ginghamgarden: ["bow", "flower", "berry", "leaf"],
-  pastelplayroom: ["cloud", "heart", "bow", "flower"],
-  pixelparty: ["pixel", "spark", "star", "bolt"],
-  glossghost: ["drop", "sparkle", "star", "swirl"]
+  candywood: ["star", "sparkle", "heart", "leaf"],
+  moonpetal: ["moon", "sparkle", "bow", "leaf"],
+  meadowmilk: ["flower", "bow", "leaf", "cloud"],
+  woodland: ["leaf", "berry", "flower", "sparkle"]
 };
 
-export const SEEDED_UNIVERSES = [
+type SeedItem = {
+  name: string;
+  rarity: string;
+  releaseDate: string;
+  imageLocalPath: string;
+  officialProductPageUrl: string;
+  imageCreditText: string;
+  brandName: "Pop Mart" | "Calico Critters";
+  itemAccentColor: string;
+  itemBgStyle: "sparkleGradient" | "skyCandy" | "meadowGingham" | "forestPaper";
+  tags: string[];
+};
+
+export const SEEDED_UNIVERSES: Array<{
+  name: string;
+  slug: string;
+  description: string;
+  themeKey: "popmart" | "calico";
+  portalCopy: string;
+  releases: Array<{
+    name: string;
+    slug: string;
+    releaseDate: string;
+    stickerSet: string;
+    items: SeedItem[];
+  }>;
+}> = [
   {
     name: "Pop Mart",
     slug: "pop-mart",
-    description: "Glossy blind-box energy, fast-moving resale swings, and bold character-driven drops.",
-    portalCopy: "Candy-gloss figures, chase pulls, and sparkly resale drama.",
+    description: "Candy-gloss blind boxes, character drops, and playful resale swings.",
+    themeKey: "popmart",
+    portalCopy: "Sparkly shelves, chase pulls, dreamy pastel hype.",
     releases: [
       {
-        name: "Skullpanda",
-        slug: "skullpanda",
-        releaseDate: "2025-07-18",
-        stickerSet: "moonparade",
+        name: "Labubu Forest Party",
+        slug: "labubu-forest-party",
+        releaseDate: "2025-06-20",
+        stickerSet: "candywood",
         items: [
-          { name: "Skullpanda Moonlit Waltz", rarity: "Ultra Rare", imageUrl: withBasePath("/assets/items/skullpanda-moon.svg"), tags: ["moon", "goth-cute", "mask"] },
-          { name: "Skullpanda Velvet Voltage", rarity: "Rare", imageUrl: withBasePath("/assets/items/skullpanda-velvet.svg"), tags: ["pink", "fashion", "neon"] },
-          { name: "Skullpanda Mirror Circus", rarity: "Secret", imageUrl: withBasePath("/assets/items/skullpanda-circus.svg"), tags: ["secret", "circus", "chrome"] }
+          {
+            name: "Labubu Moss Glow",
+            rarity: "Rare",
+            releaseDate: "2025-06-20",
+            imageLocalPath: withBasePath("/assets/items/skullpanda-moon.svg"),
+            officialProductPageUrl: "https://www.popmart.com/us",
+            imageCreditText: "Pop Mart official product catalog (reference)",
+            brandName: "Pop Mart",
+            itemAccentColor: "326 88% 62%",
+            itemBgStyle: "sparkleGradient",
+            tags: ["labubu", "forest", "pastel", "blind-box"]
+          },
+          {
+            name: "Labubu Berry Lantern",
+            rarity: "Common",
+            releaseDate: "2025-06-20",
+            imageLocalPath: withBasePath("/assets/items/skullpanda-velvet.svg"),
+            officialProductPageUrl: "https://www.popmart.com/us",
+            imageCreditText: "Pop Mart official product catalog (reference)",
+            brandName: "Pop Mart",
+            itemAccentColor: "26 87% 64%",
+            itemBgStyle: "skyCandy",
+            tags: ["labubu", "berry", "cozy"]
+          },
+          {
+            name: "Labubu Clover Note",
+            rarity: "Limited",
+            releaseDate: "2025-06-20",
+            imageLocalPath: withBasePath("/assets/items/skullpanda-circus.svg"),
+            officialProductPageUrl: "https://www.popmart.com/us",
+            imageCreditText: "Pop Mart official product catalog (reference)",
+            brandName: "Pop Mart",
+            itemAccentColor: "146 45% 46%",
+            itemBgStyle: "forestPaper",
+            tags: ["labubu", "clover", "limited"]
+          },
+          {
+            name: "Labubu Moon Picnic",
+            rarity: "Secret",
+            releaseDate: "2025-06-20",
+            imageLocalPath: withBasePath("/assets/items/dimoo-nightglow.svg"),
+            officialProductPageUrl: "https://www.popmart.com/us",
+            imageCreditText: "Pop Mart official product catalog (reference)",
+            brandName: "Pop Mart",
+            itemAccentColor: "265 74% 66%",
+            itemBgStyle: "sparkleGradient",
+            tags: ["labubu", "secret", "moon"]
+          }
         ]
       },
       {
-        name: "Dimoo",
-        slug: "dimoo",
-        releaseDate: "2025-10-04",
-        stickerSet: "sparklepop",
+        name: "Hirono Garden Daydream",
+        slug: "hirono-garden-daydream",
+        releaseDate: "2025-09-05",
+        stickerSet: "moonpetal",
         items: [
-          { name: "Dimoo Bubble Transit", rarity: "Rare", imageUrl: withBasePath("/assets/items/dimoo-bubble.svg"), tags: ["bubble", "dreamy", "blue"] },
-          { name: "Dimoo Cloud Postcard", rarity: "Common", imageUrl: withBasePath("/assets/items/dimoo-cloud.svg"), tags: ["cloud", "postcard", "soft"] },
-          { name: "Dimoo Nightglow Parade", rarity: "Chase", imageUrl: withBasePath("/assets/items/dimoo-nightglow.svg"), tags: ["glow", "parade", "chase"] }
+          {
+            name: "Hirono Tea Rain",
+            rarity: "Common",
+            releaseDate: "2025-09-05",
+            imageLocalPath: withBasePath("/assets/items/dimoo-bubble.svg"),
+            officialProductPageUrl: "https://www.popmart.com/us",
+            imageCreditText: "Pop Mart official product catalog (reference)",
+            brandName: "Pop Mart",
+            itemAccentColor: "201 86% 58%",
+            itemBgStyle: "skyCandy",
+            tags: ["hirono", "tea", "soft-blue"]
+          },
+          {
+            name: "Hirono Rose Sketch",
+            rarity: "Rare",
+            releaseDate: "2025-09-05",
+            imageLocalPath: withBasePath("/assets/items/dimoo-cloud.svg"),
+            officialProductPageUrl: "https://www.popmart.com/us",
+            imageCreditText: "Pop Mart official product catalog (reference)",
+            brandName: "Pop Mart",
+            itemAccentColor: "342 78% 72%",
+            itemBgStyle: "sparkleGradient",
+            tags: ["hirono", "rose", "dreamy"]
+          },
+          {
+            name: "Hirono Forest Letter",
+            rarity: "Limited",
+            releaseDate: "2025-09-05",
+            imageLocalPath: withBasePath("/assets/items/skullpanda-moon.svg"),
+            officialProductPageUrl: "https://www.popmart.com/us",
+            imageCreditText: "Pop Mart official product catalog (reference)",
+            brandName: "Pop Mart",
+            itemAccentColor: "132 42% 45%",
+            itemBgStyle: "forestPaper",
+            tags: ["hirono", "forest", "letter"]
+          },
+          {
+            name: "Hirono Dusk Lantern",
+            rarity: "Chase",
+            releaseDate: "2025-09-05",
+            imageLocalPath: withBasePath("/assets/items/skullpanda-circus.svg"),
+            officialProductPageUrl: "https://www.popmart.com/us",
+            imageCreditText: "Pop Mart official product catalog (reference)",
+            brandName: "Pop Mart",
+            itemAccentColor: "282 72% 67%",
+            itemBgStyle: "sparkleGradient",
+            tags: ["hirono", "chase", "lantern"]
+          }
+        ]
+      },
+      {
+        name: "Mokoko Sweet Bloom",
+        slug: "mokoko-sweet-bloom",
+        releaseDate: "2025-11-08",
+        stickerSet: "candywood",
+        items: [
+          {
+            name: "Mokoko Honey Bow",
+            rarity: "Common",
+            releaseDate: "2025-11-08",
+            imageLocalPath: withBasePath("/assets/items/dimoo-bubble.svg"),
+            officialProductPageUrl: "https://www.popmart.com/us",
+            imageCreditText: "Pop Mart official product catalog (reference)",
+            brandName: "Pop Mart",
+            itemAccentColor: "35 90% 66%",
+            itemBgStyle: "skyCandy",
+            tags: ["mokoko", "honey", "bow"]
+          },
+          {
+            name: "Mokoko Blush Basket",
+            rarity: "Rare",
+            releaseDate: "2025-11-08",
+            imageLocalPath: withBasePath("/assets/items/skullpanda-velvet.svg"),
+            officialProductPageUrl: "https://www.popmart.com/us",
+            imageCreditText: "Pop Mart official product catalog (reference)",
+            brandName: "Pop Mart",
+            itemAccentColor: "330 80% 66%",
+            itemBgStyle: "sparkleGradient",
+            tags: ["mokoko", "blush", "basket"]
+          },
+          {
+            name: "Mokoko Meadow Jam",
+            rarity: "Limited",
+            releaseDate: "2025-11-08",
+            imageLocalPath: withBasePath("/assets/items/dimoo-nightglow.svg"),
+            officialProductPageUrl: "https://www.popmart.com/us",
+            imageCreditText: "Pop Mart official product catalog (reference)",
+            brandName: "Pop Mart",
+            itemAccentColor: "157 40% 44%",
+            itemBgStyle: "forestPaper",
+            tags: ["mokoko", "meadow", "jam"]
+          },
+          {
+            name: "Mokoko Twilight Cocoa",
+            rarity: "Secret",
+            releaseDate: "2025-11-08",
+            imageLocalPath: withBasePath("/assets/items/skullpanda-moon.svg"),
+            officialProductPageUrl: "https://www.popmart.com/us",
+            imageCreditText: "Pop Mart official product catalog (reference)",
+            brandName: "Pop Mart",
+            itemAccentColor: "255 72% 66%",
+            itemBgStyle: "sparkleGradient",
+            tags: ["mokoko", "secret", "twilight"]
+          }
         ]
       }
     ]
@@ -87,61 +258,178 @@ export const SEEDED_UNIVERSES = [
   {
     name: "Calico Critters",
     slug: "calico-critters",
-    description: "Cozy sets, soft textures, cottagecore charm, and unexpectedly competitive collector demand.",
-    portalCopy: "Pastel playrooms, gingham details, and tiny furniture fever.",
+    description: "Warm meadows, tiny cozy sets, and collectible cottagecore comfort.",
+    themeKey: "calico",
+    portalCopy: "Paper textures, soft gingham, and woodland tiny joys.",
     releases: [
       {
-        name: "Baby Series",
-        slug: "baby-series",
-        releaseDate: "2025-05-10",
-        stickerSet: "pastelplayroom",
+        name: "Baby Treat Cart",
+        slug: "baby-treat-cart",
+        releaseDate: "2025-05-12",
+        stickerSet: "meadowmilk",
         items: [
-          { name: "Baby Star Carousel", rarity: "Common", imageUrl: withBasePath("/assets/items/baby-carousel.svg"), tags: ["carousel", "baby", "nursery"] },
-          { name: "Baby Garden Parade", rarity: "Rare", imageUrl: withBasePath("/assets/items/baby-garden.svg"), tags: ["garden", "spring", "wagon"] },
-          { name: "Baby Picnic Twins", rarity: "Limited", imageUrl: withBasePath("/assets/items/baby-picnic.svg"), tags: ["picnic", "twins", "limited"] }
+          {
+            name: "Baby Sundae Cart",
+            rarity: "Common",
+            releaseDate: "2025-05-12",
+            imageLocalPath: withBasePath("/assets/items/baby-carousel.svg"),
+            officialProductPageUrl: "https://calicocritters.com/en-us/",
+            imageCreditText: "Calico Critters official product listings (reference)",
+            brandName: "Calico Critters",
+            itemAccentColor: "347 70% 74%",
+            itemBgStyle: "meadowGingham",
+            tags: ["baby", "cart", "dessert"]
+          },
+          {
+            name: "Baby Honey Waffles",
+            rarity: "Rare",
+            releaseDate: "2025-05-12",
+            imageLocalPath: withBasePath("/assets/items/baby-garden.svg"),
+            officialProductPageUrl: "https://calicocritters.com/en-us/",
+            imageCreditText: "Calico Critters official product listings (reference)",
+            brandName: "Calico Critters",
+            itemAccentColor: "29 63% 63%",
+            itemBgStyle: "meadowGingham",
+            tags: ["baby", "honey", "waffles"]
+          },
+          {
+            name: "Baby Berry Float",
+            rarity: "Limited",
+            releaseDate: "2025-05-12",
+            imageLocalPath: withBasePath("/assets/items/baby-picnic.svg"),
+            officialProductPageUrl: "https://calicocritters.com/en-us/",
+            imageCreditText: "Calico Critters official product listings (reference)",
+            brandName: "Calico Critters",
+            itemAccentColor: "321 62% 71%",
+            itemBgStyle: "skyCandy",
+            tags: ["baby", "berry", "float"]
+          },
+          {
+            name: "Baby Pudding Parade",
+            rarity: "Chase",
+            releaseDate: "2025-05-12",
+            imageLocalPath: withBasePath("/assets/items/garden-teacart.svg"),
+            officialProductPageUrl: "https://calicocritters.com/en-us/",
+            imageCreditText: "Calico Critters official product listings (reference)",
+            brandName: "Calico Critters",
+            itemAccentColor: "52 66% 62%",
+            itemBgStyle: "meadowGingham",
+            tags: ["baby", "pudding", "parade"]
+          }
         ]
       },
       {
-        name: "Village Garden",
-        slug: "village-garden",
-        releaseDate: "2025-09-21",
-        stickerSet: "ginghamgarden",
+        name: "Flora Rabbit Bakery Set",
+        slug: "flora-rabbit-bakery-set",
+        releaseDate: "2025-08-22",
+        stickerSet: "woodland",
         items: [
-          { name: "Village Garden Tea Cart", rarity: "Rare", imageUrl: withBasePath("/assets/items/garden-teacart.svg"), tags: ["tea", "cart", "floral"] },
-          { name: "Village Garden Hedge Set", rarity: "Common", imageUrl: withBasePath("/assets/items/garden-hedge.svg"), tags: ["hedge", "patio", "green"] },
-          { name: "Village Garden Lantern Arch", rarity: "Limited", imageUrl: withBasePath("/assets/items/garden-lantern.svg"), tags: ["lantern", "arch", "evening"] }
-        ]
-      }
-    ]
-  },
-  {
-    name: "Other",
-    slug: "other",
-    description: "A rotating mix of pastel-tech collectibles, designer vinyl, and niche modern display pieces.",
-    portalCopy: "Indie shelf candy, glossy vinyl, and tiny status flexes.",
-    releases: [
-      {
-        name: "Retro Handhelds",
-        slug: "retro-handhelds",
-        releaseDate: "2025-08-14",
-        stickerSet: "pixelparty",
-        items: [
-          { name: "Pixel Pocket Smoke", rarity: "Rare", imageUrl: withBasePath("/assets/items/pixel-smoke.svg"), tags: ["pixel", "smoke", "handheld"] },
-          { name: "Pixel Pocket Lime", rarity: "Common", imageUrl: withBasePath("/assets/items/pixel-lime.svg"), tags: ["lime", "transparent", "retro"] },
-          { name: "Pixel Pocket Aurora", rarity: "Limited", imageUrl: withBasePath("/assets/items/pixel-aurora.svg"), tags: ["aurora", "iridescent", "drop"] }
+          {
+            name: "Flora Bunny Brioche",
+            rarity: "Common",
+            releaseDate: "2025-08-22",
+            imageLocalPath: withBasePath("/assets/items/garden-hedge.svg"),
+            officialProductPageUrl: "https://calicocritters.com/en-us/",
+            imageCreditText: "Calico Critters official product listings (reference)",
+            brandName: "Calico Critters",
+            itemAccentColor: "38 58% 55%",
+            itemBgStyle: "forestPaper",
+            tags: ["flora", "bakery", "brioche"]
+          },
+          {
+            name: "Flora Bunny Daisy Tart",
+            rarity: "Rare",
+            releaseDate: "2025-08-22",
+            imageLocalPath: withBasePath("/assets/items/garden-lantern.svg"),
+            officialProductPageUrl: "https://calicocritters.com/en-us/",
+            imageCreditText: "Calico Critters official product listings (reference)",
+            brandName: "Calico Critters",
+            itemAccentColor: "340 68% 74%",
+            itemBgStyle: "meadowGingham",
+            tags: ["flora", "daisy", "tart"]
+          },
+          {
+            name: "Flora Bunny Oven Nook",
+            rarity: "Limited",
+            releaseDate: "2025-08-22",
+            imageLocalPath: withBasePath("/assets/items/baby-carousel.svg"),
+            officialProductPageUrl: "https://calicocritters.com/en-us/",
+            imageCreditText: "Calico Critters official product listings (reference)",
+            brandName: "Calico Critters",
+            itemAccentColor: "145 30% 48%",
+            itemBgStyle: "forestPaper",
+            tags: ["flora", "oven", "nook"]
+          },
+          {
+            name: "Flora Bunny Moon Cake",
+            rarity: "Secret",
+            releaseDate: "2025-08-22",
+            imageLocalPath: withBasePath("/assets/items/baby-garden.svg"),
+            officialProductPageUrl: "https://calicocritters.com/en-us/",
+            imageCreditText: "Calico Critters official product listings (reference)",
+            brandName: "Calico Critters",
+            itemAccentColor: "258 50% 65%",
+            itemBgStyle: "skyCandy",
+            tags: ["flora", "moon", "cake"]
+          }
         ]
       },
       {
-        name: "Designer Vinyl",
-        slug: "designer-vinyl",
-        releaseDate: "2025-11-29",
-        stickerSet: "glossghost",
+        name: "Maple Cat Forest Swing",
+        slug: "maple-cat-forest-swing",
+        releaseDate: "2025-10-16",
+        stickerSet: "woodland",
         items: [
-          { name: "Mono Ghost Variant", rarity: "Chase", imageUrl: withBasePath("/assets/items/ghost-variant.svg"), tags: ["ghost", "chase", "gloss"] },
-          { name: "Mono Ghost Ivory", rarity: "Common", imageUrl: withBasePath("/assets/items/ghost-ivory.svg"), tags: ["ivory", "soft", "vinyl"] },
-          { name: "Mono Ghost Chroma", rarity: "Rare", imageUrl: withBasePath("/assets/items/ghost-chroma.svg"), tags: ["chroma", "gradient", "display"] }
+          {
+            name: "Maple Cat Moss Swing",
+            rarity: "Common",
+            releaseDate: "2025-10-16",
+            imageLocalPath: withBasePath("/assets/items/garden-teacart.svg"),
+            officialProductPageUrl: "https://calicocritters.com/en-us/",
+            imageCreditText: "Calico Critters official product listings (reference)",
+            brandName: "Calico Critters",
+            itemAccentColor: "126 28% 46%",
+            itemBgStyle: "forestPaper",
+            tags: ["maple-cat", "swing", "moss"]
+          },
+          {
+            name: "Maple Cat Acorn Bench",
+            rarity: "Rare",
+            releaseDate: "2025-10-16",
+            imageLocalPath: withBasePath("/assets/items/garden-hedge.svg"),
+            officialProductPageUrl: "https://calicocritters.com/en-us/",
+            imageCreditText: "Calico Critters official product listings (reference)",
+            brandName: "Calico Critters",
+            itemAccentColor: "28 52% 56%",
+            itemBgStyle: "meadowGingham",
+            tags: ["maple-cat", "acorn", "bench"]
+          },
+          {
+            name: "Maple Cat Glow Path",
+            rarity: "Limited",
+            releaseDate: "2025-10-16",
+            imageLocalPath: withBasePath("/assets/items/garden-lantern.svg"),
+            officialProductPageUrl: "https://calicocritters.com/en-us/",
+            imageCreditText: "Calico Critters official product listings (reference)",
+            brandName: "Calico Critters",
+            itemAccentColor: "199 58% 60%",
+            itemBgStyle: "skyCandy",
+            tags: ["maple-cat", "glow", "path"]
+          },
+          {
+            name: "Maple Cat Twilight Meadow",
+            rarity: "Chase",
+            releaseDate: "2025-10-16",
+            imageLocalPath: withBasePath("/assets/items/baby-picnic.svg"),
+            officialProductPageUrl: "https://calicocritters.com/en-us/",
+            imageCreditText: "Calico Critters official product listings (reference)",
+            brandName: "Calico Critters",
+            itemAccentColor: "274 48% 64%",
+            itemBgStyle: "forestPaper",
+            tags: ["maple-cat", "twilight", "chase"]
+          }
         ]
       }
     ]
   }
-] as const;
+];

@@ -5,6 +5,7 @@ export type Universe = {
   name: string;
   slug: string;
   description: string;
+  themeKey: string;
 };
 
 export type Release = {
@@ -25,7 +26,13 @@ export type Item = {
   name: string;
   slug: string;
   rarity: string;
-  imageUrl: string;
+  releaseDate: string;
+  imageLocalPath: string;
+  officialProductPageUrl: string;
+  imageCreditText: string;
+  brandName: "Pop Mart" | "Calico Critters";
+  itemAccentColor: string;
+  itemBgStyle: string;
   tags: string;
   createdAt: string;
 };

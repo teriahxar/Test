@@ -1,105 +1,139 @@
-# VaultView
+# TRinket
 
-VaultView is a cute, highly interactive collectibles value tracker built as a static Next.js export for GitHub Pages. It uses local generated data, local SVG artwork, dynamic universe/release theming, watchlists, drop reminders, a shareable card module, and a no-login portfolio mode.
+TRinket is a minimal-but-whimsical collectibles value tracker for Pop Mart and Calico Critters.  
+It ships with mocked market data, transparent valuation cues, local image assets, item-level theme overrides, and local-first watchlist/collection workflows.
 
-## Stack
+## Tech Stack
 
 - Next.js 14 App Router + TypeScript
-- Tailwind CSS
-- shadcn/ui-style primitives
-- Zustand for theme, watchlist, alerts, reminders, and collection state
-- Recharts for charts and sparklines
+- Tailwind CSS + CSS variable theming
+- shadcn/ui primitives
+- Zustand (theme, watchlist, alerts, collection)
+- Recharts (history + sparkline charts)
+- Prisma ORM + SQLite (schema ready for Postgres later)
 
-## GitHub Pages deployment
-
-This project is configured for a repository Pages site at:
-
-`https://teriahxar.github.io/Test/`
-
-The export config is in [next.config.mjs](c:\Projects\Test\next.config.mjs) and currently uses the repository base path `/Test`.
-
-If you rename the repository, update:
-
-- `basePath`
-- `assetPrefix`
-
-in [next.config.mjs](c:\Projects\Test\next.config.mjs).
-
-### Automatic deploy
-
-The workflow in [.github/workflows/deploy-pages.yml](c:\Projects\Test\.github\workflows\deploy-pages.yml) builds the static export from `main` and publishes the `out/` directory to GitHub Pages.
-
-In GitHub:
-
-1. Open repository `Settings`.
-2. Open `Pages`.
-3. Set `Source` to `GitHub Actions`.
-4. Push to `main`.
-
-## Local development
+## Run Locally
 
 ```bash
 npm install
+npx prisma generate
+npx prisma db push
+npm run seed
 npm run dev
 ```
 
 Open `http://localhost:3000`.
 
-## Static production build
+## Database Models
 
+Defined in `prisma/schema.prisma`:
+
+- `Universe`
+- `Release`
+- `Item`
+- `PricePoint`
+- `Listing`
+
+The `Item` model includes:
+
+- `imageLocalPath`
+- `officialProductPageUrl`
+- `imageCreditText`
+- `brandName`
+- `itemAccentColor`
+- `itemBgStyle`
+
+## Seed Data (MVP)
+
+- 2 universes: Pop Mart, Calico Critters
+- 6 releases total
+- 24 items total (12 per universe)
+- 30–90 price points per item
+- 5–20 listings per item
+- 12 upcoming drops
+
+Source files:
+
+- `lib/catalog.ts`
+- `lib/static-data.ts`
+- `lib/mock-drops.ts`
+- `prisma/seed.ts`
+
+## Pages
+
+- `/` landing portal experience
+- `/pop-mart` universe dashboard
+- `/calico-critters` universe dashboard
+- `/item/[slug]` item detail with per-item theme
+- `/trending`
+- `/watchlist`
+- `/collection`
+- `/drops`
+- `/methodology`
+- `/attribution`
+
+## API Routes
+
+- `GET /api/universes`
+- `GET /api/releases?universe=slug`
+- `GET /api/items?release=slug&query=&filters=`
+- `GET /api/items/[slug]`
+- `GET /api/trending?universe=slug`
+- `GET /api/movers?universe=slug`
+- `GET /api/drops?universe=slug`
+
+## Add New Items
+
+1. Add/update release + item entries in `lib/catalog.ts`.
+2. Set item metadata:
+   - `imageLocalPath`
+   - `officialProductPageUrl`
+   - `imageCreditText`
+   - `brandName`
+   - `itemAccentColor`
+   - `itemBgStyle`
+3. Re-seed:
 ```bash
-npm run build:pages
+npm run seed
 ```
 
-The static site output is generated in `out/`.
+## Image Policy + Attribution
 
-## Architecture notes
+TRinket does not scrape marketplaces or official stores for images.
 
-This GitHub Pages version is static-only:
+- MVP visuals are local assets in `public/assets/items`.
+- Every item record stores attribution fields and official product link metadata.
+- Attribution is visible:
+  - in the app footer
+  - on each item detail page
+  - on `/attribution`
 
-- no Prisma runtime
-- no SQLite runtime
-- no API routes
-- all item, release, pricing, and drop data is generated from local TypeScript modules at build time
-
-The static data source lives in:
-
-- [lib/catalog.ts](c:\Projects\Test\lib\catalog.ts)
-- [lib/static-data.ts](c:\Projects\Test\lib\static-data.ts)
-- [lib/mock-drops.ts](c:\Projects\Test\lib\mock-drops.ts)
-
-## Features
-
-- anime-intro-style landing page with universe portal cards
-- universe + release theme switching via CSS variables
-- trending, movers, new drops, and all-items dashboards
-- search typeahead and release switcher
-- watchlist, alerts, reminders, and recently viewed
-- item detail pages with confidence meter, heat badge, authenticity tips, and shareable card
-- collection mode with Owned / Want / Sold and portfolio summary
-
-## Images and attribution
-
-VaultView does **not** scrape images.
-
-For this MVP:
-
-- item visuals in `public/assets/items/*.svg` are original SVG illustrations created for this project
-- official product sites were used only as styling and reference inspiration
-
-Reference sources:
+Reference sources used for official-page linking and catalog context:
 
 - Pop Mart official site: https://www.popmart.com/us
 - Calico Critters official site: https://calicocritters.com/en-us/
 
-The in-app footer also includes this attribution.
+When replacing images:
 
-## How to replace or expand images legally
+- only use assets you created or have rights to use
+- keep `imageCreditText` and `officialProductPageUrl` accurate
+- do not remove attribution from data records
 
-Use one of these approaches:
+## Methodology Summary
 
-1. Add your own original SVG or licensed artwork to `public/assets/items/`.
-2. Use images you have explicit redistribution rights for.
-3. Keep source and attribution records for any future official partner assets.
+Estimated value is a weighted average of recent price points with condition normalization.
 
-Do not scrape retailer or marketplace websites for imagery.
+- Condition multipliers: Mint 1.08x, Excellent 1.0x, Good 0.92x, Fair 0.81x
+- Confidence score uses sample density + volatility
+- UI always surfaces last-updated timestamp + source labels
+
+MVP data is mocked and should not be treated as real-time trading guidance.
+
+## Future Real Integrations
+
+The model is designed to swap mocked ingestion with real pipelines:
+
+1. Add marketplace adapters that ingest sold comps and active listings.
+2. Write normalized events into `PricePoint` and `Listing`.
+3. Add scheduled jobs and source reliability weighting.
+4. Keep attribution + methodology transparency in UI.

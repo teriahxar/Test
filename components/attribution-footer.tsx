@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { IMAGE_ATTRIBUTION } from "@/lib/catalog";
+import { AttributionFooterLink } from "@/components/attribution-footer-link";
 
 export function AttributionFooter() {
   return (
@@ -8,8 +9,8 @@ export function AttributionFooter() {
         <div>
           <p className="font-semibold text-foreground">Image Attribution / Sources</p>
           <p className="max-w-2xl text-sm">
-            Demo item art in VaultView uses original SVG illustrations created for this MVP. Official Pop Mart and
-            Calico Critters pages were used only as legal visual references for styling and naming context.
+            TRinket uses local placeholder assets for identification in this MVP. Official product pages are linked for
+            source transparency and user reference.
           </p>
         </div>
         <div className="flex flex-wrap gap-3">
@@ -23,6 +24,7 @@ export function AttributionFooter() {
               {source.label}
             </Link>
           ))}
+          <AttributionFooterLink />
         </div>
       </div>
     </footer>

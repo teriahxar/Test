@@ -34,11 +34,14 @@ export function DashboardClient({
       const listingConditions = item.listings.map((listing) => listing.condition.toLowerCase());
 
       return (
+        (!filters.release || item.release.name === filters.release) &&
         (!currentRelease || item.release.slug === currentRelease) &&
         (!filters.rarity || item.rarity === filters.rarity) &&
         (!filters.year || years === filters.year) &&
         (!filters.tag || tags.includes(filters.tag.toLowerCase())) &&
-        (!filters.condition || listingConditions.includes(filters.condition.toLowerCase()))
+        (!filters.condition || listingConditions.includes(filters.condition.toLowerCase())) &&
+        (!filters.minPrice || item.metrics.estimatedValue >= filters.minPrice) &&
+        (!filters.maxPrice || item.metrics.estimatedValue <= filters.maxPrice)
       );
     });
   }, [currentRelease, data.items, filters]);
@@ -79,7 +82,7 @@ export function DashboardClient({
             <div className="max-w-2xl">
               <div className="inline-flex items-center gap-2 rounded-full bg-white/75 px-4 py-2 text-xs font-semibold uppercase tracking-[0.26em] text-muted-foreground">
                 <Sparkles className="h-4 w-4 text-primary" />
-                Universe dashboard
+                TRinket universe dashboard
               </div>
               <h1 className="mt-4 font-display text-4xl font-semibold md:text-5xl">{data.universe.name}</h1>
               <p className="mt-3 text-sm leading-6 text-muted-foreground">{data.universe.description}</p>
@@ -91,7 +94,12 @@ export function DashboardClient({
           </div>
           <div className="flex flex-col gap-3 lg:flex-row lg:items-center lg:justify-between">
             <div className="flex flex-wrap gap-2">
-              <FilterDrawer filters={filters} setFilters={setFilters} tags={tags} />
+              <FilterDrawer
+                filters={filters}
+                setFilters={setFilters}
+                tags={tags}
+                releases={data.universe.releases.map((release) => release.name)}
+              />
               <div className="inline-flex items-center gap-2 rounded-full border border-white/60 bg-white/75 px-4 py-2 text-sm font-semibold">
                 <Heart className="h-4 w-4 text-primary" />
                 {watchlistCount} watching

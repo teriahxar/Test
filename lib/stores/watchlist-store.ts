@@ -62,7 +62,7 @@ export const useWatchlistStore = create<WatchlistState>()(
         }))
     }),
     {
-      name: "vaultview-watchlist",
+      name: "trinket-watchlist",
       migrate: (persistedState) => {
         if (!persistedState || typeof persistedState !== "object") {
           return persistedState as WatchlistState;

@@ -2,7 +2,8 @@ CREATE TABLE "Universe" (
     "id" TEXT NOT NULL PRIMARY KEY,
     "name" TEXT NOT NULL,
     "slug" TEXT NOT NULL,
-    "description" TEXT NOT NULL
+    "description" TEXT NOT NULL,
+    "themeKey" TEXT NOT NULL
 );
 
 CREATE TABLE "Release" (
@@ -23,7 +24,13 @@ CREATE TABLE "Item" (
     "name" TEXT NOT NULL,
     "slug" TEXT NOT NULL,
     "rarity" TEXT NOT NULL,
-    "imageUrl" TEXT NOT NULL,
+    "releaseDate" DATETIME NOT NULL,
+    "imageLocalPath" TEXT NOT NULL,
+    "officialProductPageUrl" TEXT NOT NULL,
+    "imageCreditText" TEXT NOT NULL,
+    "brandName" TEXT NOT NULL,
+    "itemAccentColor" TEXT NOT NULL,
+    "itemBgStyle" TEXT NOT NULL,
     "tags" TEXT NOT NULL,
     "createdAt" DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
     CONSTRAINT "Item_releaseId_fkey" FOREIGN KEY ("releaseId") REFERENCES "Release" ("id") ON DELETE CASCADE ON UPDATE CASCADE

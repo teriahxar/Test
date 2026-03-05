@@ -2,17 +2,17 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { Heart, TrendingDown, TrendingUp } from "lucide-react";
+import { ExternalLink, TrendingDown, TrendingUp } from "lucide-react";
 import type { DashboardItem } from "@/lib/types";
 import { formatPercent } from "@/lib/utils";
 import { useWatchlistStore } from "@/lib/stores/watchlist-store";
 import { useToastStore } from "@/lib/stores/toast-store";
 import { MarketHeatBadge } from "@/components/market-heat-badge";
 import { RarityBadge } from "@/components/rarity-badge";
-import { SparkleButton } from "@/components/sparkle-button";
 import { SparklineMini } from "@/components/sparkline-mini";
 import { StickerPack } from "@/components/sticker-pack";
 import { ValuePill } from "@/components/value-pill";
+import { WatchlistButton } from "@/components/watchlist-button";
 
 export function ItemCard({ item, compact = false }: { item: DashboardItem; compact?: boolean }) {
   const toggleItem = useWatchlistStore((state) => state.toggleItem);
@@ -62,11 +62,18 @@ export function ItemCard({ item, compact = false }: { item: DashboardItem; compa
               </div>
             </div>
           </div>
+          <div className="flex flex-wrap items-center gap-2 text-xs text-muted-foreground">
+            <span>Last updated {new Date(item.metrics.lastUpdated).toLocaleDateString("en-US", { month: "short", day: "numeric" })}</span>
+            <span className="rounded-full bg-white/70 px-2 py-1">{item.metrics.sourceLabels.join(" + ")}</span>
+            <span className="inline-flex items-center gap-1 rounded-full bg-white/70 px-2 py-1">
+              <ExternalLink className="h-3 w-3" />
+              {item.brandName}
+            </span>
+          </div>
           <div className="flex items-center justify-between gap-3">
             <MarketHeatBadge heat={item.metrics.marketHeat} />
-            <SparkleButton
-              variant={isSaved ? "secondary" : "outline"}
-              className="h-10 px-4"
+            <WatchlistButton
+              saved={isSaved}
               onClick={() => {
                 toggleItem({
                   slug: item.slug,
@@ -80,14 +87,11 @@ export function ItemCard({ item, compact = false }: { item: DashboardItem; compa
                   alert: {}
                 });
                 push({
-                  title: isSaved ? "Removed from watchlist" : "Saved! We’ll keep an eye out ✨",
+                  title: isSaved ? "Removed from watchlist" : "Saved! We'll keep an eye out ✨",
                   description: item.name
                 });
               }}
-            >
-              <Heart className={`h-4 w-4 ${isSaved ? "fill-current" : ""}`} />
-              {isSaved ? "Watching" : "Watch"}
-            </SparkleButton>
+            />
           </div>
         </div>
       </div>

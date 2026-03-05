@@ -27,9 +27,7 @@ export function ShareableItemCard({ item }: { item: DashboardItem }) {
             <span className="font-display text-3xl font-semibold">{formatCurrency(item.metrics.estimatedValue)}</span>
             <MarketHeatBadge heat={item.metrics.marketHeat} />
           </div>
-          <p className="mt-2 text-sm text-muted-foreground">
-            Cute social-ready snapshot for collections, stories, or group chats.
-          </p>
+          <p className="mt-2 text-sm text-muted-foreground">Cute social-ready snapshot for collections, stories, or group chats.</p>
         </div>
         <SparkleButton
           variant="secondary"

@@ -35,7 +35,7 @@ export function hashString(input: string) {
   return Array.from(input).reduce((acc, char) => (acc << 5) - acc + char.charCodeAt(0), 0);
 }
 
-const BASE_PATH = process.env.NODE_ENV === "production" ? "/Test" : "";
+const BASE_PATH = process.env.NEXT_PUBLIC_BASE_PATH ?? "";
 
 export function withBasePath(path: string) {
   if (!path || /^https?:\/\//.test(path) || path.startsWith("data:")) {

@@ -17,8 +17,8 @@ const nunito = Nunito({
 });
 
 export const metadata: Metadata = {
-  title: "VaultView",
-  description: "Cute, immersive collectible value tracking with dynamic themes, watchlists, drops, and portfolio mode."
+  title: "TRinket",
+  description: "Your cozy collectible market index. Whimsical value tracking for Pop Mart and Calico Critters."
 };
 
 export default function RootLayout({ children }: { children: ReactNode }) {

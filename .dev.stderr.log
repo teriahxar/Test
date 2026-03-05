@@ -1,1 +1,40 @@
  ⚠ Found a change in next.config.mjs. Restarting the server to apply the changes...
+ ⨯ Error: Page "/[universe]/page" is missing param "/favicon.ico" in "generateStaticParams()", which is required with "output: export" config.
+    at DevServer.renderToResponseWithComponentsImpl (C:\Projects\Test\node_modules\next\dist\server\base-server.js:1083:27)
+    at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+    at async DevServer.renderPageComponent (C:\Projects\Test\node_modules\next\dist\server\base-server.js:1924:24)
+    at async DevServer.renderToResponseImpl (C:\Projects\Test\node_modules\next\dist\server\base-server.js:1962:32)
+    at async DevServer.pipeImpl (C:\Projects\Test\node_modules\next\dist\server\base-server.js:922:25)
+    at async NextNodeServer.handleCatchallRenderRequest (C:\Projects\Test\node_modules\next\dist\server\next-server.js:272:17)
+    at async DevServer.handleRequestImpl (C:\Projects\Test\node_modules\next\dist\server\base-server.js:818:17)
+    at async C:\Projects\Test\node_modules\next\dist\server\dev\next-dev-server.js:339:20
+    at async Span.traceAsyncFn (C:\Projects\Test\node_modules\next\dist\trace\trace.js:154:20)
+    at async DevServer.handleRequest (C:\Projects\Test\node_modules\next\dist\server\dev\next-dev-server.js:336:24)
+    at async invokeRender (C:\Projects\Test\node_modules\next\dist\server\lib\router-server.js:179:21)
+    at async handleRequest (C:\Projects\Test\node_modules\next\dist\server\lib\router-server.js:359:24)
+    at async requestHandlerImpl (C:\Projects\Test\node_modules\next\dist\server\lib\router-server.js:383:13)
+    at async Server.requestListener (C:\Projects\Test\node_modules\next\dist\server\lib\start-server.js:141:13) {
+  page: '/favicon.ico'
+}
+ ⨯ Error: Page "/[universe]/page" is missing param "/favicon.ico" in "generateStaticParams()", which is required with "output: export" config.
+    at DevServer.renderToResponseWithComponentsImpl (C:\Projects\Test\node_modules\next\dist\server\base-server.js:1083:27)
+    at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+    at async DevServer.renderPageComponent (C:\Projects\Test\node_modules\next\dist\server\base-server.js:1924:24)
+    at async DevServer.renderToResponseImpl (C:\Projects\Test\node_modules\next\dist\server\base-server.js:1962:32)
+    at async DevServer.pipeImpl (C:\Projects\Test\node_modules\next\dist\server\base-server.js:922:25)
+    at async NextNodeServer.handleCatchallRenderRequest (C:\Projects\Test\node_modules\next\dist\server\next-server.js:272:17)
+    at async DevServer.handleRequestImpl (C:\Projects\Test\node_modules\next\dist\server\base-server.js:818:17)
+    at async C:\Projects\Test\node_modules\next\dist\server\dev\next-dev-server.js:339:20
+    at async Span.traceAsyncFn (C:\Projects\Test\node_modules\next\dist\trace\trace.js:154:20)
+    at async DevServer.handleRequest (C:\Projects\Test\node_modules\next\dist\server\dev\next-dev-server.js:336:24)
+    at async invokeRender (C:\Projects\Test\node_modules\next\dist\server\lib\router-server.js:179:21)
+    at async handleRequest (C:\Projects\Test\node_modules\next\dist\server\lib\router-server.js:359:24)
+    at async requestHandlerImpl (C:\Projects\Test\node_modules\next\dist\server\lib\router-server.js:383:13)
+    at async Server.requestListener (C:\Projects\Test\node_modules\next\dist\server\lib\start-server.js:141:13) {
+  page: '/favicon.ico'
+}
+ ⨯ Error: Page "/[universe]/page" is missing param "/favicon.ico" in "generateStaticParams()", which is required with "output: export" config.
+    at DevServer.renderToResponseWithComponentsImpl (C:\Projects\Test\node_modules\next\dist\server\base-server.js:1083:27) {
+  page: '/favicon.ico'
+}
+^C^C

@@ -26,7 +26,8 @@ const universes: Universe[] = SEEDED_UNIVERSES.map((universe) => ({
   id: makeId("universe", universe.slug),
   name: universe.name,
   slug: universe.slug,
-  description: universe.description
+  description: universe.description,
+  themeKey: universe.themeKey
 }));
 
 const releases: Release[] = SEEDED_UNIVERSES.flatMap((universe) => {
@@ -55,30 +56,36 @@ const items: Item[] = SEEDED_UNIVERSES.flatMap((universe) =>
       name: itemSeed.name,
       slug: slugify(itemSeed.name),
       rarity: itemSeed.rarity,
-      imageUrl: itemSeed.imageUrl,
+      releaseDate: new Date(itemSeed.releaseDate).toISOString(),
+      imageLocalPath: itemSeed.imageLocalPath,
+      officialProductPageUrl: itemSeed.officialProductPageUrl,
+      imageCreditText: itemSeed.imageCreditText,
+      brandName: itemSeed.brandName,
+      itemAccentColor: itemSeed.itemAccentColor,
+      itemBgStyle: itemSeed.itemBgStyle,
       tags: [universe.slug, release.slug, itemSeed.rarity.toLowerCase(), ...itemSeed.tags].join(", "),
-      createdAt: new Date("2026-03-03T00:00:00.000Z").toISOString()
+      createdAt: new Date("2026-03-05T00:00:00.000Z").toISOString()
     }))
   )
 );
 
 const pricePoints: PricePoint[] = items.flatMap((item) => {
-  const basePrice = seededNumber(item.slug, 28, 180);
-  const trendBias = seededNumber(`${item.slug}-trend`, -0.18, 0.26);
-  const pointCount = Math.round(seededNumber(`${item.slug}-points`, 34, 88));
+  const basePrice = seededNumber(item.slug, 28, 240);
+  const trendBias = seededNumber(`${item.slug}-trend`, -0.22, 0.3);
+  const pointCount = Math.round(seededNumber(`${item.slug}-points`, 32, 90));
 
   return Array.from({ length: pointCount }).map((_, index) => {
     const daysAgo = pointCount - index;
     const wave = Math.sin(index / 4.3) * basePrice * 0.08;
     const drift = basePrice * trendBias * (index / pointCount);
-    const noise = seededNumber(`${item.slug}-${index}`, -6, 6);
+    const noise = seededNumber(`${item.slug}-${index}`, -8, 8);
     const condition = conditions[index % conditions.length];
     const rawPrice = Math.max(12, basePrice + wave + drift + noise);
 
     return {
       id: makeId("price", item.slug, `${index}`),
       itemId: item.id,
-      source: index % 2 === 0 ? "Mercari" : "eBay",
+      source: index % 2 === 0 ? "Marketplace comps" : "Recent sales",
       price: Number((rawPrice * conditionMultipliers[condition]).toFixed(2)),
       condition,
       timestamp: new Date(Date.now() - daysAgo * 24 * 60 * 60 * 1000).toISOString()
@@ -87,11 +94,12 @@ const pricePoints: PricePoint[] = items.flatMap((item) => {
 });
 
 const listings: Listing[] = items.flatMap((item) => {
-  const basePrice = seededNumber(item.slug, 28, 180);
-  const listingCount = Math.round(seededNumber(`${item.slug}-listings`, 5, 18));
+  const basePrice = seededNumber(item.slug, 28, 240);
+  const listingCount = Math.round(seededNumber(`${item.slug}-listings`, 5, 20));
+
   return Array.from({ length: listingCount }).map((_, index) => {
     const condition = conditions[(index + 1) % conditions.length];
-    const lift = seededNumber(`${item.slug}-listing-${index}`, 0.92, 1.18);
+    const lift = seededNumber(`${item.slug}-listing-${index}`, 0.9, 1.2);
     return {
       id: makeId("listing", item.slug, `${index}`),
       itemId: item.id,
