@@ -70,6 +70,8 @@ try {
     $branchExists = $true
   }
 
+  Invoke-Checked -Script { git worktree prune } -OnError "Failed to prune stale git worktrees"
+
   if ($branchExists) {
     Invoke-Checked -Script { git worktree add $worktreePath $Branch } -OnError "Failed to attach git worktree"
   } else {
