@@ -34,7 +34,10 @@ Set-Location $repoRoot
 
 $status = git status --porcelain
 if ($status) {
-  throw "Working tree is not clean. Commit or stash changes before publishing."
+  $blocking = @($status | Where-Object { $_ -notmatch "^\s*[A-Z\?]{1,2}\s+out/" })
+  if ($blocking.Count -gt 0) {
+    throw "Working tree has uncommitted non-out/ changes. Commit or stash before publishing."
+  }
 }
 
 $apiPath = Join-Path $repoRoot "app\api"
