@@ -3,7 +3,7 @@
 @tailwind utilities;
 
 :root {
-  --background: 42 52% 97%;
+  --background: 126 42% 96%;
   --foreground: 228 28% 17%;
   --card: 0 0% 100%;
   --card-foreground: 228 28% 17%;
@@ -23,7 +23,7 @@
   --radius: 26px;
   --shadow-card: 0 18px 42px rgba(71, 96, 189, 0.14);
   --shadow-glow: 0 12px 30px rgba(96, 222, 214, 0.24);
-  --bg-style: radial-gradient(circle at 14% 14%, rgba(255, 193, 226, 0.3), transparent 20%), radial-gradient(circle at 78% 10%, rgba(182, 228, 255, 0.26), transparent 18%), linear-gradient(180deg, rgba(255,252,246,0.98), rgba(246,247,255,0.96));
+  --bg-style: radial-gradient(circle at 16% 16%, rgba(196, 235, 205, 0.34), transparent 22%), radial-gradient(circle at 82% 11%, rgba(216, 239, 180, 0.3), transparent 18%), linear-gradient(180deg, rgba(247,255,246,0.99), rgba(238,249,238,0.97));
   --chart-stroke: hsl(224 74% 61%);
   --chart-grid: rgba(90, 117, 210, 0.14);
 }
@@ -76,6 +76,53 @@ body::after {
   background-repeat: repeat;
 }
 
+.landing-portal {
+  position: relative;
+  min-height: 100vh;
+  overflow: hidden;
+  background:
+    radial-gradient(circle at 12% 12%, rgba(230, 255, 214, 0.55), transparent 33%),
+    radial-gradient(circle at 88% 7%, rgba(240, 255, 213, 0.65), transparent 32%),
+    linear-gradient(150deg, #d9f6da 0%, #c6edc8 35%, #dff6de 68%, #edfbe8 100%);
+}
+
+.landing-portal::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0.28;
+  background-image:
+    radial-gradient(rgba(73, 112, 77, 0.11) 0.8px, transparent 0.8px),
+    radial-gradient(rgba(132, 173, 136, 0.1) 0.8px, transparent 0.8px);
+  background-size: 6px 6px, 9px 9px;
+  background-position: 0 0, 2px 2px;
+}
+
+.sun-blob {
+  position: absolute;
+  border-radius: 9999px;
+  filter: blur(42px);
+  pointer-events: none;
+  opacity: 0.85;
+}
+
+.sun-blob.top-left {
+  width: 320px;
+  height: 320px;
+  left: -110px;
+  top: -85px;
+  background: radial-gradient(circle, rgba(255, 244, 184, 0.65) 0%, rgba(255, 244, 184, 0) 72%);
+}
+
+.sun-blob.bottom-right {
+  width: 360px;
+  height: 360px;
+  right: -110px;
+  bottom: -120px;
+  background: radial-gradient(circle, rgba(249, 243, 201, 0.7) 0%, rgba(249, 243, 201, 0) 72%);
+}
+
 html[data-pattern="theme-stars"] body::after {
   background-image:
     radial-gradient(circle at 20px 20px, rgba(255,255,255,0.6) 0 2px, transparent 3px),
@@ -124,6 +171,36 @@ html[data-pattern="theme-pixels"] body::after {
   border: 1px solid rgba(255,255,255,0.55);
   box-shadow: var(--shadow-card);
   backdrop-filter: blur(16px);
+}
+
+.vault-button-primary {
+  background: linear-gradient(180deg, hsl(333 88% 58%), hsl(329 82% 54%));
+  color: hsl(0 0% 100%);
+  border: 1px solid rgba(131, 18, 68, 0.22);
+  box-shadow: 0 12px 26px rgba(201, 49, 122, 0.34);
+}
+
+.vault-button-primary:hover {
+  transform: translateY(-1px);
+  filter: brightness(1.04);
+}
+
+.vault-button-secondary {
+  background: linear-gradient(180deg, hsl(125 54% 89%), hsl(121 48% 84%));
+  color: hsl(140 40% 23%);
+  border: 1px solid rgba(56, 122, 73, 0.28);
+  box-shadow: 0 8px 18px rgba(77, 132, 93, 0.18);
+}
+
+.vault-button-secondary:hover {
+  transform: translateY(-1px);
+  filter: brightness(1.03);
+}
+
+.vault-button-tertiary {
+  background: hsl(0 0% 100% / 0.74);
+  color: hsl(var(--foreground));
+  border: 1px solid hsl(var(--border));
 }
 
 .sticker-ring {
@@ -219,18 +296,19 @@ html[data-pattern="theme-pixels"] body::after {
 }
 
 [data-button="glossy"] .vault-button-primary {
-  background-image:
-    linear-gradient(180deg, rgba(255,255,255,0.46), transparent 36%),
-    linear-gradient(180deg, hsl(var(--primary)), hsl(var(--primary)));
+  background-image: linear-gradient(180deg, rgba(255,255,255,0.32), transparent 36%), linear-gradient(180deg, hsl(333 88% 58%), hsl(329 82% 54%));
 }
 
 [data-button="soft"] .vault-button-primary {
-  border-radius: 20px;
-  box-shadow: 0 10px 24px rgba(140, 106, 79, 0.12);
+  background-image: linear-gradient(180deg, hsl(140 45% 50%), hsl(136 47% 45%));
+  border-color: rgba(30, 95, 49, 0.25);
+  box-shadow: 0 10px 24px rgba(55, 118, 73, 0.22);
 }
 
 [data-button="sleek"] .vault-button-primary {
-  box-shadow: 0 12px 28px rgba(67, 96, 189, 0.18);
+  background-image: linear-gradient(180deg, hsl(222 73% 56%), hsl(218 69% 50%));
+  border-color: rgba(31, 63, 146, 0.24);
+  box-shadow: 0 12px 28px rgba(67, 96, 189, 0.24);
 }
 
 ::selection {

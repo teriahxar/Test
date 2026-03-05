@@ -8,10 +8,12 @@ const buttonVariants = cva(
   {
     variants: {
       variant: {
-        default: "vault-button-primary bg-primary text-primary-foreground shadow-glow hover:-translate-y-0.5 hover:brightness-105",
-        secondary: "bg-secondary text-secondary-foreground hover:bg-secondary/80",
+        default: "vault-button-primary",
+        primary: "vault-button-primary",
+        secondary: "vault-button-secondary",
+        tertiary: "vault-button-tertiary",
         ghost: "bg-transparent text-foreground hover:bg-white/45",
-        outline: "border border-border bg-card/70 text-foreground hover:bg-card"
+        outline: "vault-button-tertiary"
       },
       size: {
         default: "h-11 px-5 py-2",

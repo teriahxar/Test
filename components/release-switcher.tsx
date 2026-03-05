@@ -4,6 +4,7 @@ import { useRouter, useSearchParams } from "next/navigation";
 import { useTransition } from "react";
 import { ChevronDown } from "lucide-react";
 import type { Release } from "@/lib/data-model";
+import { universeHref } from "@/lib/routing";
 import { useThemeStore } from "@/lib/stores/theme-store";
 
 export function ReleaseSwitcher({
@@ -36,7 +37,7 @@ export function ReleaseSwitcher({
             } else {
               next.set("release", value);
             }
-            router.push(`/${universeSlug}${next.toString() ? `?${next.toString()}` : ""}`);
+            router.push(`${universeHref(universeSlug)}${next.toString() ? `?${next.toString()}` : ""}`);
           });
         }}
       >

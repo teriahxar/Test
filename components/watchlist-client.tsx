@@ -4,6 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { Trash2 } from "lucide-react";
 import { useWatchlistStore } from "@/lib/stores/watchlist-store";
+import { universeItemHref } from "@/lib/routing";
 import { formatCurrency } from "@/lib/utils";
 import { Input } from "@/components/ui/input";
 import { MarketHeatBadge } from "@/components/market-heat-badge";
@@ -28,7 +29,7 @@ export function WatchlistClient() {
     <div className="space-y-4">
       {items.map((item) => (
         <div key={item.slug} className="sticker-card grid gap-4 rounded-[30px] p-5 lg:grid-cols-[1.5fr_0.7fr_1fr_auto]">
-          <Link href={`/item/${item.slug}`} className="flex items-center gap-4">
+          <Link href={universeItemHref(item.universeSlug, item.slug)} className="flex items-center gap-4">
             <div className="relative h-24 w-24 overflow-hidden rounded-[20px] bg-white/70">
               <Image src={item.imageUrl} alt={item.name} fill className="object-cover" />
             </div>

@@ -7,6 +7,7 @@ import type { DashboardItem } from "@/lib/types";
 import { formatPercent } from "@/lib/utils";
 import { useWatchlistStore } from "@/lib/stores/watchlist-store";
 import { useToastStore } from "@/lib/stores/toast-store";
+import { universeItemHref } from "@/lib/routing";
 import { MarketHeatBadge } from "@/components/market-heat-badge";
 import { RarityBadge } from "@/components/rarity-badge";
 import { SparklineMini } from "@/components/sparkline-mini";
@@ -26,7 +27,7 @@ export function ItemCard({ item, compact = false }: { item: DashboardItem; compa
     <article className="sticker-card group relative overflow-hidden rounded-[30px] p-4 transition-all duration-300 hover:-translate-y-1">
       <StickerPack names={["heart", "sparkle", "star", "cloud"]} tone="white" className="opacity-55" />
       <div className="relative space-y-4">
-        <Link href={`/item/${item.slug}`} className="block overflow-hidden rounded-[24px] bg-white/70">
+        <Link href={universeItemHref(item.release.universe.slug, item.slug)} className="block overflow-hidden rounded-[24px] bg-white/70">
           <div className={`relative w-full ${compact ? "h-44" : "h-56"}`}>
             <Image src={item.imageUrl} alt={item.name} fill className="object-cover transition-transform duration-500 group-hover:scale-105" />
           </div>

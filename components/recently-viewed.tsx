@@ -4,6 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { useMemo } from "react";
 import type { DashboardItem } from "@/lib/types";
+import { universeItemHref } from "@/lib/routing";
 import { useWatchlistStore } from "@/lib/stores/watchlist-store";
 import { MarketHeatBadge } from "@/components/market-heat-badge";
 
@@ -26,7 +27,7 @@ export function RecentlyViewed({ items }: { items: DashboardItem[] }) {
       </div>
       <div className="flex gap-4 overflow-x-auto pb-2">
         {recentItems.map((item) => (
-          <Link key={item.id} href={`/item/${item.slug}`} className="sticker-card min-w-[240px] rounded-[28px] p-3">
+          <Link key={item.id} href={universeItemHref(item.release.universe.slug, item.slug)} className="sticker-card min-w-[240px] rounded-[28px] p-3">
             <div className="relative h-40 w-full overflow-hidden rounded-[22px] bg-white/70">
               <Image src={item.imageUrl} alt={item.name} fill className="object-cover" />
             </div>

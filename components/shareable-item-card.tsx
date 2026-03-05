@@ -1,9 +1,10 @@
 "use client";
 
 import { Copy, Share2 } from "lucide-react";
-import { useToastStore } from "@/lib/stores/toast-store";
-import { formatCurrency } from "@/lib/utils";
 import type { DashboardItem } from "@/lib/types";
+import { useToastStore } from "@/lib/stores/toast-store";
+import { universeItemHref } from "@/lib/routing";
+import { formatCurrency } from "@/lib/utils";
 import { MarketHeatBadge } from "@/components/market-heat-badge";
 import { SparkleButton } from "@/components/sparkle-button";
 
@@ -32,8 +33,8 @@ export function ShareableItemCard({ item }: { item: DashboardItem }) {
         <SparkleButton
           variant="secondary"
           onClick={async () => {
-            await navigator.clipboard.writeText(`${window.location.origin}/item/${item.slug}`);
-            push({ title: "Link copied", description: "Shareable item card URL copied ✨" });
+            await navigator.clipboard.writeText(`${window.location.origin}${universeItemHref(item.release.universe.slug, item.slug)}`);
+            push({ title: "Link copied", description: "Shareable item card URL copied" });
           }}
         >
           <Copy className="h-4 w-4" />

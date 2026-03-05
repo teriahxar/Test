@@ -5,6 +5,7 @@ import Link from "next/link";
 import { Search } from "lucide-react";
 import { useDeferredValue, useEffect, useMemo, useState } from "react";
 import type { DashboardItem } from "@/lib/types";
+import { universeItemHref } from "@/lib/routing";
 import { Input } from "@/components/ui/input";
 
 export function SearchBox({ items }: { items: DashboardItem[] }) {
@@ -39,7 +40,7 @@ export function SearchBox({ items }: { items: DashboardItem[] }) {
           {suggestions.map((item) => (
             <Link
               key={item.id}
-              href={`/item/${item.slug}`}
+              href={universeItemHref(item.release.universe.slug, item.slug)}
               className="flex items-center gap-3 rounded-[18px] px-3 py-2 hover:bg-muted"
               onClick={() => setQuery("")}
             >

@@ -1,5 +1,6 @@
 import { STATIC_DB } from "@/lib/static-data";
 import { calculateItemMetrics, calculateTrendingScore, type ItemWithMarketData } from "@/lib/valuation";
+import { normalizeUniverseSlug } from "@/lib/routing";
 
 function attachRelations(item: (typeof STATIC_DB.items)[number]): ItemWithMarketData {
   const release = STATIC_DB.releases.find((entry) => entry.id === item.releaseId)!;
@@ -29,7 +30,8 @@ export async function getUniverses() {
 }
 
 export async function getUniverseDashboard(slug: string, releaseSlug?: string) {
-  const universe = STATIC_DB.universes.find((entry) => entry.slug === slug);
+  const normalizedSlug = normalizeUniverseSlug(slug);
+  const universe = STATIC_DB.universes.find((entry) => entry.slug === normalizedSlug);
   if (!universe) {
     return null;
   }
@@ -37,7 +39,7 @@ export async function getUniverseDashboard(slug: string, releaseSlug?: string) {
   const releases = STATIC_DB.releases.filter((release) => release.universeId === universe.id).sort((a, b) => b.releaseDate.localeCompare(a.releaseDate));
   const items = STATIC_DB.items
     .map(attachRelations)
-    .filter((item) => item.release.universe.slug === slug && (!releaseSlug || item.release.slug === releaseSlug))
+    .filter((item) => item.release.universe.slug === normalizedSlug && (!releaseSlug || item.release.slug === releaseSlug))
     .map(attachMetrics);
 
   return {
@@ -80,6 +82,8 @@ export async function getItems(params: {
   maxPrice?: number;
   slugs?: string[];
 }) {
+  const normalizedUniverse = normalizeUniverseSlug(params.universe);
+
   return STATIC_DB.items
     .map(attachRelations)
     .filter((item) => {
@@ -91,7 +95,7 @@ export async function getItems(params: {
         (!params.query || item.name.toLowerCase().includes(params.query.toLowerCase())) &&
         (!params.rarity || item.rarity === params.rarity) &&
         (!params.release || item.release.slug === params.release) &&
-        (!params.universe || item.release.universe.slug === params.universe) &&
+        (!normalizedUniverse || item.release.universe.slug === normalizedUniverse) &&
         (!params.slugs?.length || params.slugs.includes(item.slug)) &&
         (!params.year || releaseYear === params.year) &&
         (!params.tag || tags.includes(params.tag.toLowerCase())) &&
@@ -105,29 +109,33 @@ export async function getItems(params: {
 }
 
 export async function getReleases(universeSlug?: string) {
+  const normalizedUniverse = normalizeUniverseSlug(universeSlug);
   return STATIC_DB.releases
-    .filter((release) => !universeSlug || release.universe.slug === universeSlug)
+    .filter((release) => !normalizedUniverse || release.universe.slug === normalizedUniverse)
     .sort((a, b) => b.releaseDate.localeCompare(a.releaseDate));
 }
 
 export async function getTrending(universeSlug?: string) {
+  const normalizedUniverse = normalizeUniverseSlug(universeSlug);
   return STATIC_DB.items
     .map(attachRelations)
-    .filter((item) => !universeSlug || item.release.universe.slug === universeSlug)
+    .filter((item) => !normalizedUniverse || item.release.universe.slug === normalizedUniverse)
     .map(attachMetrics)
     .sort((a, b) => calculateTrendingScore(b.rawItem) - calculateTrendingScore(a.rawItem))
     .slice(0, 12);
 }
 
 export async function getMovers(universeSlug?: string) {
+  const normalizedUniverse = normalizeUniverseSlug(universeSlug);
   return STATIC_DB.items
     .map(attachRelations)
-    .filter((item) => !universeSlug || item.release.universe.slug === universeSlug)
+    .filter((item) => !normalizedUniverse || item.release.universe.slug === normalizedUniverse)
     .map(attachMetrics)
     .sort((a, b) => Math.abs(b.metrics.sevenDayChange) - Math.abs(a.metrics.sevenDayChange))
     .slice(0, 12);
 }
 
 export async function getDrops(universeSlug?: string) {
-  return STATIC_DB.drops.filter((drop) => !universeSlug || drop.universeSlug === universeSlug);
+  const normalizedUniverse = normalizeUniverseSlug(universeSlug);
+  return STATIC_DB.drops.filter((drop) => !normalizedUniverse || drop.universeSlug === normalizedUniverse);
 }

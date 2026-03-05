@@ -62,9 +62,9 @@ Source files:
 ## Pages
 
 - `/` landing portal experience
-- `/pop-mart` universe dashboard
-- `/calico-critters` universe dashboard
-- `/item/[slug]` item detail with per-item theme
+- `/popmart` universe dashboard
+- `/calico` universe dashboard
+- `/popmart/items/[slug]` and `/calico/items/[slug]` item detail with per-item theme
 - `/trending`
 - `/watchlist`
 - `/collection`

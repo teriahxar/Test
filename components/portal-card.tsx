@@ -5,6 +5,7 @@ import Link from "next/link";
 import { ArrowUpRight, Wand2 } from "lucide-react";
 import { StickerPack } from "@/components/sticker-pack";
 import { useThemeStore } from "@/lib/stores/theme-store";
+import { universeHref } from "@/lib/routing";
 import { cn } from "@/lib/utils";
 
 export function PortalCard({
@@ -27,8 +28,8 @@ export function PortalCard({
     <article
       className={cn(
         "sticker-card group relative overflow-hidden rounded-[36px] p-6 transition-all duration-500 hover:-translate-y-2 hover:rotate-[0.6deg]",
-        slug === "pop-mart" && "bg-[linear-gradient(160deg,rgba(255,255,255,0.8),rgba(243,233,255,0.9))]",
-        slug === "calico-critters" && "bg-[linear-gradient(160deg,rgba(255,252,247,0.9),rgba(244,238,227,0.94))]"
+        slug === "pop-mart" && "bg-[linear-gradient(160deg,rgba(255,255,255,0.84),rgba(232,255,236,0.94))]",
+        slug === "calico-critters" && "bg-[linear-gradient(160deg,rgba(255,252,247,0.9),rgba(240,249,231,0.94))]"
       )}
       onMouseEnter={() => previewTheme(slug)}
       onMouseLeave={() => previewTheme(undefined)}
@@ -57,7 +58,7 @@ export function PortalCard({
           </div>
         </div>
         <Link
-          href={`/${slug}`}
+          href={universeHref(slug)}
           onClick={() => setUniverse(slug)}
           className="vault-button-primary inline-flex w-fit items-center gap-2 rounded-full px-5 py-3 text-sm font-bold text-primary-foreground shadow-glow transition-transform hover:-translate-y-0.5"
         >

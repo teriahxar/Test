@@ -4,6 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { useMemo } from "react";
 import type { DashboardItem } from "@/lib/types";
+import { universeItemHref } from "@/lib/routing";
 import { useWatchlistStore } from "@/lib/stores/watchlist-store";
 
 export function PersonalizedFeed({ items }: { items: DashboardItem[] }) {
@@ -30,7 +31,7 @@ export function PersonalizedFeed({ items }: { items: DashboardItem[] }) {
       </div>
       <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-4">
         {feedItems.map((item) => (
-          <Link key={item.id} href={`/item/${item.slug}`} className="sticker-card rounded-[28px] p-4 transition-transform hover:-translate-y-1">
+          <Link key={item.id} href={universeItemHref(item.release.universe.slug, item.slug)} className="sticker-card rounded-[28px] p-4 transition-transform hover:-translate-y-1">
             <div className="relative h-44 w-full overflow-hidden rounded-[22px] bg-white/70">
               <Image src={item.imageUrl} alt={item.name} fill className="object-cover" />
             </div>
