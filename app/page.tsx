@@ -15,7 +15,7 @@ const WORLDS = [
     href: "/popmart",
     logoSrc: asset("/assets/logos/popmart-logo.png"),
     title: "PopMart World",
-    description: "Blind boxes, rare pulls, and candy-colored collectibles.",
+    description: "Cute pulls, blind boxes, and collectibles people really want.",
     cardClass:
       "bg-[linear-gradient(168deg,rgba(255,241,248,0.98)_0%,rgba(245,236,255,0.98)_55%,rgba(232,252,242,0.98)_100%)]"
   },
@@ -29,9 +29,9 @@ const WORLDS = [
   },
   {
     href: "/pop",
-    logoSrc: asset("/assets/logos/pop-logo.png"),
-    title: "POP World",
-    description: "Playful finds, dreamy icons, and another collectible escape.",
+    logoSrc: asset("/assets/logos/funko-pop-logo.png"),
+    title: "POP! World",
+    description: "Iconic pops, fun finds, and collectibles worth keeping tabs on.",
     cardClass:
       "bg-[linear-gradient(168deg,rgba(236,246,255,0.98)_0%,rgba(255,248,210,0.98)_54%,rgba(229,251,238,0.98)_100%)]"
   }

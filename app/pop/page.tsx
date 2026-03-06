@@ -6,8 +6,8 @@ export default async function PopPage() {
       universeSlug="pop-mart"
       routeUniverseSlug="pop"
       themeUniverseSlug="pop"
-      titleOverride="POP World"
-      descriptionOverride="Playful finds, bright icons, and another dreamy collectible space."
+      titleOverride="POP! World"
+      descriptionOverride="Iconic pops, fun finds, and collectibles worth keeping tabs on."
     />
   );
 }

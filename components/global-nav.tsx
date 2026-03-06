@@ -9,7 +9,7 @@ import { universeHref } from "@/lib/routing";
 const worldItems = [
   { href: universeHref("pop-mart"), label: "PopMart" },
   { href: universeHref("calico-critters"), label: "Calico" },
-  { href: universeHref("pop"), label: "POP" }
+  { href: universeHref("pop"), label: "POP!" }
 ] as const;
 
 export function GlobalNav() {

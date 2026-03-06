@@ -1,16 +1,16 @@
 import type { Metadata } from "next";
 import type { ReactNode } from "react";
-import { Fredoka, Nunito } from "next/font/google";
+import { DynaPuff, Quicksand } from "next/font/google";
 import "@/app/globals.css";
 import { Providers } from "@/components/providers";
 
-const fredoka = Fredoka({
+const dynaPuff = DynaPuff({
   subsets: ["latin"],
   variable: "--font-display",
   weight: ["400", "500", "600", "700"]
 });
 
-const nunito = Nunito({
+const quicksand = Quicksand({
   subsets: ["latin"],
   variable: "--font-body",
   weight: ["400", "500", "600", "700"]
@@ -23,7 +23,7 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: { children: ReactNode }) {
   return (
-    <html lang="en" className={`${fredoka.variable} ${nunito.variable}`}>
+    <html lang="en" className={`${dynaPuff.variable} ${quicksand.variable}`}>
       <body className="font-body">
         <Providers>{children}</Providers>
       </body>
