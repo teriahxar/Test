@@ -1,4 +1,5 @@
 import { CollectionClient } from "@/components/collection-client";
+import { CommunityStarterUi } from "@/components/community-starter-ui";
 import { SiteShell } from "@/components/site-shell";
 
 export default function CollectionPage() {
@@ -11,6 +12,7 @@ export default function CollectionPage() {
           No login, no friction. Mark pieces as Owned, Want, or Sold and let TRinket estimate your shelf value.
         </p>
       </section>
+      <CommunityStarterUi />
       <CollectionClient />
     </SiteShell>
   );

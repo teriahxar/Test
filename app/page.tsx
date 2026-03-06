@@ -13,9 +13,9 @@ import { asset } from "@/lib/utils";
 const WORLDS = [
   {
     href: "/popmart",
-    logoSrc: asset("/assets/logos/dimoo-logo.png"),
+    logoSrc: asset("/assets/logos/popmart-logo.png"),
     title: "PopMart World",
-    description: "Candy-colored figures, blind boxes, and trending collectibles.",
+    description: "Blind boxes, rare pulls, and candy-colored collectibles.",
     cardClass:
       "bg-[linear-gradient(168deg,rgba(255,241,248,0.98)_0%,rgba(245,236,255,0.98)_55%,rgba(232,252,242,0.98)_100%)]"
   },
@@ -29,9 +29,9 @@ const WORLDS = [
   },
   {
     href: "/pop",
-    logoSrc: asset("/assets/logos/skullpanda-logo.png"),
+    logoSrc: asset("/assets/logos/pop-logo.png"),
     title: "POP World",
-    description: "Playful finds, bright icons, and another dreamy collectible space.",
+    description: "Playful finds, dreamy icons, and another collectible escape.",
     cardClass:
       "bg-[linear-gradient(168deg,rgba(236,246,255,0.98)_0%,rgba(255,248,210,0.98)_54%,rgba(229,251,238,0.98)_100%)]"
   }
@@ -46,14 +46,14 @@ export default async function HomePage() {
       <LandingIntroGate />
       <BackgroundScene />
       <div className="relative z-10 mx-auto flex min-h-screen w-full max-w-6xl flex-col">
-        <header className="flex items-start justify-center pt-2">
+        <header className="flex items-start justify-start pt-2">
           <WorldLink href="/" className="inline-flex">
-            <LogoMark className="rounded-[32px] bg-white/58 px-4 py-2 shadow-[0_10px_24px_rgba(39,88,57,0.15)]" />
+            <LogoMark compact className="rounded-[28px] bg-white/58 px-3 py-2 shadow-[0_10px_24px_rgba(39,88,57,0.15)]" />
           </WorldLink>
         </header>
 
         <div className="flex-1">
-          <div className="flex min-h-[32vh] items-end justify-center pt-4 sm:min-h-[36vh]">
+          <div className="flex min-h-[38vh] items-end justify-center pt-6 sm:min-h-[40vh]">
             <LandingHero />
           </div>
 

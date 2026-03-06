@@ -1,11 +1,13 @@
 "use client";
 
+import Image from "next/image";
 import { Bell, Heart, LayoutGrid, Rows3, Sparkles } from "lucide-react";
 import { useMemo, useState } from "react";
 import { useSearchParams } from "next/navigation";
 import type { DashboardData } from "@/lib/types";
-import { formatPercent, hashString } from "@/lib/utils";
+import { asset, formatPercent, hashString } from "@/lib/utils";
 import { FilterDrawer, type DashboardFilters } from "@/components/filter-drawer";
+import { CollectorRankWidget } from "@/components/collector-rank-widget";
 import { ItemCard } from "@/components/item-card";
 import { PersonalizedFeed } from "@/components/personalized-feed";
 import { ReleaseSwitcher } from "@/components/release-switcher";
@@ -20,6 +22,11 @@ export function DashboardClient({
 }: {
   data: DashboardData;
 }) {
+  const worldLogoMap: Record<string, string> = {
+    "pop-mart": asset("/assets/logos/popmart-logo.png"),
+    "calico-critters": asset("/assets/logos/calico-critters-logo.png"),
+    pop: asset("/assets/logos/pop-logo.png")
+  };
   const searchParams = useSearchParams();
   const currentRelease = searchParams.get("release") ?? undefined;
   const [layout, setLayout] = useState<"grid" | "list">("grid");
@@ -84,6 +91,11 @@ export function DashboardClient({
                 <Sparkles className="h-4 w-4 text-primary" />
                 TRinket universe dashboard
               </div>
+              <div className="mt-4 inline-flex h-14 w-44 items-center justify-center rounded-[20px] bg-white/78 shadow-[0_8px_16px_rgba(40,82,57,0.14)]">
+                <div className="relative h-10 w-36">
+                  <Image src={worldLogoMap[data.universe.slug] ?? asset("/assets/logos/trinket-logo.png")} alt={`${data.universe.name} logo`} fill className="object-contain" />
+                </div>
+              </div>
               <h1 className="mt-4 font-display text-4xl font-semibold md:text-5xl">{data.universe.name}</h1>
               <p className="mt-3 text-sm leading-6 text-muted-foreground">{data.universe.description}</p>
             </div>
@@ -130,6 +142,8 @@ export function DashboardClient({
           </div>
         </div>
       </section>
+
+      <CollectorRankWidget />
 
       <PersonalizedFeed items={data.items} />
 

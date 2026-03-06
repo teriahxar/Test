@@ -46,6 +46,10 @@ export async function ItemDetailPage({
     value: Number(point.price.toFixed(2))
   }));
   const tips = AUTHENTICITY_TIPS[data.item.release.slug] ?? [];
+  const buyLinks = [
+    { label: "Official product page", url: data.item.officialProductPageUrl, note: "Direct brand reference link", affiliate: false },
+    { label: "Collector partner link", url: "#", note: "Affiliate-ready slot for future partner marketplaces", affiliate: true }
+  ] as const;
 
   return (
     <SiteShell className="space-y-10 page-enter">
@@ -142,6 +146,24 @@ export async function ItemDetailPage({
                 This MVP uses mocked marketplace data and should not be treated as real-time market advice.
               </p>
             </details>
+          </div>
+          <div className="sticker-card rounded-[34px] p-6">
+            <p className="text-xs uppercase tracking-[0.22em] text-muted-foreground">Buy links</p>
+            <h2 className="mt-2 font-display text-2xl font-semibold">Collector checkout paths</h2>
+            <div className="mt-4 space-y-3">
+              {buyLinks.map((link) => (
+                <div key={link.label} className="rounded-[20px] bg-white/72 px-4 py-3">
+                  {link.url === "#" ? (
+                    <span className="font-semibold text-muted-foreground">{link.label} - {link.note}</span>
+                  ) : (
+                    <Link href={link.url} target="_blank" className="font-semibold text-primary underline-offset-4 hover:underline">
+                      {link.label}
+                    </Link>
+                  )}
+                  <p className="mt-1 text-xs text-muted-foreground">{link.affiliate ? "Affiliate-ready slot" : link.note}</p>
+                </div>
+              ))}
+            </div>
           </div>
           {tips.length ? (
             <div className="sticker-card rounded-[34px] p-6">
