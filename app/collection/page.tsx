@@ -7,9 +7,9 @@ export default function CollectionPage() {
     <SiteShell className="space-y-8 page-enter">
       <section>
         <p className="text-xs uppercase tracking-[0.24em] text-muted-foreground">My Shelf</p>
-        <h1 className="mt-2 font-display text-4xl font-semibold">Collector Circle Home</h1>
+        <h1 className="mt-2 font-display text-4xl font-semibold">Collector Circle</h1>
         <p className="mt-3 max-w-2xl text-muted-foreground">
-          Track owned, wanted, sold, and dream collectibles with a cozy view of your growing TRinket journey.
+          Track owned, wanted, sold, and dream collectibles in one calm, cozy view.
         </p>
       </section>
       <CommunityStarterUi />

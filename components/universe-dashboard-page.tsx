@@ -65,7 +65,7 @@ export async function UniverseDashboardPage({
   return (
     <SiteShell className="space-y-10 page-enter">
       <ThemeSetter universe={themeUniverseSlug ?? adjustedData.universe.slug} />
-      <Suspense fallback={<div className="sticker-card rounded-[30px] p-8 text-sm text-muted-foreground">Loading dashboard...</div>}>
+      <Suspense fallback={<div className="sticker-card rounded-[30px] p-8 text-sm text-muted-foreground">Loading collectible world...</div>}>
         <DashboardClient data={adjustedData} />
       </Suspense>
       <RecentlyViewed items={adjustedData.items} />

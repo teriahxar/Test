@@ -13,7 +13,8 @@ export default function AttributionPage() {
 
       <section className="sticker-card rounded-[32px] p-6 text-sm text-muted-foreground">
         <p>
-          TRinket MVP uses local placeholder assets in the repository for item identification. Official pages are linked for transparency. Replace assets only with licensed/approved files and always keep attribution fields updated.
+          TRinket uses local assets from this repository, with official product links and attribution metadata for
+          transparency. Replace assets only with licensed/approved files and keep attribution fields updated.
         </p>
         <div className="mt-4 flex flex-wrap gap-3">
           {IMAGE_ATTRIBUTION.map((source) => (

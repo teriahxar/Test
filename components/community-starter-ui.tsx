@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { Sparkles, Star } from "lucide-react";
 import { CollectorRankCard } from "@/components/collector-rank-card";
@@ -15,8 +15,8 @@ export function CommunityStarterUi() {
     <div className="space-y-6">
       <section className="sticker-card rounded-[34px] p-6">
         <p className="text-xs uppercase tracking-[0.24em] text-muted-foreground">Collector Circle</p>
-        <h2 className="mt-2 font-display text-3xl font-semibold">Profile + Charms</h2>
-        <p className="mt-2 text-sm text-muted-foreground">Starter account architecture for identity, cosmetics, badges, and community presence.</p>
+        <h2 className="mt-2 font-display text-3xl font-semibold">Profile and Charms</h2>
+        <p className="mt-2 text-sm text-muted-foreground">A starter home for identity, badges, and collector cosmetics.</p>
         <div className="mt-4 grid gap-4 md:grid-cols-2">
           <div className="rounded-[24px] border border-white/65 bg-white/75 p-4">
             <p className="font-semibold">@{profile.username}</p>
@@ -69,3 +69,4 @@ export function CommunityStarterUi() {
     </div>
   );
 }
+

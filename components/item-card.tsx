@@ -23,16 +23,16 @@ export function ItemCard({ item, compact = false }: { item: DashboardItem; compa
     .split(",")
     .map((tag) => tag.trim())
     .filter(Boolean)
-    .slice(0, 2);
+    .slice(0, 1);
 
   return (
-    <article className="sticker-card group overflow-hidden rounded-[28px] p-4 transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_18px_32px_rgba(35,73,53,0.16)]">
+    <article className="sticker-card group overflow-hidden rounded-[28px] p-4 transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_18px_30px_rgba(35,73,53,0.15)]">
       <Link href={universeItemHref(item.release.universe.slug, item.slug)} className="block overflow-hidden rounded-[20px] border border-white/60 bg-white/85">
         <div className={`relative w-full ${compact ? "h-40" : "h-52"}`}>
           <ItemImageWithFallback src={item.imageUrl} alt={item.name} fill showComingSoon className="object-cover transition-transform duration-500 group-hover:scale-105" />
         </div>
       </Link>
-      <div className="mt-4 space-y-3">
+      <div className="mt-4 space-y-3.5">
         <div className="flex items-start justify-between gap-3">
           <div>
             <p className="font-display text-xl font-semibold leading-tight">{item.name}</p>
@@ -41,12 +41,13 @@ export function ItemCard({ item, compact = false }: { item: DashboardItem; compa
           <RarityBadge rarity={item.rarity} />
         </div>
 
-        <div className="flex flex-wrap gap-2">
+        <div className="flex items-center justify-between gap-2">
           {tags.map((tag) => (
-            <span key={tag} className="rounded-full bg-white/80 px-3 py-1 text-[11px] font-semibold text-muted-foreground">
+            <span key={tag} className="rounded-full bg-white/85 px-3 py-1 text-[11px] font-semibold text-muted-foreground">
               {tag}
             </span>
           ))}
+          <MarketHeatBadge heat={item.metrics.marketHeat} />
         </div>
 
         <div className="flex items-center justify-between gap-3">
@@ -62,7 +63,7 @@ export function ItemCard({ item, compact = false }: { item: DashboardItem; compa
         </div>
 
         <div className="flex items-center justify-between">
-          <MarketHeatBadge heat={item.metrics.marketHeat} />
+          <p className="text-xs font-semibold uppercase tracking-[0.16em] text-muted-foreground">{item.release.universe.name}</p>
           <WatchlistButton
             saved={isSaved}
             onClick={() => {

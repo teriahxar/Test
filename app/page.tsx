@@ -72,7 +72,7 @@ export default async function HomePage() {
             </div>
           </section>
 
-          <section className="mx-auto mt-7 w-full max-w-4xl rounded-[24px] border border-[#2b5f41]/10 bg-white/70 p-4 backdrop-blur">
+          <section className="mx-auto mt-7 w-full max-w-4xl rounded-[24px] border border-[#2b5f41]/10 bg-white/76 p-4 backdrop-blur">
             <p className="inline-flex items-center gap-2 rounded-full bg-[#edf8e6] px-3 py-1 text-xs font-semibold uppercase tracking-[0.18em] text-[#29543c]">
               <Sparkles className="h-3.5 w-3.5" />
               Trending picks
@@ -82,7 +82,7 @@ export default async function HomePage() {
                 <WorldLink
                   key={item.slug}
                   href={universeItemHref(item.release.universe.slug, item.slug)}
-                  className="rounded-2xl border border-[#2b5f41]/12 bg-white/85 px-4 py-3 text-left transition hover:-translate-y-0.5 hover:shadow-sm"
+                  className="rounded-2xl border border-[#2b5f41]/12 bg-white/90 px-4 py-3 text-left transition hover:-translate-y-0.5 hover:shadow-sm"
                 >
                   <p className="font-display text-xl font-semibold text-[#234f36]">{item.name}</p>
                   <p className="text-xs font-semibold uppercase tracking-[0.14em] text-[#4a7157]">{item.release.name}</p>

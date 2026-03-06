@@ -11,12 +11,12 @@ export function WorldHero({ worldSlug, title, description }: { worldSlug: string
   return (
     <section className="sticker-card rounded-[36px] p-6 md:p-8">
       <div className="relative">
-        <div className="inline-flex h-16 w-44 items-center justify-center">
-          <div className="relative h-10 w-36">
+        <div className="inline-flex h-20 w-52 items-center justify-center">
+          <div className="relative h-14 w-44">
             <Image src={WORLD_LOGO_MAP[worldSlug] ?? asset("/assets/logos/trinket-logo.png")} alt={`${title} logo`} fill className="object-contain drop-shadow-[0_8px_14px_rgba(36,81,55,0.14)]" />
           </div>
         </div>
-        <h1 className="bubble-heading mt-5 font-display text-4xl font-semibold leading-tight md:text-5xl">{title}</h1>
+        <h1 className="bubble-heading mt-4 font-display text-4xl font-semibold leading-tight md:text-5xl">{title}</h1>
         <p className="mt-3 max-w-3xl text-sm leading-6 text-muted-foreground md:text-base">{description}</p>
       </div>
     </section>

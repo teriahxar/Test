@@ -14,7 +14,7 @@ export function AttributionModal() {
       <DialogContent>
         <h3 className="font-display text-2xl font-semibold">Image policy</h3>
         <p className="mt-3 text-sm text-muted-foreground">
-          TRinket uses local placeholder item visuals in the MVP for quick identification. Attribution fields and official product links are shown so you can verify details directly with brand pages.
+          TRinket uses local project assets for logos and item visuals. If an item photo is unavailable, TRinket shows a branded fallback mark instead of generated placeholder art.
         </p>
         <p className="mt-3 text-sm text-muted-foreground">
           Do not reuse brand imagery without permission. Replace local assets only with approved or licensed files and keep source credits in sync.

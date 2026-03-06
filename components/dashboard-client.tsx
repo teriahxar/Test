@@ -110,18 +110,18 @@ export function DashboardClient({ data }: { data: DashboardData }) {
       <CollectorRankCard />
 
       <Tabs defaultValue="trending" className="space-y-5">
-        <TabsList className="bg-white/75">
+        <TabsList className="bg-white/80">
           <TabsTrigger value="trending">Trending</TabsTrigger>
           <TabsTrigger value="movers">Movers</TabsTrigger>
           <TabsTrigger value="new">New</TabsTrigger>
           <TabsTrigger value="all">All</TabsTrigger>
         </TabsList>
         <TabsContent value="trending">
-          <CategoryHeader title="Trending picks" subtitle="Daily favorites across this collectible world." />
+          <CategoryHeader title="Trending picks" subtitle="Favorites people are saving most this week." />
           <MarketGrid items={trending} layout={layout} />
         </TabsContent>
         <TabsContent value="movers">
-          <CategoryHeader title="Biggest movers" subtitle="Seven-day shifts worth tracking." />
+          <CategoryHeader title="Biggest movers" subtitle="Seven-day price shifts worth watching." />
           <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-4">
             {movers.map((item) => (
               <div key={item.id} className="sticker-card rounded-[24px] p-4">
@@ -135,7 +135,7 @@ export function DashboardClient({ data }: { data: DashboardData }) {
           </div>
         </TabsContent>
         <TabsContent value="new">
-          <CategoryHeader title="New drops" subtitle="Fresh entries and newer release windows." />
+          <CategoryHeader title="New drops" subtitle="Fresh additions and recent release windows." />
           <MarketGrid items={newDrops} layout={layout} />
         </TabsContent>
         <TabsContent value="all">

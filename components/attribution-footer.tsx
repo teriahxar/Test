@@ -9,8 +9,8 @@ export function AttributionFooter() {
         <div>
           <p className="font-semibold text-foreground">Image Attribution / Sources</p>
           <p className="max-w-2xl text-sm">
-            TRinket uses local placeholder assets for identification in this MVP. Official product pages are linked for
-            source transparency and user reference.
+            TRinket uses local image files from this project and brand-safe fallback visuals when item photos are missing.
+            Official product pages are linked for source transparency and reference.
           </p>
         </div>
         <div className="flex flex-wrap gap-3">

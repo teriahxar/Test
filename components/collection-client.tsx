@@ -31,7 +31,7 @@ export function CollectionClient() {
   if (!entries.length) {
     return (
       <div className="sticker-card rounded-[30px] p-10 text-center">
-        <p className="font-display text-2xl font-semibold">Collection mode is waiting for its first main character.</p>
+        <p className="font-display text-2xl font-semibold">Your shelf is ready for its first collectible.</p>
         <p className="mt-2 text-muted-foreground">Mark items as Owned, Want, or Sold from any item page.</p>
       </div>
     );

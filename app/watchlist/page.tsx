@@ -6,7 +6,7 @@ export default function WatchlistPage() {
     <SiteShell className="space-y-8 page-enter">
       <section>
         <p className="text-xs uppercase tracking-[0.24em] text-muted-foreground">Watchlist</p>
-        <h1 className="mt-2 font-display text-4xl font-semibold">Saved items, alerts, and market pulses</h1>
+        <h1 className="mt-2 font-display text-4xl font-semibold">Saved items and alerts</h1>
       </section>
       <WatchlistClient />
     </SiteShell>

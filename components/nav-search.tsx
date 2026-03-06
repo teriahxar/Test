@@ -23,17 +23,17 @@ export function NavSearch() {
   }, [deferred]);
 
   return (
-    <div className="relative w-full md:w-[260px]">
+    <div className="relative w-full md:w-[250px]">
       <Search className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
       <input
         aria-label="Search collectibles"
         placeholder="Search collectibles"
         value={query}
         onChange={(event) => setQuery(event.target.value)}
-        className="h-10 w-full rounded-full border border-emerald-900/20 bg-white pl-10 pr-3 text-sm text-emerald-950 outline-none focus-visible:ring-2 focus-visible:ring-ring"
+        className="h-10 w-full rounded-full border border-[#2d5f41]/20 bg-white pl-10 pr-3 text-sm text-[#234a36] outline-none focus-visible:ring-2 focus-visible:ring-ring"
       />
       {results.length ? (
-        <div className="absolute top-[calc(100%+0.4rem)] z-50 w-full rounded-[20px] border border-emerald-900/15 bg-card/95 p-2 shadow-vault">
+        <div className="absolute top-[calc(100%+0.4rem)] z-50 w-full rounded-[20px] border border-[#2d5f41]/15 bg-card/95 p-2 shadow-vault">
           {results.map((item) => (
             <Link
               key={item.slug}

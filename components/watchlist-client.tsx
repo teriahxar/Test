@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import Link from "next/link";
 import { Trash2 } from "lucide-react";
@@ -19,8 +19,8 @@ export function WatchlistClient() {
   if (!items.length) {
     return (
       <div className="sticker-card rounded-[30px] p-10 text-center">
-        <p className="font-display text-2xl font-semibold">Your watchlist is empty, which feels suspiciously calm.</p>
-        <p className="mt-2 text-muted-foreground">Tap the heart on any collectible card and the dopamine loop starts immediately.</p>
+        <p className="font-display text-2xl font-semibold">Your watchlist is empty right now.</p>
+        <p className="mt-2 text-muted-foreground">Save a collectible from any world to keep tabs on it here.</p>
       </div>
     );
   }
@@ -84,3 +84,4 @@ export function WatchlistClient() {
     </div>
   );
 }
+

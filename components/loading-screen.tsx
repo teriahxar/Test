@@ -21,7 +21,7 @@ export function LoadingScreen({ className }: { className?: string }) {
   return (
     <div
       className={cn(
-        "relative flex min-h-screen flex-col items-center justify-center overflow-hidden bg-[linear-gradient(180deg,#fff9eb_0%,#f4eed9_52%,#edf4dd_100%)] px-6 text-center",
+        "relative flex min-h-screen flex-col items-center justify-center overflow-hidden bg-[linear-gradient(180deg,#fff9ef_0%,#f5efdd_52%,#edf4dd_100%)] px-6 text-center",
         className
       )}
       role="status"
@@ -43,9 +43,9 @@ export function LoadingScreen({ className }: { className?: string }) {
           aria-hidden
         />
       ))}
-      <p className="font-display text-4xl font-bold text-[#4f5b42] sm:text-5xl">Loading TRinkets...</p>
-      <div className="relative mt-10 h-6 w-[min(520px,86vw)] rounded-full border border-[#c4b591] bg-white/75 p-1 shadow-[0_10px_28px_rgba(91,76,53,0.18)]">
-        <div className={cn("h-full rounded-full bg-[linear-gradient(90deg,#b8dfa5_0%,#96c784_45%,#81b572_100%)]", reducedMotion ? "" : "loading-bar")} />
+      <p className="font-display text-4xl font-bold text-[#456247] sm:text-5xl">Loading TRinkets...</p>
+      <div className="relative mt-10 h-6 w-[min(520px,86vw)] rounded-full border border-[#d5c7a1] bg-white/80 p-1 shadow-[0_10px_28px_rgba(91,76,53,0.14)]">
+        <div className={cn("h-full rounded-full bg-[linear-gradient(90deg,#fbd1a0_0%,#dfd89d_45%,#97c489_100%)]", reducedMotion ? "" : "loading-bar")} />
         <div
           className={cn(
             "absolute -top-8 left-0 h-10 w-10 overflow-hidden rounded-full border border-white/80 bg-white/85 shadow-[0_8px_16px_rgba(58,78,52,0.2)]",

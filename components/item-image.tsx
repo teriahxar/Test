@@ -19,7 +19,17 @@ type ItemImageProps = {
 };
 
 export function ItemImageWithFallback({ src, alt, className, fill = false, width, height, sizes, priority = false, showComingSoon = false }: ItemImageProps) {
-  const normalizedSrc = useMemo(() => (src ? withBasePath(src) : fallbackItemImage), [src]);
+  const normalizedSrc = useMemo(() => {
+    if (!src) {
+      return fallbackItemImage;
+    }
+    const normalized = withBasePath(src);
+    // Keep branded visuals only: hide legacy/generated SVG placeholder art.
+    if (normalized.toLowerCase().endsWith(".svg")) {
+      return fallbackItemImage;
+    }
+    return normalized;
+  }, [src]);
   const [currentSrc, setCurrentSrc] = useState(normalizedSrc);
   const isFallback = currentSrc === fallbackItemImage;
 
@@ -33,11 +43,11 @@ export function ItemImageWithFallback({ src, alt, className, fill = false, width
         height={fill ? undefined : height}
         sizes={sizes}
         priority={priority}
-        className={`${className ?? ""} ${isFallback ? "object-contain bg-[linear-gradient(180deg,#f0f7e8_0%,#e8f3df_100%)] p-5" : ""}`.trim()}
+        className={`${className ?? ""} ${isFallback ? "object-contain rounded-[20px] bg-[linear-gradient(180deg,#fef8ee_0%,#eaf4e3_100%)] p-5 shadow-[inset_0_1px_0_rgba(255,255,255,0.7),0_8px_18px_rgba(53,95,68,0.12)]" : ""}`.trim()}
         onError={() => setCurrentSrc(fallbackItemImage)}
       />
       {isFallback && showComingSoon ? (
-        <span className="pointer-events-none absolute bottom-2 left-1/2 -translate-x-1/2 rounded-full bg-white/75 px-2 py-1 text-[10px] font-semibold text-[#3a6045]">
+        <span className="pointer-events-none absolute bottom-2 left-1/2 -translate-x-1/2 rounded-full bg-white/80 px-2 py-1 text-[10px] font-semibold text-[#3a6045] shadow-sm">
           Image coming soon
         </span>
       ) : null}

@@ -18,7 +18,7 @@ const quicksand = Quicksand({
 
 export const metadata: Metadata = {
   title: "TRinket",
-  description: "Your cozy collectible market index. Whimsical value tracking for Pop Mart and Calico Critters."
+  description: "Your cozy collectible guide for PopMart, Calico Critters, and POP! worlds."
 };
 
 export default function RootLayout({ children }: { children: ReactNode }) {

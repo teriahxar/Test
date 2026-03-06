@@ -5,7 +5,7 @@ export function PremiumStarterCard() {
     <section className="sticker-card rounded-[34px] p-6">
       <p className="text-xs uppercase tracking-[0.24em] text-muted-foreground">TRinket Club</p>
       <h2 className="mt-2 font-display text-3xl font-semibold">Premium Starter</h2>
-      <p className="mt-2 text-sm text-muted-foreground">Tasteful, optional upgrades for collectors who want deeper insights and extra shelf customization.</p>
+      <p className="mt-2 text-sm text-muted-foreground">Optional upgrades for collectors who want deeper insights and extra shelf customization.</p>
       <div className="mt-4 grid gap-3 md:grid-cols-2">
         <FeatureRow label="Advanced alert bundles" />
         <FeatureRow label="Deeper collection analytics" />
