@@ -1,0 +1,14 @@
+<svg width="280" height="110" viewBox="0 0 280 110" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="popBg" x1="0" y1="0" x2="280" y2="110" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#CFE9FF"/>
+      <stop offset="0.5" stop-color="#FFF0B8"/>
+      <stop offset="1" stop-color="#D8F6DF"/>
+    </linearGradient>
+  </defs>
+  <rect x="4" y="8" width="272" height="94" rx="28" fill="url(#popBg)"/>
+  <circle cx="37" cy="56" r="13" fill="#FFFFFF" fill-opacity="0.75"/>
+  <text x="62" y="66" fill="#2F4A6C" font-family="Fredoka, Nunito, sans-serif" font-size="42" font-weight="700">POP</text>
+  <circle cx="226" cy="46" r="7" fill="#FFFFFF" fill-opacity="0.76"/>
+  <circle cx="243" cy="64" r="5" fill="#FFFFFF" fill-opacity="0.72"/>
+</svg>
