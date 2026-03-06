@@ -16,19 +16,30 @@ import { ThemeSetter } from "@/components/theme-setter";
 import { ValuePill } from "@/components/value-pill";
 import { AUTHENTICITY_TIPS } from "@/lib/catalog";
 import { getItemBySlug } from "@/lib/queries";
+import { normalizeUniverseSlug } from "@/lib/routing";
 import { STATIC_DB } from "@/lib/static-data";
 import { ITEM_BACKGROUND_STYLES } from "@/lib/themes";
 import { formatCurrency, formatPercent } from "@/lib/utils";
 
-export async function ItemDetailPage({ slug, universeSlug }: { slug: string; universeSlug?: string }) {
+export async function ItemDetailPage({
+  slug,
+  universeSlug,
+  themeUniverseSlug
+}: {
+  slug: string;
+  universeSlug?: string;
+  themeUniverseSlug?: string;
+}) {
   const data = await getItemBySlug(slug);
   if (!data) {
     notFound();
   }
 
-  if (universeSlug && data.item.release.universe.slug !== universeSlug) {
+  if (universeSlug && normalizeUniverseSlug(data.item.release.universe.slug) !== normalizeUniverseSlug(universeSlug)) {
     notFound();
   }
+
+  const activeThemeUniverse = themeUniverseSlug ?? universeSlug ?? data.item.release.universe.slug;
 
   const chartData = data.item.pricePoints.slice(-24).map((point) => ({
     timestamp: new Date(point.timestamp).toLocaleDateString("en-US", { month: "short", day: "numeric" }),
@@ -39,7 +50,7 @@ export async function ItemDetailPage({ slug, universeSlug }: { slug: string; uni
   return (
     <SiteShell className="space-y-10 page-enter">
       <ThemeSetter
-        universe={data.item.release.universe.slug}
+        universe={activeThemeUniverse}
         release={data.item.release.slug}
         itemSlug={data.item.slug}
         itemTheme={{

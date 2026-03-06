@@ -24,10 +24,10 @@ export function ItemCard({ item, compact = false }: { item: DashboardItem; compa
   const tagList = item.tags.split(",").slice(0, 2);
 
   return (
-    <article className="sticker-card group relative overflow-hidden rounded-[30px] p-4 transition-all duration-300 hover:-translate-y-1">
+    <article className="sticker-card group relative overflow-hidden rounded-[30px] border border-white/65 p-4 transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_18px_32px_rgba(35,73,53,0.18)]">
       <StickerPack names={["heart", "sparkle", "star", "cloud"]} tone="white" className="opacity-55" />
       <div className="relative space-y-4">
-        <Link href={universeItemHref(item.release.universe.slug, item.slug)} className="block overflow-hidden rounded-[24px] bg-white/70">
+        <Link href={universeItemHref(item.release.universe.slug, item.slug)} className="block overflow-hidden rounded-[24px] border border-white/60 bg-white/80">
           <div className={`relative w-full ${compact ? "h-44" : "h-56"}`}>
             <Image src={item.imageUrl} alt={item.name} fill className="object-cover transition-transform duration-500 group-hover:scale-105" />
           </div>
@@ -88,7 +88,7 @@ export function ItemCard({ item, compact = false }: { item: DashboardItem; compa
                   alert: {}
                 });
                 push({
-                  title: isSaved ? "Removed from watchlist" : "Saved! We'll keep an eye out ✨",
+                  title: isSaved ? "Removed from watchlist" : "Saved to watchlist",
                   description: item.name
                 });
               }}

@@ -1,23 +1,38 @@
-import Link from "next/link";
-import { ArrowRight, Sparkles, Sprout, Stars } from "lucide-react";
-import { SiteShell } from "@/components/site-shell";
+import { Sparkles } from "lucide-react";
+import { BackgroundScene } from "@/components/background-scene";
+import { LandingHero } from "@/components/landing-hero";
+import { LandingIntroGate } from "@/components/landing-intro-gate";
 import { LogoMark } from "@/components/logo-mark";
+import { PortalWorldCard } from "@/components/portal-world-card";
 import { ThemeSetter } from "@/components/theme-setter";
+import { WorldLink } from "@/components/world-link";
 import { getTrending } from "@/lib/queries";
-import { universeHref, universeItemHref } from "@/lib/routing";
+import { universeItemHref } from "@/lib/routing";
 
-const portals = [
+const WORLDS = [
   {
-    title: "Pop Mart Universe",
-    subtitle: "Candy-gloss blind boxes and fast-moving trend swings.",
-    universeSlug: "pop-mart",
-    icon: Stars
+    href: "/popmart",
+    logoSrc: "/assets/logos/popmart-world.svg",
+    title: "PopMart World",
+    description: "Candy-colored figures, blind boxes, and trending collectibles.",
+    cardClass:
+      "bg-[linear-gradient(168deg,rgba(255,241,248,0.98)_0%,rgba(245,236,255,0.98)_55%,rgba(232,252,242,0.98)_100%)]"
   },
   {
-    title: "Calico Critters Universe",
-    subtitle: "Cozy meadow sets, warm nostalgia, and cottagecore market vibes.",
-    universeSlug: "calico-critters",
-    icon: Sprout
+    href: "/calico",
+    logoSrc: "/assets/logos/calico-world.svg",
+    title: "Calico Critters Meadow",
+    description: "Tiny cozy worlds, soft cottagecore sets, and collectible comfort.",
+    cardClass:
+      "bg-[linear-gradient(168deg,rgba(246,251,234,0.98)_0%,rgba(254,244,224,0.98)_54%,rgba(255,236,225,0.98)_100%)]"
+  },
+  {
+    href: "/pop",
+    logoSrc: "/assets/logos/pop-world.svg",
+    title: "POP World",
+    description: "Playful finds, bright icons, and another dreamy collectible space.",
+    cardClass:
+      "bg-[linear-gradient(168deg,rgba(236,246,255,0.98)_0%,rgba(255,248,210,0.98)_54%,rgba(229,251,238,0.98)_100%)]"
   }
 ] as const;
 
@@ -25,77 +40,57 @@ export default async function HomePage() {
   const trending = await getTrending();
 
   return (
-    <SiteShell hideHeader className="page-enter">
+    <main className="relative min-h-screen overflow-hidden px-4 py-6 md:px-8 md:py-8">
       <ThemeSetter universe="neutral" />
-      <div className="landing-portal px-4 py-8 md:px-8 md:py-10">
-        <div className="sun-blob top-left" />
-        <div className="sun-blob bottom-right" />
+      <LandingIntroGate />
+      <BackgroundScene />
+      <div className="relative z-10 mx-auto flex min-h-screen w-full max-w-6xl flex-col">
+        <header className="flex items-start justify-start">
+          <WorldLink href="/" className="inline-flex">
+            <LogoMark compact className="rounded-full bg-white/48 p-1.5" />
+          </WorldLink>
+        </header>
 
-        <section className="relative mx-auto flex min-h-[62vh] max-w-5xl flex-col items-center justify-center text-center">
-          <p className="rounded-full border border-emerald-900/15 bg-white/78 px-4 py-2 text-[11px] font-semibold uppercase tracking-[0.2em] text-emerald-900/70">
-            ENTER THE SAFE-SPACE MARKET DIMENSION
-          </p>
-          <LogoMark className="mt-8" />
-          <p className="mt-5 text-lg font-semibold text-emerald-950/90">Your cozy collectible market index</p>
-          <p className="mt-2 max-w-2xl text-sm leading-6 text-emerald-900/75 md:text-base">
-            Soft visuals, transparent value signals, and adorable collectible discovery without the clutter.
-          </p>
+        <div className="flex-1">
+          <div className="flex min-h-[32vh] items-end justify-center pt-4 sm:min-h-[36vh]">
+            <LandingHero />
+          </div>
 
-          <div className="mt-8 grid w-full max-w-4xl gap-4 md:grid-cols-2">
-            {portals.map((portal) => {
-              const Icon = portal.icon;
-              return (
-                <Link
-                  key={portal.universeSlug}
-                  href={universeHref(portal.universeSlug)}
-                  className="group rounded-[30px] border border-emerald-900/18 bg-white px-6 py-6 text-left shadow-[0_14px_30px_rgba(45,95,57,0.2)] transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_18px_34px_rgba(43,96,56,0.26)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+          <section className="mx-auto mt-8 w-full max-w-6xl">
+            <div className="grid gap-5 md:grid-cols-2 xl:grid-cols-3">
+              {WORLDS.map((world) => (
+                <PortalWorldCard
+                  key={world.href}
+                  href={world.href}
+                  logoSrc={world.logoSrc}
+                  title={world.title}
+                  description={world.description}
+                  className={world.cardClass}
+                />
+              ))}
+            </div>
+          </section>
+
+          <section className="mx-auto mt-7 w-full max-w-4xl rounded-[24px] border border-[#2b5f41]/10 bg-white/70 p-4 backdrop-blur">
+            <p className="inline-flex items-center gap-2 rounded-full bg-[#edf8e6] px-3 py-1 text-xs font-semibold uppercase tracking-[0.18em] text-[#29543c]">
+              <Sparkles className="h-3.5 w-3.5" />
+              Trending picks
+            </p>
+            <div className="mt-3 grid gap-3 sm:grid-cols-3">
+              {trending.slice(0, 3).map((item) => (
+                <WorldLink
+                  key={item.slug}
+                  href={universeItemHref(item.release.universe.slug, item.slug)}
+                  className="rounded-2xl border border-[#2b5f41]/12 bg-white/85 px-4 py-3 text-left transition hover:-translate-y-0.5 hover:shadow-sm"
                 >
-                  <div className="inline-flex h-11 w-11 items-center justify-center rounded-full bg-emerald-100 text-emerald-800">
-                    <Icon className="h-5 w-5" />
-                  </div>
-                  <h2 className="mt-4 font-display text-3xl font-semibold text-emerald-950">{portal.title}</h2>
-                  <p className="mt-2 text-sm leading-6 text-emerald-900/75">{portal.subtitle}</p>
-                  <div className="mt-5 inline-flex items-center gap-2 rounded-full bg-emerald-700 px-4 py-2 text-sm font-semibold text-emerald-50">
-                    Enter
-                    <ArrowRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-0.5" />
-                  </div>
-                </Link>
-              );
-            })}
-          </div>
-
-          <Link href="#how-it-works" className="mt-6 inline-flex items-center gap-2 text-sm font-semibold text-emerald-900 underline-offset-4 hover:underline">
-            <Sparkles className="h-4 w-4" />
-            How it works
-          </Link>
-        </section>
-
-        <section className="relative mx-auto mt-4 max-w-5xl rounded-[28px] border border-emerald-900/14 bg-white/88 p-5 shadow-[0_12px_26px_rgba(48,102,62,0.14)]">
-          <p className="inline-flex items-center gap-2 rounded-full bg-emerald-100 px-3 py-1 text-xs font-semibold uppercase tracking-[0.18em] text-emerald-900/75">
-            <Sparkles className="h-3.5 w-3.5" />
-            Trending today
-          </p>
-          <div className="mt-4 grid gap-3 md:grid-cols-3">
-            {trending.slice(0, 3).map((item) => (
-              <Link
-                key={item.slug}
-                href={universeItemHref(item.release.universe.slug, item.slug)}
-                className="rounded-[20px] border border-emerald-900/10 bg-white p-4 transition hover:-translate-y-0.5 hover:shadow-sm"
-              >
-                <p className="font-display text-xl font-semibold text-emerald-950">{item.name}</p>
-                <p className="text-sm text-emerald-900/75">{item.release.name}</p>
-              </Link>
-            ))}
-          </div>
-        </section>
-
-        <section id="how-it-works" className="relative mx-auto mt-6 max-w-5xl rounded-[26px] border border-emerald-900/12 bg-white/80 p-5">
-          <h3 className="font-display text-2xl font-semibold text-emerald-950">How it works</h3>
-          <p className="mt-2 text-sm leading-6 text-emerald-900/75">
-            Pick a universe, browse trends and movers, open any item for detail-level value context, and save watchlist alerts locally.
-          </p>
-        </section>
+                  <p className="font-display text-xl font-semibold text-[#234f36]">{item.name}</p>
+                  <p className="text-xs font-semibold uppercase tracking-[0.14em] text-[#4a7157]">{item.release.name}</p>
+                </WorldLink>
+              ))}
+            </div>
+          </section>
+        </div>
       </div>
-    </SiteShell>
+    </main>
   );
 }

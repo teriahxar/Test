@@ -1,0 +1,17 @@
+<svg width="320" height="120" viewBox="0 0 320 120" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="pill" x1="0" y1="0" x2="320" y2="120" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#2F7A57"/>
+      <stop offset="1" stop-color="#2A6F4D"/>
+    </linearGradient>
+    <filter id="softShadow" x="-8" y="-8" width="336" height="136" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+      <feDropShadow dx="0" dy="8" stdDeviation="8" flood-color="#1F553A" flood-opacity="0.35"/>
+    </filter>
+  </defs>
+  <g filter="url(#softShadow)">
+    <rect x="8" y="14" width="304" height="92" rx="46" fill="url(#pill)"/>
+    <circle cx="280" cy="60" r="10" fill="#E4F8DE" fill-opacity="0.45"/>
+    <path d="M279 47C281 43 284 42 287 44C286 47 284 49 281 51" fill="#D7F2C9"/>
+    <text x="34" y="74" fill="#F4FFF0" font-family="Fredoka, Nunito, sans-serif" font-size="54" font-weight="700" letter-spacing="1.1">TRinket</text>
+  </g>
+</svg>

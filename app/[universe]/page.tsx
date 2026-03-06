@@ -13,9 +13,13 @@ export default async function UniversePage({
     redirect("/calico");
   }
 
+  if (params.universe === "pop") {
+    redirect("/pop");
+  }
+
   notFound();
 }
 
 export function generateStaticParams() {
-  return [{ universe: "pop-mart" }, { universe: "calico-critters" }];
+  return [{ universe: "pop-mart" }, { universe: "calico-critters" }, { universe: "pop" }];
 }

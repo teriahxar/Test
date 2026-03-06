@@ -4,12 +4,14 @@ import { BellRing, Heart, Sparkles } from "lucide-react";
 import { AttributionFooter } from "@/components/attribution-footer";
 import { LogoMark } from "@/components/logo-mark";
 import { NavSearch } from "@/components/nav-search";
+import { WorldLink } from "@/components/world-link";
 import { cn } from "@/lib/utils";
 import { universeHref } from "@/lib/routing";
 
 const navItems = [
   { href: universeHref("pop-mart"), label: "Pop Mart" },
   { href: universeHref("calico-critters"), label: "Calico Critters" },
+  { href: universeHref("pop"), label: "POP" },
   { href: "/trending", label: "Trending" },
   { href: "/watchlist", label: "Watchlist", icon: Heart },
   { href: "/collection", label: "Collection" }
@@ -39,16 +41,26 @@ export function SiteShell({
               <NavSearch />
               {navItems.map((item) => {
                 const Icon = item.icon;
-                return (
-                  <Link
-                    key={item.href}
-                    href={item.href}
-                    className={cn(
-                      "inline-flex items-center gap-2 rounded-full border border-emerald-900/15 bg-white px-4 py-2 text-sm font-semibold text-emerald-950 shadow-sm transition-all duration-300 hover:-translate-y-0.5 hover:shadow-md"
-                    )}
-                  >
+                const classNames = cn(
+                  "inline-flex items-center gap-2 rounded-full border border-emerald-900/15 bg-white px-4 py-2 text-sm font-semibold text-emerald-950 shadow-sm transition-all duration-300 hover:-translate-y-0.5 hover:shadow-md"
+                );
+                const content = (
+                  <>
                     {Icon ? <Icon className="h-4 w-4 text-primary" /> : <Sparkles className="h-4 w-4 text-primary" />}
                     <span>{item.label}</span>
+                  </>
+                );
+                if (item.href === "/popmart" || item.href === "/calico" || item.href === "/pop" || item.href === "/") {
+                  return (
+                    <WorldLink key={item.href} href={item.href} className={classNames}>
+                      {content}
+                    </WorldLink>
+                  );
+                }
+
+                return (
+                  <Link key={item.href} href={item.href} className={classNames}>
+                    {content}
                   </Link>
                 );
               })}
