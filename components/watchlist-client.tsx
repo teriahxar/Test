@@ -5,7 +5,7 @@ import { Trash2 } from "lucide-react";
 import { useWatchlistStore } from "@/lib/stores/watchlist-store";
 import { universeItemHref } from "@/lib/routing";
 import { formatCurrency } from "@/lib/utils";
-import { ItemImage } from "@/components/item-image";
+import { ItemImageFallback } from "@/components/item-image";
 import { Input } from "@/components/ui/input";
 import { MarketHeatBadge } from "@/components/market-heat-badge";
 import { SparklineMini } from "@/components/sparkline-mini";
@@ -31,7 +31,7 @@ export function WatchlistClient() {
         <div key={item.slug} className="sticker-card grid gap-4 rounded-[30px] p-5 lg:grid-cols-[1.5fr_0.7fr_1fr_auto]">
           <Link href={universeItemHref(item.universeSlug, item.slug)} className="flex items-center gap-4">
             <div className="relative h-24 w-24 overflow-hidden rounded-[20px] bg-white/70">
-              <ItemImage src={item.imageUrl} alt={item.name} fill className="object-cover" />
+              <ItemImageFallback src={item.imageUrl} alt={item.name} fill className="object-cover" />
             </div>
             <div>
               <p className="font-display text-xl font-semibold">{item.name}</p>

@@ -17,7 +17,7 @@ const WORLDS = [
     title: "PopMart World",
     description: "Cute pulls, blind boxes, and collectibles people really want.",
     cardClass:
-      "bg-[linear-gradient(168deg,rgba(255,241,248,0.98)_0%,rgba(245,236,255,0.98)_55%,rgba(232,252,242,0.98)_100%)]"
+      "bg-[linear-gradient(165deg,rgba(250,255,245,0.98)_0%,rgba(244,252,236,0.98)_58%,rgba(255,248,238,0.98)_100%)]"
   },
   {
     href: "/calico",
@@ -25,7 +25,7 @@ const WORLDS = [
     title: "Calico Critters Meadow",
     description: "Tiny cozy worlds, soft cottagecore sets, and collectible comfort.",
     cardClass:
-      "bg-[linear-gradient(168deg,rgba(246,251,234,0.98)_0%,rgba(254,244,224,0.98)_54%,rgba(255,236,225,0.98)_100%)]"
+      "bg-[linear-gradient(165deg,rgba(247,253,238,0.98)_0%,rgba(255,248,238,0.98)_60%,rgba(241,249,232,0.98)_100%)]"
   },
   {
     href: "/pop",
@@ -33,7 +33,7 @@ const WORLDS = [
     title: "POP! World",
     description: "Iconic pops, fun finds, and collectibles worth keeping tabs on.",
     cardClass:
-      "bg-[linear-gradient(168deg,rgba(236,246,255,0.98)_0%,rgba(255,248,210,0.98)_54%,rgba(229,251,238,0.98)_100%)]"
+      "bg-[linear-gradient(165deg,rgba(246,253,242,0.98)_0%,rgba(255,248,236,0.98)_58%,rgba(239,248,232,0.98)_100%)]"
   }
 ] as const;
 

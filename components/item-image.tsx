@@ -18,13 +18,22 @@ type ItemImageProps = {
   showComingSoon?: boolean;
 };
 
-export function ItemImageWithFallback({ src, alt, className, fill = false, width, height, sizes, priority = false, showComingSoon = false }: ItemImageProps) {
+export function ItemImageFallback({
+  src,
+  alt,
+  className,
+  fill = false,
+  width,
+  height,
+  sizes,
+  priority = false,
+  showComingSoon = true
+}: ItemImageProps) {
   const normalizedSrc = useMemo(() => {
     if (!src) {
       return fallbackItemImage;
     }
     const normalized = withBasePath(src);
-    // Keep branded visuals only: hide legacy/generated SVG placeholder art.
     if (normalized.toLowerCase().endsWith(".svg")) {
       return fallbackItemImage;
     }
@@ -53,8 +62,4 @@ export function ItemImageWithFallback({ src, alt, className, fill = false, width
       ) : null}
     </>
   );
-}
-
-export function ItemImage(props: ItemImageProps) {
-  return <ItemImageWithFallback {...props} />;
 }

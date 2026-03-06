@@ -255,29 +255,33 @@ export function getResolvedTheme(universeSlug: string, releaseSlug?: string) {
 
 export function buildThemeVariables(universeSlug: string, releaseSlug?: string, itemOverride?: { accent?: string; bgStyle?: string }) {
   const theme = getResolvedTheme(universeSlug, releaseSlug);
+  const brandAccent = "33 89% 81%";
+  const deepMoss = "147 30% 22%";
+  const unifiedBackgroundStyle =
+    "radial-gradient(circle at 16% 16%, rgba(196, 235, 205, 0.34), transparent 22%), radial-gradient(circle at 82% 11%, rgba(216, 239, 180, 0.3), transparent 18%), linear-gradient(180deg, rgba(247,255,246,0.99), rgba(238,249,238,0.97))";
 
   return {
     "--background": theme.background,
     "--foreground": theme.foreground,
     "--card": theme.card,
     "--card-foreground": theme.cardForeground,
-    "--primary": theme.primary,
-    "--primary-foreground": theme.primaryForeground,
+    "--primary": deepMoss,
+    "--primary-foreground": "0 0% 100%",
     "--secondary": theme.secondary,
     "--secondary-foreground": theme.secondaryForeground,
-    "--accent": itemOverride?.accent ?? theme.accent,
-    "--accent-foreground": theme.accentForeground,
+    "--accent": brandAccent,
+    "--accent-foreground": deepMoss,
     "--muted": theme.muted,
     "--muted-foreground": theme.mutedForeground,
     "--border": theme.border,
     "--input": theme.input,
-    "--ring": theme.primary,
+    "--ring": deepMoss,
     "--destructive": theme.destructive,
     "--destructive-foreground": theme.destructiveForeground,
     "--radius": theme.radius,
     "--shadow-card": theme.shadowCard,
     "--shadow-glow": theme.shadowGlow,
-    "--bg-style": itemOverride?.bgStyle ?? theme.bgStyle,
+    "--bg-style": unifiedBackgroundStyle,
     "--chart-stroke": theme.chartStroke,
     "--chart-grid": theme.chartGrid
   } as Record<string, string>;

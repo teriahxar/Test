@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { ArrowUpRight, Wand2 } from "lucide-react";
-import { ItemImage } from "@/components/item-image";
+import { ItemImageFallback } from "@/components/item-image";
 import { StickerPack } from "@/components/sticker-pack";
 import { useThemeStore } from "@/lib/stores/theme-store";
 import { universeHref } from "@/lib/routing";
@@ -52,7 +52,7 @@ export function PortalCard({
                 className="relative h-20 w-20 overflow-hidden rounded-[22px] border-4 border-white/80 shadow-sm transition-transform duration-300 group-hover:-translate-y-1"
                 style={{ transform: `rotate(${index % 2 === 0 ? -4 : 4}deg)` }}
               >
-                <ItemImage src={thumbnail} alt="" fill className="object-cover" />
+                <ItemImageFallback src={thumbnail} alt="" fill className="object-cover" />
               </div>
             ))}
           </div>

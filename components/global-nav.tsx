@@ -17,7 +17,10 @@ export function GlobalNav() {
     <header className="sticky top-0 z-40 border-b border-[#2d5f41]/10 bg-[#f6fff3]/92 backdrop-blur-2xl">
       <div className="container flex flex-col gap-3 py-3 lg:flex-row lg:items-center lg:justify-between">
         <Link href="/" className="inline-flex items-center">
-          <LogoMark compact />
+          <span className="inline-flex items-center gap-2">
+            <LogoMark compact />
+            <span className="font-display text-2xl font-semibold text-[#28513b]">TRinket</span>
+          </span>
         </Link>
         <div className="flex flex-col gap-3 lg:flex-row lg:items-center lg:gap-4">
           <NavSearch />
@@ -37,7 +40,7 @@ export function GlobalNav() {
               href="/watchlist"
               className="inline-flex items-center gap-2 rounded-full border border-[#2d5f41]/15 bg-white px-3 py-2 text-sm font-semibold text-[#1e4331] shadow-sm transition-all hover:-translate-y-0.5"
             >
-              <Heart className="h-4 w-4 text-[#f0a7b8]" />
+              <Heart className="h-4 w-4 text-[#2f7a53]" />
               Watchlist
             </Link>
             <Link

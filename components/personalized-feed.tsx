@@ -5,7 +5,7 @@ import { useMemo } from "react";
 import type { DashboardItem } from "@/lib/types";
 import { universeItemHref } from "@/lib/routing";
 import { useWatchlistStore } from "@/lib/stores/watchlist-store";
-import { ItemImage } from "@/components/item-image";
+import { ItemImageFallback } from "@/components/item-image";
 
 export function PersonalizedFeed({ items }: { items: DashboardItem[] }) {
   const watchlist = useWatchlistStore((state) => state.items);
@@ -33,7 +33,7 @@ export function PersonalizedFeed({ items }: { items: DashboardItem[] }) {
         {feedItems.map((item) => (
           <Link key={item.id} href={universeItemHref(item.release.universe.slug, item.slug)} className="sticker-card rounded-[28px] p-4 transition-transform hover:-translate-y-1">
             <div className="relative h-44 w-full overflow-hidden rounded-[22px] bg-white/70">
-              <ItemImage src={item.imageUrl} alt={item.name} fill className="object-cover" />
+              <ItemImageFallback src={item.imageUrl} alt={item.name} fill className="object-cover" />
             </div>
             <p className="mt-3 font-display text-lg font-semibold">{item.name}</p>
             <p className="text-sm text-muted-foreground">{item.release.name}</p>

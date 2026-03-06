@@ -4,7 +4,7 @@ import { AlertForm } from "@/components/alert-form";
 import { AttributionModal } from "@/components/attribution-modal";
 import { CollectionStatusPicker } from "@/components/collection-status-picker";
 import { ConfidenceMeter } from "@/components/confidence-meter";
-import { ItemImage } from "@/components/item-image";
+import { ItemImageFallback } from "@/components/item-image";
 import { ItemCard } from "@/components/item-card";
 import { ListingsTable } from "@/components/listings-table";
 import { MarketHeatBadge } from "@/components/market-heat-badge";
@@ -66,7 +66,7 @@ export async function ItemDetailPage({
       <section className="grid gap-6 xl:grid-cols-[0.92fr_1.08fr]">
         <div className="sticker-card overflow-hidden rounded-[36px] p-4">
           <div className="relative h-[440px] overflow-hidden rounded-[28px] bg-white/70">
-            <ItemImage src={data.item.imageUrl} alt={data.item.name} fill className="object-cover" />
+            <ItemImageFallback src={data.item.imageUrl} alt={data.item.name} fill className="object-cover" />
           </div>
           <div className="mt-4 rounded-[22px] bg-white/70 p-4 text-sm text-muted-foreground">
             <p>
