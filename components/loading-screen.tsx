@@ -53,7 +53,7 @@ export function LoadingScreen({ className }: { className?: string }) {
           )}
           aria-hidden
         >
-          <Image src={asset("/assets/logos/trinket-mark.png")} alt="" fill className="object-cover" />
+          <Image src={asset("/assets/logos/trinket-logo.png")} alt="" fill className="object-contain p-1" />
         </div>
       </div>
       <p className="mt-5 text-sm font-semibold tracking-wide text-[#5f674f]">Preparing your cozy collectible world</p>

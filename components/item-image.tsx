@@ -4,7 +4,7 @@ import Image from "next/image";
 import { useMemo, useState } from "react";
 import { asset, withBasePath } from "@/lib/utils";
 
-const fallbackItemImage = asset("/assets/logos/trinket-mark.png");
+const fallbackItemImage = asset("/assets/logos/trinket-logo.png");
 
 type ItemImageProps = {
   src: string;

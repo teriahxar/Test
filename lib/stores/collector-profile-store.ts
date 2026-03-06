@@ -28,7 +28,7 @@ type CollectorProfileState = {
 const defaultProfile: CollectorProfile = {
   username: "sprout-trinketeer",
   displayName: "Sprout Trin",
-  avatarPath: asset("/assets/logos/trinket-mark.png"),
+  avatarPath: asset("/assets/logos/trinket-logo.png"),
   bio: "Cozy figure hunter. Building my soft little shelf one charm at a time.",
   xp: 180,
   charms: ["Moonleaf Charm", "Pastel Bloom", "Lucky Star Pin"],

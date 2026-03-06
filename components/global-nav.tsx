@@ -17,10 +17,7 @@ export function GlobalNav() {
     <header className="sticky top-0 z-40 border-b border-[#2d5f41]/10 bg-[#f6fff3]/92 backdrop-blur-2xl">
       <div className="container flex flex-col gap-3 py-3 lg:flex-row lg:items-center lg:justify-between">
         <Link href="/" className="inline-flex items-center">
-          <span className="inline-flex items-center gap-2">
-            <LogoMark compact />
-            <span className="font-display text-2xl font-semibold text-[#28513b]">TRinket</span>
-          </span>
+          <LogoMark compact />
         </Link>
         <div className="flex flex-col gap-3 lg:flex-row lg:items-center lg:gap-4">
           <NavSearch />
