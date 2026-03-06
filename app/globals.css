@@ -11,7 +11,7 @@
   --primary-foreground: 0 0% 100%;
   --secondary: 215 58% 92%;
   --secondary-foreground: 229 27% 20%;
-  --accent: 43 96% 63%;
+  --accent: 33 89% 81%;
   --accent-foreground: 0 0% 100%;
   --muted: 219 34% 93%;
   --muted-foreground: 226 16% 38%;
@@ -60,12 +60,12 @@ h6,
 }
 
 .bubble-heading {
-  color: #f7a8be;
+  color: #fbd1a0;
   text-shadow:
-    -2px 0 #fff8ed,
-    0 2px #fff8ed,
-    2px 0 #fff8ed,
-    0 -2px #fff8ed,
+    -2px 0 #fff8f1,
+    0 2px #fff8f1,
+    2px 0 #fff8f1,
+    0 -2px #fff8f1,
     0 8px 18px rgba(52, 92, 63, 0.2);
 }
 

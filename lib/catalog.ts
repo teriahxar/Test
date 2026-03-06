@@ -8,6 +8,10 @@ export const IMAGE_ATTRIBUTION = [
   {
     label: "Calico Critters Official",
     url: "https://calicocritters.com/en-us/"
+  },
+  {
+    label: "Funko Official",
+    url: "https://funko.com/"
   }
 ];
 
@@ -58,7 +62,7 @@ type SeedItem = {
   imageLocalPath: string;
   officialProductPageUrl: string;
   imageCreditText: string;
-  brandName: "Pop Mart" | "Calico Critters";
+  brandName: "Pop Mart" | "Calico Critters" | "Funko Pop";
   itemAccentColor: string;
   itemBgStyle: "sparkleGradient" | "skyCandy" | "meadowGingham" | "forestPaper";
   tags: string[];
@@ -68,7 +72,7 @@ export const SEEDED_UNIVERSES: Array<{
   name: string;
   slug: string;
   description: string;
-  themeKey: "popmart" | "calico";
+  themeKey: "popmart" | "calico" | "pop";
   portalCopy: string;
   releases: Array<{
     name: string;
@@ -427,6 +431,127 @@ export const SEEDED_UNIVERSES: Array<{
             itemAccentColor: "274 48% 64%",
             itemBgStyle: "forestPaper",
             tags: ["maple-cat", "twilight", "chase"]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    name: "POP! World",
+    slug: "pop",
+    description: "Fun finds, iconic pops, and collectibles worth keeping an eye on.",
+    themeKey: "pop",
+    portalCopy: "Collectors' shelves, fandom favorites, and box-window grails.",
+    releases: [
+      {
+        name: "Marvel Spotlight Pops",
+        slug: "marvel-spotlight-pops",
+        releaseDate: "2025-07-11",
+        stickerSet: "moonpetal",
+        items: [
+          {
+            name: "Spider-Man POP! #1152",
+            rarity: "Common",
+            releaseDate: "2025-07-11",
+            imageLocalPath: asset("/assets/items/funko-spider-man-1152.png"),
+            officialProductPageUrl: "https://funko.com/",
+            imageCreditText: "Funko official product catalog (reference)",
+            brandName: "Funko Pop",
+            itemAccentColor: "207 76% 57%",
+            itemBgStyle: "skyCandy",
+            tags: ["funko-pop", "marvel", "spider-man"]
+          },
+          {
+            name: "Iron Man POP! #1494",
+            rarity: "Exclusive",
+            releaseDate: "2025-07-11",
+            imageLocalPath: asset("/assets/items/funko-iron-man-1494.png"),
+            officialProductPageUrl: "https://funko.com/",
+            imageCreditText: "Funko official product catalog (reference)",
+            brandName: "Funko Pop",
+            itemAccentColor: "11 83% 61%",
+            itemBgStyle: "sparkleGradient",
+            tags: ["funko-pop", "marvel", "iron-man", "exclusive"]
+          },
+          {
+            name: "Captain America POP! #1382",
+            rarity: "Rare",
+            releaseDate: "2025-07-11",
+            imageLocalPath: asset("/assets/items/funko-captain-america-1382.png"),
+            officialProductPageUrl: "https://funko.com/",
+            imageCreditText: "Funko official product catalog (reference)",
+            brandName: "Funko Pop",
+            itemAccentColor: "219 62% 54%",
+            itemBgStyle: "skyCandy",
+            tags: ["funko-pop", "marvel", "captain-america"]
+          },
+          {
+            name: "Black Panther POP! #1369",
+            rarity: "Chase",
+            releaseDate: "2025-07-11",
+            imageLocalPath: asset("/assets/items/funko-black-panther-1369.png"),
+            officialProductPageUrl: "https://funko.com/",
+            imageCreditText: "Funko official product catalog (reference)",
+            brandName: "Funko Pop",
+            itemAccentColor: "273 52% 57%",
+            itemBgStyle: "sparkleGradient",
+            tags: ["funko-pop", "marvel", "chase"]
+          }
+        ]
+      },
+      {
+        name: "Anime Favorites POP!",
+        slug: "anime-favorites-pop",
+        releaseDate: "2025-10-02",
+        stickerSet: "moonpetal",
+        items: [
+          {
+            name: "Goku POP! #1404",
+            rarity: "Common",
+            releaseDate: "2025-10-02",
+            imageLocalPath: asset("/assets/items/funko-goku-1404.png"),
+            officialProductPageUrl: "https://funko.com/",
+            imageCreditText: "Funko official product catalog (reference)",
+            brandName: "Funko Pop",
+            itemAccentColor: "46 90% 63%",
+            itemBgStyle: "skyCandy",
+            tags: ["funko-pop", "anime", "dragon-ball"]
+          },
+          {
+            name: "Naruto POP! #1650",
+            rarity: "Rare",
+            releaseDate: "2025-10-02",
+            imageLocalPath: asset("/assets/items/funko-naruto-1650.png"),
+            officialProductPageUrl: "https://funko.com/",
+            imageCreditText: "Funko official product catalog (reference)",
+            brandName: "Funko Pop",
+            itemAccentColor: "31 82% 60%",
+            itemBgStyle: "sparkleGradient",
+            tags: ["funko-pop", "anime", "naruto"]
+          },
+          {
+            name: "Luffy POP! #1776",
+            rarity: "Exclusive",
+            releaseDate: "2025-10-02",
+            imageLocalPath: asset("/assets/items/funko-luffy-1776.png"),
+            officialProductPageUrl: "https://funko.com/",
+            imageCreditText: "Funko official product catalog (reference)",
+            brandName: "Funko Pop",
+            itemAccentColor: "355 73% 63%",
+            itemBgStyle: "sparkleGradient",
+            tags: ["funko-pop", "anime", "one-piece", "exclusive"]
+          },
+          {
+            name: "Tanjiro POP! #1821",
+            rarity: "Limited",
+            releaseDate: "2025-10-02",
+            imageLocalPath: asset("/assets/items/funko-tanjiro-1821.png"),
+            officialProductPageUrl: "https://funko.com/",
+            imageCreditText: "Funko official product catalog (reference)",
+            brandName: "Funko Pop",
+            itemAccentColor: "157 44% 48%",
+            itemBgStyle: "forestPaper",
+            tags: ["funko-pop", "anime", "demon-slayer"]
           }
         ]
       }

@@ -30,7 +30,7 @@ export type Item = {
   imageLocalPath: string;
   officialProductPageUrl: string;
   imageCreditText: string;
-  brandName: "Pop Mart" | "Calico Critters";
+  brandName: "Pop Mart" | "Calico Critters" | "Funko Pop";
   itemAccentColor: string;
   itemBgStyle: string;
   tags: string;

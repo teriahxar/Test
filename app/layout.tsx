@@ -1,10 +1,10 @@
 import type { Metadata } from "next";
 import type { ReactNode } from "react";
-import { DynaPuff, Quicksand } from "next/font/google";
+import { Baloo_2, Quicksand } from "next/font/google";
 import "@/app/globals.css";
 import { Providers } from "@/components/providers";
 
-const dynaPuff = DynaPuff({
+const baloo = Baloo_2({
   subsets: ["latin"],
   variable: "--font-display",
   weight: ["400", "500", "600", "700"]
@@ -23,7 +23,7 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: { children: ReactNode }) {
   return (
-    <html lang="en" className={`${dynaPuff.variable} ${quicksand.variable}`}>
+    <html lang="en" className={`${baloo.variable} ${quicksand.variable}`}>
       <body className="font-body">
         <Providers>{children}</Providers>
       </body>

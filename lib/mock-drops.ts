@@ -19,5 +19,8 @@ export const UPCOMING_DROPS: UpcomingDrop[] = [
   { id: "drop-9", universeSlug: "calico-critters", releaseName: "Flora Rabbit Bakery Set", itemName: "Flora Rabbit Cherry Tart", date: "2026-04-10", note: "Spring bakery edition" },
   { id: "drop-10", universeSlug: "calico-critters", releaseName: "Flora Rabbit Bakery Set", itemName: "Flora Rabbit Butter Loaf", date: "2026-04-24", note: "Storefront restock" },
   { id: "drop-11", universeSlug: "calico-critters", releaseName: "Maple Cat Forest Swing", itemName: "Maple Cat Lantern Path", date: "2026-05-08", note: "Forest evening variant" },
-  { id: "drop-12", universeSlug: "calico-critters", releaseName: "Maple Cat Forest Swing", itemName: "Maple Cat Sunbeam Bridge", date: "2026-05-25", note: "Club-exclusive launch" }
+  { id: "drop-12", universeSlug: "calico-critters", releaseName: "Maple Cat Forest Swing", itemName: "Maple Cat Sunbeam Bridge", date: "2026-05-25", note: "Club-exclusive launch" },
+  { id: "drop-13", universeSlug: "pop", releaseName: "Marvel Spotlight Pops", itemName: "Spider-Man POP! #1152", date: "2026-03-18", note: "Online fan drop window" },
+  { id: "drop-14", universeSlug: "pop", releaseName: "Marvel Spotlight Pops", itemName: "Iron Man POP! #1494", date: "2026-04-02", note: "Collector retailer exclusive" },
+  { id: "drop-15", universeSlug: "pop", releaseName: "Anime Favorites POP!", itemName: "Luffy POP! #1776", date: "2026-04-27", note: "Limited edition restock" }
 ];

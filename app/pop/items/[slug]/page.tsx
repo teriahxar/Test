@@ -5,5 +5,5 @@ export default async function PopItemPage({ params }: { params: { slug: string }
 }
 
 export function generateStaticParams() {
-  return getItemStaticParams("pop-mart");
+  return getItemStaticParams("pop");
 }

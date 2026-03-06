@@ -7,7 +7,7 @@ export const UNIVERSE_ROUTE_MAP = {
 export const ROUTE_UNIVERSE_MAP = {
   popmart: "pop-mart",
   calico: "calico-critters",
-  pop: "pop-mart"
+  pop: "pop"
 } as const;
 
 export function normalizeUniverseSlug(value?: string) {
