@@ -1,12 +1,12 @@
 "use client";
 
-import Image from "next/image";
 import Link from "next/link";
 import { useMemo } from "react";
 import { STATIC_DB } from "@/lib/static-data";
 import { universeItemHref } from "@/lib/routing";
 import { useCollectionStore } from "@/lib/stores/collection-store";
 import { formatCurrency, formatPercent } from "@/lib/utils";
+import { ItemImage } from "@/components/item-image";
 import { MarketHeatBadge } from "@/components/market-heat-badge";
 
 export function CollectionClient() {
@@ -74,7 +74,7 @@ export function CollectionClient() {
               className="sticker-card grid gap-4 rounded-[30px] p-5 md:grid-cols-[auto_1fr_auto_auto] md:items-center"
             >
               <div className="relative h-20 w-20 overflow-hidden rounded-[20px] bg-white/70">
-                <Image src={entry.imageUrl} alt={entry.name} fill className="object-cover" />
+                <ItemImage src={entry.imageUrl} alt={entry.name} fill className="object-cover" />
               </div>
               <div>
                 <p className="font-display text-xl font-semibold">{entry.name}</p>

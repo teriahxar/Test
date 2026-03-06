@@ -1,0 +1,13 @@
+<svg width="280" height="110" viewBox="0 0 280 110" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="ccBg" x1="0" y1="0" x2="280" y2="110" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#E7F2D8"/>
+      <stop offset="0.55" stop-color="#F8E9CF"/>
+      <stop offset="1" stop-color="#F7D9C7"/>
+    </linearGradient>
+  </defs>
+  <rect x="4" y="8" width="272" height="94" rx="28" fill="url(#ccBg)"/>
+  <path d="M22 61C26 48 38 43 51 47C51 61 41 69 28 69" fill="#FDF8EC" fill-opacity="0.8"/>
+  <text x="66" y="52" fill="#6A5A3B" font-family="Fredoka, Nunito, sans-serif" font-size="20" font-weight="700">Calico Critters</text>
+  <text x="66" y="74" fill="#7C6D4D" font-family="Nunito, sans-serif" font-size="14" font-weight="700">Meadow Collection</text>
+</svg>

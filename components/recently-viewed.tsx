@@ -1,11 +1,11 @@
 "use client";
 
-import Image from "next/image";
 import Link from "next/link";
 import { useMemo } from "react";
 import type { DashboardItem } from "@/lib/types";
 import { universeItemHref } from "@/lib/routing";
 import { useWatchlistStore } from "@/lib/stores/watchlist-store";
+import { ItemImage } from "@/components/item-image";
 import { MarketHeatBadge } from "@/components/market-heat-badge";
 
 export function RecentlyViewed({ items }: { items: DashboardItem[] }) {
@@ -29,7 +29,7 @@ export function RecentlyViewed({ items }: { items: DashboardItem[] }) {
         {recentItems.map((item) => (
           <Link key={item.id} href={universeItemHref(item.release.universe.slug, item.slug)} className="sticker-card min-w-[240px] rounded-[28px] p-3">
             <div className="relative h-40 w-full overflow-hidden rounded-[22px] bg-white/70">
-              <Image src={item.imageUrl} alt={item.name} fill className="object-cover" />
+              <ItemImage src={item.imageUrl} alt={item.name} fill className="object-cover" />
             </div>
             <div className="mt-3 flex items-start justify-between gap-2">
               <div>

@@ -35,9 +35,9 @@ export function hashString(input: string) {
   return Array.from(input).reduce((acc, char) => (acc << 5) - acc + char.charCodeAt(0), 0);
 }
 
-const BASE_PATH = process.env.NEXT_PUBLIC_BASE_PATH ?? "";
+export const basePath = process.env.NEXT_PUBLIC_BASE_PATH || "";
 
-export function withBasePath(path: string) {
+export const asset = (path: string) => {
   if (!path || /^https?:\/\//.test(path) || path.startsWith("data:")) {
     return path;
   }
@@ -46,9 +46,13 @@ export function withBasePath(path: string) {
     return path;
   }
 
-  if (!BASE_PATH || path === BASE_PATH || path.startsWith(`${BASE_PATH}/`)) {
+  if (!basePath || path === basePath || path.startsWith(`${basePath}/`)) {
     return path;
   }
 
-  return `${BASE_PATH}${path}`;
+  return `${basePath}${path}`;
+};
+
+export function withBasePath(path: string) {
+  return asset(path);
 }

@@ -2,7 +2,7 @@ import Image from "next/image";
 import { ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { WorldLink } from "@/components/world-link";
-import { cn } from "@/lib/utils";
+import { cn, withBasePath } from "@/lib/utils";
 
 export function PortalWorldCard({
   href,
@@ -24,8 +24,10 @@ export function PortalWorldCard({
         className
       )}
     >
-      <div className="relative h-20 w-full rounded-2xl bg-white/35">
-        <Image src={logoSrc} alt={`${title} logo`} fill className="object-contain p-2" />
+      <div className="mx-auto flex h-24 w-full max-w-[250px] items-center justify-center rounded-3xl bg-white/70 shadow-[0_10px_20px_rgba(42,85,55,0.12)]">
+        <div className="relative h-16 w-[200px] overflow-hidden rounded-2xl">
+          <Image src={withBasePath(logoSrc)} alt={`${title} logo`} fill className="object-contain p-1" />
+        </div>
       </div>
       <h3 className="mt-5 font-display text-3xl font-semibold text-[#224a34]">{title}</h3>
       <p className="mt-2 min-h-14 text-sm leading-6 text-[#3f5f48]">{description}</p>

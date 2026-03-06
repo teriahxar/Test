@@ -1,11 +1,11 @@
 "use client";
 
-import Image from "next/image";
 import Link from "next/link";
 import { Search } from "lucide-react";
 import { useDeferredValue, useEffect, useMemo, useState } from "react";
 import type { DashboardItem } from "@/lib/types";
 import { universeItemHref } from "@/lib/routing";
+import { ItemImage } from "@/components/item-image";
 import { Input } from "@/components/ui/input";
 
 export function SearchBox({ items }: { items: DashboardItem[] }) {
@@ -45,7 +45,7 @@ export function SearchBox({ items }: { items: DashboardItem[] }) {
               onClick={() => setQuery("")}
             >
               <div className="relative h-12 w-12 overflow-hidden rounded-[16px] bg-white/75">
-                <Image src={item.imageUrl} alt={item.name} fill className="object-cover" />
+                <ItemImage src={item.imageUrl} alt={item.name} fill className="object-cover" />
               </div>
               <div className="min-w-0">
                 <p className="truncate font-semibold">{item.name}</p>

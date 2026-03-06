@@ -8,11 +8,12 @@ import { ThemeSetter } from "@/components/theme-setter";
 import { WorldLink } from "@/components/world-link";
 import { getTrending } from "@/lib/queries";
 import { universeItemHref } from "@/lib/routing";
+import { asset } from "@/lib/utils";
 
 const WORLDS = [
   {
     href: "/popmart",
-    logoSrc: "/assets/logos/popmart-world.svg",
+    logoSrc: asset("/assets/logos/dimoo-logo.png"),
     title: "PopMart World",
     description: "Candy-colored figures, blind boxes, and trending collectibles.",
     cardClass:
@@ -20,7 +21,7 @@ const WORLDS = [
   },
   {
     href: "/calico",
-    logoSrc: "/assets/logos/calico-world.svg",
+    logoSrc: asset("/assets/logos/calico-critters-logo.png"),
     title: "Calico Critters Meadow",
     description: "Tiny cozy worlds, soft cottagecore sets, and collectible comfort.",
     cardClass:
@@ -28,7 +29,7 @@ const WORLDS = [
   },
   {
     href: "/pop",
-    logoSrc: "/assets/logos/pop-world.svg",
+    logoSrc: asset("/assets/logos/skullpanda-logo.png"),
     title: "POP World",
     description: "Playful finds, bright icons, and another dreamy collectible space.",
     cardClass:
@@ -45,9 +46,9 @@ export default async function HomePage() {
       <LandingIntroGate />
       <BackgroundScene />
       <div className="relative z-10 mx-auto flex min-h-screen w-full max-w-6xl flex-col">
-        <header className="flex items-start justify-start">
+        <header className="flex items-start justify-center pt-2">
           <WorldLink href="/" className="inline-flex">
-            <LogoMark compact className="rounded-full bg-white/48 p-1.5" />
+            <LogoMark className="rounded-[32px] bg-white/58 px-4 py-2 shadow-[0_10px_24px_rgba(39,88,57,0.15)]" />
           </WorldLink>
         </header>
 

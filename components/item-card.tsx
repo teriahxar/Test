@@ -1,6 +1,5 @@
 "use client";
 
-import Image from "next/image";
 import Link from "next/link";
 import { ExternalLink, TrendingDown, TrendingUp } from "lucide-react";
 import type { DashboardItem } from "@/lib/types";
@@ -14,6 +13,7 @@ import { SparklineMini } from "@/components/sparkline-mini";
 import { StickerPack } from "@/components/sticker-pack";
 import { ValuePill } from "@/components/value-pill";
 import { WatchlistButton } from "@/components/watchlist-button";
+import { ItemImage } from "@/components/item-image";
 
 export function ItemCard({ item, compact = false }: { item: DashboardItem; compact?: boolean }) {
   const toggleItem = useWatchlistStore((state) => state.toggleItem);
@@ -29,7 +29,7 @@ export function ItemCard({ item, compact = false }: { item: DashboardItem; compa
       <div className="relative space-y-4">
         <Link href={universeItemHref(item.release.universe.slug, item.slug)} className="block overflow-hidden rounded-[24px] border border-white/60 bg-white/80">
           <div className={`relative w-full ${compact ? "h-44" : "h-56"}`}>
-            <Image src={item.imageUrl} alt={item.name} fill className="object-cover transition-transform duration-500 group-hover:scale-105" />
+            <ItemImage src={item.imageUrl} alt={item.name} fill className="object-cover transition-transform duration-500 group-hover:scale-105" />
           </div>
         </Link>
         <div className="space-y-3">
