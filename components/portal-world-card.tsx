@@ -24,9 +24,9 @@ export function PortalWorldCard({
         className
       )}
     >
-      <div className="mx-auto flex h-24 w-full max-w-[250px] items-center justify-center rounded-3xl bg-white/70 shadow-[0_10px_20px_rgba(42,85,55,0.12)]">
-        <div className="relative h-16 w-[200px] overflow-hidden rounded-2xl">
-          <Image src={withBasePath(logoSrc)} alt={`${title} logo`} fill className="object-contain p-1" />
+      <div className="mx-auto flex h-28 w-full items-center justify-center">
+        <div className="relative h-20 w-[230px]">
+          <Image src={withBasePath(logoSrc)} alt={`${title} logo`} fill className="object-contain drop-shadow-[0_8px_14px_rgba(36,81,55,0.18)]" />
         </div>
       </div>
       <h3 className="mt-5 font-display text-3xl font-semibold text-[#224a34]">{title}</h3>

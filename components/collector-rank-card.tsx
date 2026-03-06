@@ -5,7 +5,7 @@ import { getCollectorRank, getNextCollectorRank } from "@/lib/collector-ranks";
 import { useCollectorProfileStore } from "@/lib/stores/collector-profile-store";
 import { withBasePath } from "@/lib/utils";
 
-export function CollectorRankWidget() {
+export function CollectorRankCard() {
   const profile = useCollectorProfileStore((state) => state.profile);
   const rank = getCollectorRank(profile.xp);
   const nextRank = getNextCollectorRank(profile.xp);

@@ -4,10 +4,10 @@ import { asset } from "@/lib/utils";
 export function LandingHero() {
   return (
     <section className="relative mx-auto flex w-full max-w-5xl flex-col items-center text-center">
-      <div className="relative h-[92px] w-[92px] rounded-full bg-white/72 p-2 shadow-[0_12px_24px_rgba(36,85,57,0.2)] sm:h-[110px] sm:w-[110px]">
-        <Image src={asset("/assets/logos/trinket-mark.png")} alt="TRinket mark" fill className="rounded-full object-cover" priority />
+      <div className="relative h-20 w-[220px] sm:h-24 sm:w-[280px]">
+        <Image src={asset("/assets/logos/trinket-logo.png")} alt="TRinket logo" fill className="object-contain drop-shadow-[0_10px_16px_rgba(29,78,49,0.2)]" priority />
       </div>
-      <h1 className="font-display text-[48px] font-bold leading-[0.95] text-[#1f5d3d] drop-shadow-[0_6px_18px_rgba(27,76,49,0.18)] sm:text-[72px] lg:text-[102px] xl:text-[116px]">
+      <h1 className="mt-1 font-display text-[52px] font-bold leading-[0.95] text-[#1f5d3d] drop-shadow-[0_6px_18px_rgba(27,76,49,0.18)] sm:text-[72px] lg:text-[102px] xl:text-[116px]">
         TRinket
       </h1>
       <p className="mt-5 text-[15px] font-semibold uppercase tracking-[0.24em] text-[#426f55] sm:text-lg">Collector Guide</p>

@@ -1,19 +1,17 @@
 "use client";
 
 import Link from "next/link";
-import { ExternalLink, TrendingDown, TrendingUp } from "lucide-react";
+import { TrendingDown, TrendingUp } from "lucide-react";
 import type { DashboardItem } from "@/lib/types";
 import { formatPercent } from "@/lib/utils";
-import { useWatchlistStore } from "@/lib/stores/watchlist-store";
 import { useToastStore } from "@/lib/stores/toast-store";
+import { useWatchlistStore } from "@/lib/stores/watchlist-store";
 import { universeItemHref } from "@/lib/routing";
+import { ItemImageWithFallback } from "@/components/item-image";
 import { MarketHeatBadge } from "@/components/market-heat-badge";
 import { RarityBadge } from "@/components/rarity-badge";
-import { SparklineMini } from "@/components/sparkline-mini";
-import { StickerPack } from "@/components/sticker-pack";
 import { ValuePill } from "@/components/value-pill";
 import { WatchlistButton } from "@/components/watchlist-button";
-import { ItemImage } from "@/components/item-image";
 
 export function ItemCard({ item, compact = false }: { item: DashboardItem; compact?: boolean }) {
   const toggleItem = useWatchlistStore((state) => state.toggleItem);
@@ -21,79 +19,70 @@ export function ItemCard({ item, compact = false }: { item: DashboardItem; compa
   const push = useToastStore((state) => state.push);
   const isSaved = watchlist.some((entry) => entry.slug === item.slug);
   const TrendIcon = item.metrics.sevenDayChange >= 0 ? TrendingUp : TrendingDown;
-  const tagList = item.tags.split(",").slice(0, 2);
+  const tags = item.tags
+    .split(",")
+    .map((tag) => tag.trim())
+    .filter(Boolean)
+    .slice(0, 2);
 
   return (
-    <article className="sticker-card group relative overflow-hidden rounded-[30px] border border-white/65 p-4 transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_18px_32px_rgba(35,73,53,0.18)]">
-      <StickerPack names={["heart", "sparkle", "star", "cloud"]} tone="white" className="opacity-55" />
-      <div className="relative space-y-4">
-        <Link href={universeItemHref(item.release.universe.slug, item.slug)} className="block overflow-hidden rounded-[24px] border border-white/60 bg-white/80">
-          <div className={`relative w-full ${compact ? "h-44" : "h-56"}`}>
-            <ItemImage src={item.imageUrl} alt={item.name} fill className="object-cover transition-transform duration-500 group-hover:scale-105" />
+    <article className="sticker-card group overflow-hidden rounded-[28px] p-4 transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_18px_32px_rgba(35,73,53,0.16)]">
+      <Link href={universeItemHref(item.release.universe.slug, item.slug)} className="block overflow-hidden rounded-[20px] border border-white/60 bg-white/85">
+        <div className={`relative w-full ${compact ? "h-40" : "h-52"}`}>
+          <ItemImageWithFallback src={item.imageUrl} alt={item.name} fill showComingSoon className="object-cover transition-transform duration-500 group-hover:scale-105" />
+        </div>
+      </Link>
+      <div className="mt-4 space-y-3">
+        <div className="flex items-start justify-between gap-3">
+          <div>
+            <p className="font-display text-xl font-semibold leading-tight">{item.name}</p>
+            <p className="mt-1 text-sm text-muted-foreground">{item.release.name}</p>
           </div>
-        </Link>
-        <div className="space-y-3">
-          <div className="flex items-start justify-between gap-3">
-            <div>
-              <p className="font-display text-xl font-semibold leading-tight">{item.name}</p>
-              <p className="mt-1 text-sm text-muted-foreground">{item.release.name}</p>
-            </div>
-            <RarityBadge rarity={item.rarity} />
-          </div>
-          <div className="flex flex-wrap gap-2">
-            {tagList.map((tag) => (
-              <span key={tag} className="rounded-full bg-secondary/70 px-3 py-1 text-xs font-semibold text-secondary-foreground">
-                {tag.trim()}
-              </span>
-            ))}
-          </div>
-          <div className="flex items-center justify-between gap-3">
-            <ValuePill value={item.metrics.estimatedValue} confidence={item.metrics.confidence} />
-            <div className="text-right">
-              <div
-                className={`inline-flex items-center gap-1 rounded-full px-2 py-1 text-xs font-semibold ${
-                  item.metrics.sevenDayChange >= 0 ? "bg-emerald-500/12 text-emerald-700" : "bg-rose-500/12 text-rose-700"
-                }`}
-              >
-                <TrendIcon className="h-3.5 w-3.5" />
-                {formatPercent(item.metrics.sevenDayChange)}
-              </div>
-              <div className="mt-2 flex justify-end">
-                <SparklineMini data={item.metrics.sparkline} />
-              </div>
-            </div>
-          </div>
-          <div className="flex flex-wrap items-center gap-2 text-xs text-muted-foreground">
-            <span>Last updated {new Date(item.metrics.lastUpdated).toLocaleDateString("en-US", { month: "short", day: "numeric" })}</span>
-            <span className="rounded-full bg-white/70 px-2 py-1">{item.metrics.sourceLabels.join(" + ")}</span>
-            <span className="inline-flex items-center gap-1 rounded-full bg-white/70 px-2 py-1">
-              <ExternalLink className="h-3 w-3" />
-              {item.brandName}
+          <RarityBadge rarity={item.rarity} />
+        </div>
+
+        <div className="flex flex-wrap gap-2">
+          {tags.map((tag) => (
+            <span key={tag} className="rounded-full bg-white/80 px-3 py-1 text-[11px] font-semibold text-muted-foreground">
+              {tag}
             </span>
-          </div>
-          <div className="flex items-center justify-between gap-3">
-            <MarketHeatBadge heat={item.metrics.marketHeat} />
-            <WatchlistButton
-              saved={isSaved}
-              onClick={() => {
-                toggleItem({
-                  slug: item.slug,
-                  name: item.name,
-                  imageUrl: item.imageUrl,
-                  universeSlug: item.release.universe.slug,
-                  releaseSlug: item.release.slug,
-                  estimatedValue: item.metrics.estimatedValue,
-                  heat: item.metrics.marketHeat,
-                  sparkline: item.metrics.sparkline,
-                  alert: {}
-                });
-                push({
-                  title: isSaved ? "Removed from watchlist" : "Saved to watchlist",
-                  description: item.name
-                });
-              }}
-            />
-          </div>
+          ))}
+        </div>
+
+        <div className="flex items-center justify-between gap-3">
+          <ValuePill value={item.metrics.estimatedValue} confidence={item.metrics.confidence} />
+          <span
+            className={`inline-flex items-center gap-1 rounded-full px-2.5 py-1 text-xs font-semibold ${
+              item.metrics.sevenDayChange >= 0 ? "bg-emerald-500/12 text-emerald-700" : "bg-rose-500/12 text-rose-700"
+            }`}
+          >
+            <TrendIcon className="h-3.5 w-3.5" />
+            {formatPercent(item.metrics.sevenDayChange)}
+          </span>
+        </div>
+
+        <div className="flex items-center justify-between">
+          <MarketHeatBadge heat={item.metrics.marketHeat} />
+          <WatchlistButton
+            saved={isSaved}
+            onClick={() => {
+              toggleItem({
+                slug: item.slug,
+                name: item.name,
+                imageUrl: item.imageUrl,
+                universeSlug: item.release.universe.slug,
+                releaseSlug: item.release.slug,
+                estimatedValue: item.metrics.estimatedValue,
+                heat: item.metrics.marketHeat,
+                sparkline: item.metrics.sparkline,
+                alert: {}
+              });
+              push({
+                title: isSaved ? "Removed from watchlist" : "Saved to watchlist",
+                description: item.name
+              });
+            }}
+          />
         </div>
       </div>
     </article>

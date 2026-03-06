@@ -48,7 +48,7 @@ export default async function HomePage() {
       <div className="relative z-10 mx-auto flex min-h-screen w-full max-w-6xl flex-col">
         <header className="flex items-start justify-start pt-2">
           <WorldLink href="/" className="inline-flex">
-            <LogoMark compact className="rounded-[28px] bg-white/58 px-3 py-2 shadow-[0_10px_24px_rgba(39,88,57,0.15)]" />
+            <LogoMark compact className="drop-shadow-[0_8px_16px_rgba(31,78,51,0.16)]" />
           </WorldLink>
         </header>
 

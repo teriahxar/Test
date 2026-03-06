@@ -1,8 +1,9 @@
 "use client";
 
 import { Sparkles, Star } from "lucide-react";
-import { CollectorRankWidget } from "@/components/collector-rank-widget";
-import { MyShelfOverview } from "@/components/my-shelf-overview";
+import { CollectorRankCard } from "@/components/collector-rank-card";
+import { MyShelfSummary } from "@/components/my-shelf-summary";
+import { PremiumStarterCard } from "@/components/premium-starter-card";
 import { Button } from "@/components/ui/button";
 import { useCollectorProfileStore } from "@/lib/stores/collector-profile-store";
 
@@ -15,7 +16,7 @@ export function CommunityStarterUi() {
       <section className="sticker-card rounded-[34px] p-6">
         <p className="text-xs uppercase tracking-[0.24em] text-muted-foreground">Collector Circle</p>
         <h2 className="mt-2 font-display text-3xl font-semibold">Profile + Charms</h2>
-        <p className="mt-2 text-sm text-muted-foreground">Account-ready profile scaffolding for usernames, charms, badges, and shelf identity.</p>
+        <p className="mt-2 text-sm text-muted-foreground">Starter account architecture for identity, cosmetics, badges, and community presence.</p>
         <div className="mt-4 grid gap-4 md:grid-cols-2">
           <div className="rounded-[24px] border border-white/65 bg-white/75 p-4">
             <p className="font-semibold">@{profile.username}</p>
@@ -45,9 +46,9 @@ export function CommunityStarterUi() {
       </section>
 
       <div className="grid gap-6 xl:grid-cols-[1.2fr_0.8fr]">
-        <MyShelfOverview />
+        <MyShelfSummary />
         <div className="space-y-6">
-          <CollectorRankWidget />
+          <CollectorRankCard />
           <section className="sticker-card rounded-[30px] p-5">
             <p className="text-xs uppercase tracking-[0.22em] text-muted-foreground">XP Actions</p>
             <div className="mt-4 grid gap-2">
@@ -64,28 +65,7 @@ export function CommunityStarterUi() {
         </div>
       </div>
 
-      <section className="sticker-card rounded-[34px] p-6">
-        <p className="text-xs uppercase tracking-[0.24em] text-muted-foreground">TRinket Plus</p>
-        <h2 className="mt-2 font-display text-3xl font-semibold">Premium Starter</h2>
-        <p className="mt-2 text-sm text-muted-foreground">Monetization-ready structure for advanced alerts, deeper analytics, and cosmetic shelf upgrades.</p>
-        <div className="mt-4 grid gap-3 md:grid-cols-2">
-          <FeatureRow label="Advanced alert bundles" />
-          <FeatureRow label="Deeper collection analytics" />
-          <FeatureRow label="Seasonal profile frames" />
-          <FeatureRow label="Larger watchlists + shelves" />
-        </div>
-        <div className="mt-5">
-          <Button variant="primary">Join TRinket Plus</Button>
-        </div>
-      </section>
-    </div>
-  );
-}
-
-function FeatureRow({ label }: { label: string }) {
-  return (
-    <div className="rounded-[20px] border border-white/65 bg-white/75 px-4 py-3 text-sm font-semibold">
-      {label}
+      <PremiumStarterCard />
     </div>
   );
 }

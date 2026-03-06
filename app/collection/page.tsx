@@ -6,10 +6,10 @@ export default function CollectionPage() {
   return (
     <SiteShell className="space-y-8 page-enter">
       <section>
-        <p className="text-xs uppercase tracking-[0.24em] text-muted-foreground">Collection mode</p>
-        <h1 className="mt-2 font-display text-4xl font-semibold">Your pastel portfolio</h1>
+        <p className="text-xs uppercase tracking-[0.24em] text-muted-foreground">My Shelf</p>
+        <h1 className="mt-2 font-display text-4xl font-semibold">Collector Circle Home</h1>
         <p className="mt-3 max-w-2xl text-muted-foreground">
-          No login, no friction. Mark pieces as Owned, Want, or Sold and let TRinket estimate your shelf value.
+          Track owned, wanted, sold, and dream collectibles with a cozy view of your growing TRinket journey.
         </p>
       </section>
       <CommunityStarterUi />

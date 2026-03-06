@@ -7,7 +7,7 @@ import { useWatchlistStore } from "@/lib/stores/watchlist-store";
 import { useCollectorProfileStore } from "@/lib/stores/collector-profile-store";
 import { formatCurrency } from "@/lib/utils";
 
-export function MyShelfOverview() {
+export function MyShelfSummary() {
   const entries = useCollectionStore((state) => state.entries);
   const watchlist = useWatchlistStore((state) => state.items);
   const profile = useCollectorProfileStore((state) => state.profile);
@@ -27,12 +27,6 @@ export function MyShelfOverview() {
     });
     const favoriteUniverse = [...universeCounter.entries()].sort((a, b) => b[1] - a[1])[0]?.[0] ?? "Pop Mart";
 
-    const recentActivity = [
-      `${owned.length} owned figures curated`,
-      `${watchlist.length} items in watchlist`,
-      `${profile.dreamItems.length} dream items tracked`
-    ];
-
     return {
       owned: owned.length,
       wanted: wanted.length,
@@ -40,7 +34,7 @@ export function MyShelfOverview() {
       dream: profile.dreamItems.length,
       estimatedValue,
       favoriteUniverse,
-      recentActivity
+      watchlist: watchlist.length
     };
   }, [entries, profile.dreamItems.length, watchlist.length]);
 
@@ -52,7 +46,7 @@ export function MyShelfOverview() {
         <StatChip label="Owned" value={`${summary.owned}`} />
         <StatChip label="Wanted" value={`${summary.wanted}`} />
         <StatChip label="Sold" value={`${summary.sold}`} />
-        <StatChip label="Dream Items" value={`${summary.dream}`} />
+        <StatChip label="Dream" value={`${summary.dream}`} />
       </div>
       <div className="mt-5 grid gap-4 md:grid-cols-2">
         <div className="rounded-[24px] border border-white/65 bg-white/75 p-4">
@@ -61,14 +55,12 @@ export function MyShelfOverview() {
           <p className="mt-2 text-sm text-muted-foreground">Favorite universe: {summary.favoriteUniverse}</p>
         </div>
         <div className="rounded-[24px] border border-white/65 bg-white/75 p-4">
-          <p className="text-sm text-muted-foreground">Recent activity</p>
-          <ul className="mt-3 space-y-2 text-sm">
-            {summary.recentActivity.map((line) => (
-              <li key={line} className="rounded-full bg-white/70 px-3 py-1.5">
-                {line}
-              </li>
-            ))}
-          </ul>
+          <p className="text-sm text-muted-foreground">Collector activity</p>
+          <div className="mt-3 space-y-2 text-sm">
+            <p className="rounded-full bg-white/70 px-3 py-1.5">{summary.watchlist} items in watchlist</p>
+            <p className="rounded-full bg-white/70 px-3 py-1.5">{summary.owned + summary.wanted} shelf updates this season</p>
+            <p className="rounded-full bg-white/70 px-3 py-1.5">{summary.dream} dream targets active</p>
+          </div>
         </div>
       </div>
     </section>
