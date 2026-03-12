@@ -6,7 +6,15 @@ import { useDeferredValue, useMemo, useState } from "react";
 import { STATIC_DB } from "@/lib/static-data";
 import { universeItemHref } from "@/lib/routing";
 
-export function NavSearch() {
+export function NavSearch({
+  className,
+  inputClassName,
+  placeholder = "Search collectibles, series, or brands..."
+}: {
+  className?: string;
+  inputClassName?: string;
+  placeholder?: string;
+}) {
   const [query, setQuery] = useState("");
   const deferred = useDeferredValue(query);
   const results = useMemo(() => {
@@ -23,14 +31,14 @@ export function NavSearch() {
   }, [deferred]);
 
   return (
-    <div className="relative w-full md:w-[280px]">
+    <div className={`relative w-full ${className ?? "md:w-[440px]"}`}>
       <Search className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
       <input
         aria-label="Search collectibles"
-        placeholder="Search collectibles"
+        placeholder={placeholder}
         value={query}
         onChange={(event) => setQuery(event.target.value)}
-        className="h-11 w-full rounded-full border border-border bg-white/94 pl-10 pr-4 text-sm text-foreground outline-none shadow-[var(--shadow-soft)] focus-visible:ring-2 focus-visible:ring-ring"
+        className={`h-12 w-full rounded-full border border-border bg-white/60 pl-10 pr-4 text-sm text-foreground outline-none shadow-[var(--shadow-soft)] backdrop-blur-xl focus-visible:ring-2 focus-visible:ring-ring ${inputClassName ?? ""}`}
       />
       {results.length ? (
         <div className="absolute top-[calc(100%+0.4rem)] z-50 w-full rounded-[24px] border border-border bg-card/95 p-2 shadow-[var(--shadow-card)]">

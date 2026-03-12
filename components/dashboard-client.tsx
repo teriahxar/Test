@@ -127,7 +127,7 @@ export function DashboardClient({ data }: { data: DashboardData }) {
               <div key={item.id} className="surface-card rounded-[24px] p-4">
                 <p className="font-display text-xl font-bold">{item.name}</p>
                 <p className="mt-1 text-xs uppercase tracking-[0.16em] text-muted-foreground">{item.release.name}</p>
-                <p className="mt-3 inline-flex rounded-full bg-[#fff0e0] px-3 py-1 text-sm font-semibold text-[#9c6b37]">
+                <p className="mt-3 inline-flex rounded-full bg-[#e8f8ff] px-3 py-1 text-sm font-semibold text-[#2f6f9b]">
                   {formatPercent(item.metrics.sevenDayChange)}
                 </p>
               </div>

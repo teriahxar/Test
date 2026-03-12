@@ -4,7 +4,7 @@ import { asset } from "@/lib/utils";
 export function LandingHero() {
   return (
     <section className="relative mx-auto flex w-full max-w-4xl flex-col items-center text-center">
-      <div className="absolute left-1/2 top-8 h-44 w-44 -translate-x-1/2 rounded-full bg-[#fbd1a0]/25 blur-3xl" aria-hidden />
+      <div className="absolute left-1/2 top-8 h-44 w-44 -translate-x-1/2 rounded-full bg-[#7ec9ff]/25 blur-3xl" aria-hidden />
       <div className="absolute right-[16%] top-4 h-24 w-24 rounded-full bg-[#e9e0fb]/35 blur-3xl" aria-hidden />
       <div className="relative h-20 w-[220px] sm:h-24 sm:w-[280px]">
         <Image src={asset("/assets/logos/trinket-logo.png")} alt="TRinket logo" fill className="object-contain drop-shadow-[0_20px_34px_rgba(83,71,56,0.1)]" priority />

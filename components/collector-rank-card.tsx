@@ -25,7 +25,7 @@ export function CollectorRankCard() {
       </div>
       <div className="mt-4 h-3 w-full overflow-hidden rounded-full bg-[#f4ede4]">
         <div
-          className="h-full rounded-full bg-[linear-gradient(90deg,#fbd1a0_0%,#f2c4b3_48%,#d3e0ef_100%)] transition-all duration-500"
+          className="h-full rounded-full bg-[linear-gradient(90deg,#7ec9ff_0%,#a8e6cf_52%,#d9c6ff_100%)] transition-all duration-500"
           style={{ width: `${progress}%` }}
         />
       </div>

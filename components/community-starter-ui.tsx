@@ -36,7 +36,7 @@ export function CommunityStarterUi() {
             <p className="mt-4 text-sm text-muted-foreground">Badges</p>
             <div className="mt-2 flex flex-wrap gap-2">
               {profile.badges.map((badge) => (
-                <span key={badge} className="rounded-full bg-[#fff0e0] px-3 py-1 text-xs font-semibold text-[#8a5d32]">
+                <span key={badge} className="rounded-full bg-[#e8f8ff] px-3 py-1 text-xs font-semibold text-[#2f6f9b]">
                   {badge}
                 </span>
               ))}

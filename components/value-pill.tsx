@@ -8,11 +8,11 @@ export function ValuePill({
   confidence: "low" | "medium" | "high";
 }) {
   return (
-    <div className="inline-flex items-center gap-3 rounded-full border border-border/70 bg-white/90 px-4 py-2 shadow-[var(--shadow-soft)]">
+    <div className="inline-flex items-center gap-3 rounded-full border border-border/70 bg-white/72 px-4 py-2 shadow-[var(--shadow-soft)] backdrop-blur-xl">
       <span className="font-display text-lg font-semibold">
         <ValueCounter value={value} />
       </span>
-      <span className="rounded-full bg-[#fff1e3] px-3 py-1 text-xs font-semibold capitalize text-[#8a5d32]">
+      <span className="rounded-full bg-[#e8f8ff] px-3 py-1 text-xs font-semibold capitalize text-[#3d6f92]">
         {confidence}
       </span>
     </div>

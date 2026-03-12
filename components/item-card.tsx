@@ -19,8 +19,8 @@ export function ItemCard({ item, compact = false }: { item: DashboardItem; compa
   const isSaved = watchlist.some((entry) => entry.slug === item.slug);
   const TrendIcon = item.metrics.sevenDayChange >= 0 ? TrendingUp : TrendingDown;
   return (
-    <article className="surface-card group overflow-hidden rounded-[30px] p-5 transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_24px_40px_rgba(83,71,56,0.12)]">
-      <Link href={universeItemHref(item.release.universe.slug, item.slug)} className="block overflow-hidden rounded-[24px] border border-border/70 bg-[#fffaf5]">
+    <article className="surface-card group overflow-hidden rounded-[30px] p-5 transition-all duration-300 hover:-translate-y-1 hover:scale-[1.01] hover:shadow-[0_24px_48px_rgba(31,41,51,0.1)]">
+      <Link href={universeItemHref(item.release.universe.slug, item.slug)} className="block overflow-hidden rounded-[24px] border border-border/70 bg-[#f7fafc]">
         <div className={`relative w-full ${compact ? "h-40" : "h-56"}`}>
           <ItemImageFallback src={item.imageUrl} alt={item.name} fill showComingSoon className="object-cover transition-transform duration-500 group-hover:scale-[1.03]" />
         </div>
@@ -38,7 +38,7 @@ export function ItemCard({ item, compact = false }: { item: DashboardItem; compa
           <ValuePill value={item.metrics.estimatedValue} confidence={item.metrics.confidence} />
           <span
             className={`inline-flex items-center gap-1 rounded-full px-2.5 py-1 text-xs font-semibold ${
-              item.metrics.sevenDayChange >= 0 ? "bg-[#edf5ef] text-[#5f7a68]" : "bg-[#fff1e3] text-[#9a6e47]"
+              item.metrics.sevenDayChange >= 0 ? "bg-[#e8f8ff] text-[#3d6f92]" : "bg-[#eef2f7] text-[#65758a]"
             }`}
           >
             <TrendIcon className="h-3.5 w-3.5" />

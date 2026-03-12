@@ -52,7 +52,7 @@ export function ItemImageFallback({
         height={fill ? undefined : height}
         sizes={sizes}
         priority={priority}
-        className={`${className ?? ""} ${isFallback ? "object-contain rounded-[24px] bg-[linear-gradient(180deg,#fffaf2_0%,#f7f0e7_100%)] p-6 shadow-[inset_0_1px_0_rgba(255,255,255,0.8),0_10px_24px_rgba(83,71,56,0.08)]" : ""}`.trim()}
+        className={`${className ?? ""} ${isFallback ? "object-contain rounded-[24px] bg-[linear-gradient(180deg,#ffffff_0%,#f7fafc_100%)] p-6 shadow-[inset_0_1px_0_rgba(255,255,255,0.8),0_10px_24px_rgba(31,41,51,0.08)]" : ""}`.trim()}
         onError={() => setCurrentSrc(fallbackItemImage)}
       />
       {isFallback && showComingSoon ? (

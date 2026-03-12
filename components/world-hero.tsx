@@ -10,17 +10,17 @@ const WORLD_LOGO_MAP: Record<string, string> = {
 export function WorldHero({ worldSlug, title, description }: { worldSlug: string; title: string; description: string }) {
   const accent =
     worldSlug === "pop-mart"
-      ? "from-[#f8d9d8] via-[#fff7f1] to-[#e5f0ea]"
+      ? "from-[#e8f8ff] via-white to-[#f7fafc]"
       : worldSlug === "calico-critters"
-        ? "from-[#f4ebdb] via-[#fff8f0] to-[#e7efe4]"
-        : "from-[#e1ebf7] via-[#fff8f0] to-[#f8e1d3]";
+        ? "from-[#f2fff8] via-white to-[#f7fafc]"
+        : "from-[#f5f1ff] via-white to-[#f7fafc]";
 
   return (
     <section className={`surface-card rounded-[36px] bg-gradient-to-br ${accent} p-6 md:p-8`}>
       <div className="relative">
         <div className="inline-flex h-20 w-52 items-center justify-center rounded-[24px] border border-white/70 bg-white/76 px-4">
           <div className="relative h-14 w-44">
-            <Image src={WORLD_LOGO_MAP[worldSlug] ?? asset("/assets/logos/trinket-logo.png")} alt={`${title} logo`} fill className="object-contain drop-shadow-[0_12px_20px_rgba(83,71,56,0.08)]" />
+            <Image src={WORLD_LOGO_MAP[worldSlug] ?? asset("/assets/logos/trinket-logo.png")} alt={`${title} logo`} fill className="object-contain drop-shadow-[0_14px_26px_rgba(126,201,255,0.14)]" />
           </div>
         </div>
         <p className="section-label mt-5">Collector category</p>

@@ -1,19 +1,19 @@
 import type { Metadata } from "next";
 import type { ReactNode } from "react";
-import { Nunito, Quicksand } from "next/font/google";
+import { Inter } from "next/font/google";
 import "@/app/globals.css";
 import { Providers } from "@/components/providers";
 
-const nunito = Nunito({
+const interDisplay = Inter({
   subsets: ["latin"],
   variable: "--font-display",
-  weight: ["500", "600", "700", "800"]
+  display: "swap"
 });
 
-const quicksand = Quicksand({
+const interBody = Inter({
   subsets: ["latin"],
   variable: "--font-body",
-  weight: ["400", "500", "600", "700"]
+  display: "swap"
 });
 
 export const metadata: Metadata = {
@@ -23,7 +23,7 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: { children: ReactNode }) {
   return (
-    <html lang="en" className={`${nunito.variable} ${quicksand.variable}`}>
+    <html lang="en" className={`${interDisplay.variable} ${interBody.variable}`}>
       <body className="font-body">
         <Providers>{children}</Providers>
       </body>
