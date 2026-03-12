@@ -2,9 +2,9 @@ import { Flame, Snowflake, SunMedium } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 const heatStyles = {
-  Hot: "bg-rose-500/15 text-rose-700 border-rose-200",
-  Warm: "bg-amber-500/15 text-amber-700 border-amber-200",
-  Cooling: "bg-sky-500/15 text-sky-700 border-sky-200"
+  Hot: "bg-[#f7e1df] text-[#a06060] border-[#edd0ce]",
+  Warm: "bg-[#fff0e0] text-[#9c6b37] border-[#f1dcc5]",
+  Cooling: "bg-[#e8f0f7] text-[#617e98] border-[#d6e4f1]"
 } as const;
 
 const heatIcons = {

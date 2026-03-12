@@ -13,9 +13,9 @@ export function SiteShell({
   hideHeader?: boolean;
 }) {
   return (
-    <div className="min-h-screen text-foreground transition-colors duration-500">
+    <div className="page-shell min-h-screen text-foreground transition-colors duration-500">
       {!hideHeader ? <GlobalNav /> : null}
-      <main className={cn(hideHeader ? "" : "container py-8 md:py-10", className)}>{children}</main>
+      <main className={cn("page-content", hideHeader ? "" : "container py-8 md:py-10", className)}>{children}</main>
       <AttributionFooter />
     </div>
   );

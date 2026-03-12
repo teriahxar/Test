@@ -2,10 +2,10 @@ import { Button } from "@/components/ui/button";
 
 export function PremiumStarterCard() {
   return (
-    <section className="sticker-card rounded-[34px] p-6">
-      <p className="text-xs uppercase tracking-[0.24em] text-muted-foreground">TRinket Club</p>
-      <h2 className="mt-2 font-display text-3xl font-semibold">Premium Starter</h2>
-      <p className="mt-2 text-sm text-muted-foreground">Optional upgrades for collectors who want deeper insights and extra shelf customization.</p>
+    <section className="surface-card rounded-[34px] p-6">
+      <p className="section-label">TRinket Club</p>
+      <h2 className="mt-4 font-display text-3xl font-semibold">Premium features, introduced quietly</h2>
+      <p className="mt-2 text-sm text-muted-foreground">A tasteful membership layer for collectors who want deeper alerts, analytics, and profile polish without turning the core product into an upsell wall.</p>
       <div className="mt-4 grid gap-3 md:grid-cols-2">
         <FeatureRow label="Advanced alert bundles" />
         <FeatureRow label="Deeper collection analytics" />
@@ -21,7 +21,7 @@ export function PremiumStarterCard() {
 
 function FeatureRow({ label }: { label: string }) {
   return (
-    <div className="rounded-[20px] border border-white/65 bg-white/75 px-4 py-3 text-sm font-semibold">
+    <div className="rounded-[20px] border border-border/70 bg-white/86 px-4 py-3 text-sm font-semibold">
       {label}
     </div>
   );

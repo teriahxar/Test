@@ -39,8 +39,8 @@ export function FilterDrawer({
       <DialogContent className="rounded-[34px]">
         <div className="space-y-6">
           <div>
-            <p className="text-xs uppercase tracking-[0.24em] text-muted-foreground">Filter drawer</p>
-            <h2 className="mt-2 font-display text-2xl font-semibold">Make the feed extra specific</h2>
+            <p className="section-label">Filters</p>
+            <h2 className="mt-4 font-display text-2xl font-semibold">Refine this world</h2>
           </div>
           <FilterSection
             label="Release / series"
@@ -83,7 +83,7 @@ export function FilterDrawer({
                 onChange={(event) =>
                   setFilters({ ...filters, minPrice: event.target.value ? Number(event.target.value) : undefined })
                 }
-                className="h-10 rounded-full border border-border bg-white/75 px-4 text-sm"
+                className="h-10 rounded-full border border-border bg-white/90 px-4 text-sm"
               />
               <input
                 type="number"
@@ -93,7 +93,7 @@ export function FilterDrawer({
                 onChange={(event) =>
                   setFilters({ ...filters, maxPrice: event.target.value ? Number(event.target.value) : undefined })
                 }
-                className="h-10 rounded-full border border-border bg-white/75 px-4 text-sm"
+                className="h-10 rounded-full border border-border bg-white/90 px-4 text-sm"
               />
             </div>
           </div>
@@ -127,7 +127,7 @@ function FilterSection({
             type="button"
             onClick={() => onChange(option)}
             className={`rounded-full border px-4 py-2 text-sm font-semibold transition-colors ${
-              active === option ? "border-primary bg-primary text-primary-foreground" : "border-border bg-white/75"
+              active === option ? "border-primary bg-primary text-primary-foreground" : "border-border bg-white/90"
             }`}
           >
             {option}

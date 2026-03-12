@@ -3,15 +3,17 @@ import { asset } from "@/lib/utils";
 
 export function LandingHero() {
   return (
-    <section className="relative mx-auto flex w-full max-w-5xl flex-col items-center text-center">
+    <section className="relative mx-auto flex w-full max-w-4xl flex-col items-center text-center">
+      <div className="absolute left-1/2 top-8 h-44 w-44 -translate-x-1/2 rounded-full bg-[#fbd1a0]/25 blur-3xl" aria-hidden />
+      <div className="absolute right-[16%] top-4 h-24 w-24 rounded-full bg-[#e9e0fb]/35 blur-3xl" aria-hidden />
       <div className="relative h-20 w-[220px] sm:h-24 sm:w-[280px]">
-        <Image src={asset("/assets/logos/trinket-logo.png")} alt="TRinket logo" fill className="object-contain drop-shadow-[0_10px_16px_rgba(29,78,49,0.2)]" priority />
+        <Image src={asset("/assets/logos/trinket-logo.png")} alt="TRinket logo" fill className="object-contain drop-shadow-[0_20px_34px_rgba(83,71,56,0.1)]" priority />
       </div>
-      <h1 className="bubble-heading mt-3 font-display text-[52px] font-bold leading-[0.95] sm:text-[72px] lg:text-[102px] xl:text-[116px]">
+      <h1 className="mt-6 font-display text-[52px] font-extrabold leading-[0.94] text-foreground sm:text-[72px] lg:text-[96px]">
         TRinket
       </h1>
-      <p className="mt-5 text-[15px] font-semibold uppercase tracking-[0.24em] text-[#3f6a50] sm:text-lg">Collector Guide</p>
-      <p className="mt-4 max-w-xl text-sm text-[#44664d] sm:text-base">Choose your collectible world.</p>
+      <p className="mt-4 text-sm font-semibold uppercase tracking-[0.28em] text-muted-foreground sm:text-base">Collector Guide</p>
+      <p className="mt-5 max-w-xl text-base leading-7 text-muted-foreground">Choose your collectible world.</p>
     </section>
   );
 }

@@ -52,11 +52,11 @@ export function ItemImageFallback({
         height={fill ? undefined : height}
         sizes={sizes}
         priority={priority}
-        className={`${className ?? ""} ${isFallback ? "object-contain rounded-[20px] bg-[linear-gradient(180deg,#fef8ee_0%,#eaf4e3_100%)] p-5 shadow-[inset_0_1px_0_rgba(255,255,255,0.7),0_8px_18px_rgba(53,95,68,0.12)]" : ""}`.trim()}
+        className={`${className ?? ""} ${isFallback ? "object-contain rounded-[24px] bg-[linear-gradient(180deg,#fffaf2_0%,#f7f0e7_100%)] p-6 shadow-[inset_0_1px_0_rgba(255,255,255,0.8),0_10px_24px_rgba(83,71,56,0.08)]" : ""}`.trim()}
         onError={() => setCurrentSrc(fallbackItemImage)}
       />
       {isFallback && showComingSoon ? (
-        <span className="pointer-events-none absolute bottom-2 left-1/2 -translate-x-1/2 rounded-full bg-white/80 px-2 py-1 text-[10px] font-semibold text-[#3a6045] shadow-sm">
+        <span className="pointer-events-none absolute bottom-3 left-1/2 -translate-x-1/2 rounded-full border border-border/70 bg-white/90 px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.18em] text-muted-foreground shadow-[var(--shadow-soft)]">
           Image coming soon
         </span>
       ) : null}

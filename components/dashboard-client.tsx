@@ -71,10 +71,10 @@ export function DashboardClient({ data }: { data: DashboardData }) {
   );
 
   return (
-    <div className="space-y-7">
+    <div className="space-y-8">
       <WorldHero worldSlug={data.universe.slug} title={data.universe.name} description={data.universe.description} />
 
-      <section className="sticker-card rounded-[30px] p-4 md:p-5">
+      <section className="surface-card rounded-[32px] p-4 md:p-5">
         <div className="flex flex-col gap-3 xl:flex-row xl:items-center xl:justify-between">
           <div className="flex flex-wrap items-center gap-2">
             <ReleaseSwitcher universeSlug={data.universe.slug} releases={data.universe.releases} currentRelease={currentRelease} />
@@ -85,11 +85,11 @@ export function DashboardClient({ data }: { data: DashboardData }) {
           </div>
           <div className="flex flex-col gap-3 sm:flex-row sm:items-center">
             <SearchBox items={data.items} />
-            <div className="inline-flex rounded-full border border-white/70 bg-white/80 p-1 shadow-sm">
+            <div className="inline-flex rounded-full border border-border bg-white/90 p-1 shadow-[var(--shadow-soft)]">
               <button
                 type="button"
                 aria-label="Grid view"
-                className={`rounded-full p-2 ${layout === "grid" ? "bg-primary text-primary-foreground" : ""}`}
+                className={`rounded-full p-2 ${layout === "grid" ? "bg-primary text-primary-foreground" : "text-muted-foreground"}`}
                 onClick={() => setLayout("grid")}
               >
                 <LayoutGrid className="h-4 w-4" />
@@ -97,7 +97,7 @@ export function DashboardClient({ data }: { data: DashboardData }) {
               <button
                 type="button"
                 aria-label="List view"
-                className={`rounded-full p-2 ${layout === "list" ? "bg-primary text-primary-foreground" : ""}`}
+                className={`rounded-full p-2 ${layout === "list" ? "bg-primary text-primary-foreground" : "text-muted-foreground"}`}
                 onClick={() => setLayout("list")}
               >
                 <Rows3 className="h-4 w-4" />
@@ -110,7 +110,7 @@ export function DashboardClient({ data }: { data: DashboardData }) {
       <CollectorRankCard />
 
       <Tabs defaultValue="trending" className="space-y-5">
-        <TabsList className="bg-white/80">
+        <TabsList className="bg-white/90">
           <TabsTrigger value="trending">Trending</TabsTrigger>
           <TabsTrigger value="movers">Movers</TabsTrigger>
           <TabsTrigger value="new">New</TabsTrigger>
@@ -124,10 +124,10 @@ export function DashboardClient({ data }: { data: DashboardData }) {
           <CategoryHeader title="Biggest movers" subtitle="Seven-day price shifts worth watching." />
           <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-4">
             {movers.map((item) => (
-              <div key={item.id} className="sticker-card rounded-[24px] p-4">
-                <p className="font-display text-xl font-semibold">{item.name}</p>
+              <div key={item.id} className="surface-card rounded-[24px] p-4">
+                <p className="font-display text-xl font-bold">{item.name}</p>
                 <p className="mt-1 text-xs uppercase tracking-[0.16em] text-muted-foreground">{item.release.name}</p>
-                <p className="mt-3 inline-flex rounded-full bg-primary/10 px-3 py-1 text-sm font-semibold text-primary">
+                <p className="mt-3 inline-flex rounded-full bg-[#fff0e0] px-3 py-1 text-sm font-semibold text-[#9c6b37]">
                   {formatPercent(item.metrics.sevenDayChange)}
                 </p>
               </div>
@@ -143,7 +143,7 @@ export function DashboardClient({ data }: { data: DashboardData }) {
           {filteredItems.length ? (
             <MarketGrid items={filteredItems} layout={layout} />
           ) : (
-            <div className="sticker-card rounded-[26px] p-8 text-center">
+            <div className="surface-card rounded-[26px] p-8 text-center">
               <p className="font-display text-2xl font-semibold">No matches in this shelf right now.</p>
               <p className="mt-2 text-muted-foreground">Adjust one filter and try again.</p>
             </div>

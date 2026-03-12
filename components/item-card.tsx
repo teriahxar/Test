@@ -19,16 +19,16 @@ export function ItemCard({ item, compact = false }: { item: DashboardItem; compa
   const isSaved = watchlist.some((entry) => entry.slug === item.slug);
   const TrendIcon = item.metrics.sevenDayChange >= 0 ? TrendingUp : TrendingDown;
   return (
-    <article className="sticker-card group overflow-hidden rounded-[30px] p-5 transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_18px_30px_rgba(35,73,53,0.14)]">
-      <Link href={universeItemHref(item.release.universe.slug, item.slug)} className="block overflow-hidden rounded-[20px] border border-white/60 bg-white/85">
-        <div className={`relative w-full ${compact ? "h-40" : "h-52"}`}>
-          <ItemImageFallback src={item.imageUrl} alt={item.name} fill showComingSoon className="object-cover transition-transform duration-500 group-hover:scale-105" />
+    <article className="surface-card group overflow-hidden rounded-[30px] p-5 transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_24px_40px_rgba(83,71,56,0.12)]">
+      <Link href={universeItemHref(item.release.universe.slug, item.slug)} className="block overflow-hidden rounded-[24px] border border-border/70 bg-[#fffaf5]">
+        <div className={`relative w-full ${compact ? "h-40" : "h-56"}`}>
+          <ItemImageFallback src={item.imageUrl} alt={item.name} fill showComingSoon className="object-cover transition-transform duration-500 group-hover:scale-[1.03]" />
         </div>
       </Link>
       <div className="mt-4 space-y-3.5">
         <div className="flex items-start justify-between gap-3">
           <div>
-            <p className="font-display text-xl font-semibold leading-tight">{item.name}</p>
+            <p className="font-display text-xl font-bold leading-tight">{item.name}</p>
             <p className="mt-1 text-sm text-muted-foreground">{item.release.name}</p>
           </div>
           <RarityBadge rarity={item.rarity} />
@@ -38,7 +38,7 @@ export function ItemCard({ item, compact = false }: { item: DashboardItem; compa
           <ValuePill value={item.metrics.estimatedValue} confidence={item.metrics.confidence} />
           <span
             className={`inline-flex items-center gap-1 rounded-full px-2.5 py-1 text-xs font-semibold ${
-              item.metrics.sevenDayChange >= 0 ? "bg-[#deefd7] text-[#2f6b46]" : "bg-[#f7e9d7] text-[#7c5f36]"
+              item.metrics.sevenDayChange >= 0 ? "bg-[#edf5ef] text-[#5f7a68]" : "bg-[#fff1e3] text-[#9a6e47]"
             }`}
           >
             <TrendIcon className="h-3.5 w-3.5" />
@@ -47,7 +47,7 @@ export function ItemCard({ item, compact = false }: { item: DashboardItem; compa
         </div>
 
         <div className="flex items-center justify-between">
-          <p className="text-xs font-semibold uppercase tracking-[0.16em] text-muted-foreground">Saved value</p>
+          <p className="text-xs font-semibold uppercase tracking-[0.16em] text-muted-foreground">Estimated value</p>
           <WatchlistButton
             saved={isSaved}
             onClick={() => {

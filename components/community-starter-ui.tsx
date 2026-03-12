@@ -13,22 +13,22 @@ export function CommunityStarterUi() {
 
   return (
     <div className="space-y-6">
-      <section className="sticker-card rounded-[34px] p-6">
-        <p className="text-xs uppercase tracking-[0.24em] text-muted-foreground">Collector Circle</p>
-        <h2 className="mt-2 font-display text-3xl font-semibold">Profile and Charms</h2>
-        <p className="mt-2 text-sm text-muted-foreground">A starter home for identity, badges, and collector cosmetics.</p>
+      <section className="surface-card rounded-[34px] p-6">
+        <p className="section-label">Profile</p>
+        <h2 className="mt-4 font-display text-3xl font-semibold">Profile, collector rank, and charms</h2>
+        <p className="mt-2 text-sm text-muted-foreground">A polished starter layer for identity, badges, and profile enhancements that can expand over time.</p>
         <div className="mt-4 grid gap-4 md:grid-cols-2">
-          <div className="rounded-[24px] border border-white/65 bg-white/75 p-4">
+          <div className="rounded-[24px] border border-border/70 bg-white/86 p-4">
             <p className="font-semibold">@{profile.username}</p>
             <p className="mt-1 font-display text-2xl">{profile.displayName}</p>
             <p className="mt-2 text-sm text-muted-foreground">{profile.bio}</p>
             <p className="mt-3 text-xs text-muted-foreground">Frame: {profile.profileFrame} · Shelf: {profile.shelfBackground}</p>
           </div>
-          <div className="rounded-[24px] border border-white/65 bg-white/75 p-4">
+          <div className="rounded-[24px] border border-border/70 bg-white/86 p-4">
             <p className="text-sm text-muted-foreground">Charms</p>
             <div className="mt-2 flex flex-wrap gap-2">
               {profile.charms.map((charm) => (
-                <span key={charm} className="rounded-full bg-white px-3 py-1 text-xs font-semibold">
+                <span key={charm} className="rounded-full bg-[#fff8f0] px-3 py-1 text-xs font-semibold">
                   {charm}
                 </span>
               ))}
@@ -36,7 +36,7 @@ export function CommunityStarterUi() {
             <p className="mt-4 text-sm text-muted-foreground">Badges</p>
             <div className="mt-2 flex flex-wrap gap-2">
               {profile.badges.map((badge) => (
-                <span key={badge} className="rounded-full bg-primary/10 px-3 py-1 text-xs font-semibold text-primary">
+                <span key={badge} className="rounded-full bg-[#fff0e0] px-3 py-1 text-xs font-semibold text-[#8a5d32]">
                   {badge}
                 </span>
               ))}
@@ -49,8 +49,8 @@ export function CommunityStarterUi() {
         <MyShelfSummary />
         <div className="space-y-6">
           <CollectorRankCard />
-          <section className="sticker-card rounded-[30px] p-5">
-            <p className="text-xs uppercase tracking-[0.22em] text-muted-foreground">XP Actions</p>
+          <section className="surface-card rounded-[30px] p-5">
+            <p className="section-label">Collector activity</p>
             <div className="mt-4 grid gap-2">
               <Button variant="secondary" onClick={() => earnXp(15)}>
                 <Sparkles className="h-4 w-4" />

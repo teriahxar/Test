@@ -18,7 +18,7 @@ export function WatchlistClient() {
 
   if (!items.length) {
     return (
-      <div className="sticker-card rounded-[30px] p-10 text-center">
+      <div className="surface-card rounded-[30px] p-10 text-center">
         <p className="font-display text-2xl font-semibold">Your watchlist is empty right now.</p>
         <p className="mt-2 text-muted-foreground">Save a collectible from any world to keep tabs on it here.</p>
       </div>
@@ -28,9 +28,9 @@ export function WatchlistClient() {
   return (
     <div className="space-y-4">
       {items.map((item) => (
-        <div key={item.slug} className="sticker-card grid gap-4 rounded-[30px] p-5 lg:grid-cols-[1.5fr_0.7fr_1fr_auto]">
+        <div key={item.slug} className="surface-card grid gap-4 rounded-[30px] p-5 lg:grid-cols-[1.5fr_0.7fr_1fr_auto]">
           <Link href={universeItemHref(item.universeSlug, item.slug)} className="flex items-center gap-4">
-            <div className="relative h-24 w-24 overflow-hidden rounded-[20px] bg-white/70">
+            <div className="relative h-24 w-24 overflow-hidden rounded-[20px] border border-border/60 bg-white/80">
               <ItemImageFallback src={item.imageUrl} alt={item.name} fill className="object-cover" />
             </div>
             <div>
@@ -55,7 +55,7 @@ export function WatchlistClient() {
               aria-label={`Alert below value for ${item.name}`}
               placeholder="Alert below"
               defaultValue={item.alert.below?.toString() ?? ""}
-              className="h-11 bg-white/80"
+              className="h-11 bg-white/90"
               onBlur={(event) =>
                 updateAlert(item.slug, {
                   ...item.alert,
@@ -67,7 +67,7 @@ export function WatchlistClient() {
               aria-label={`Alert above value for ${item.name}`}
               placeholder="Alert above"
               defaultValue={item.alert.above?.toString() ?? ""}
-              className="h-11 bg-white/80"
+              className="h-11 bg-white/90"
               onBlur={(event) =>
                 updateAlert(item.slug, {
                   ...item.alert,

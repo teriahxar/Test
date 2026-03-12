@@ -1,10 +1,10 @@
-import { Sparkles } from "lucide-react";
-import { BackgroundScene } from "@/components/background-scene";
+import { ArrowRight, Sparkles, Star } from "lucide-react";
 import { LandingHero } from "@/components/landing-hero";
 import { LandingIntroGate } from "@/components/landing-intro-gate";
 import { LogoMark } from "@/components/logo-mark";
 import { PortalWorldCard } from "@/components/portal-world-card";
 import { ThemeSetter } from "@/components/theme-setter";
+import { Button } from "@/components/ui/button";
 import { WorldLink } from "@/components/world-link";
 import { getTrending } from "@/lib/queries";
 import { universeItemHref } from "@/lib/routing";
@@ -15,25 +15,22 @@ const WORLDS = [
     href: "/popmart",
     logoSrc: asset("/assets/logos/popmart-logo.png"),
     title: "PopMart World",
-    description: "Cute pulls, blind boxes, and collectibles people really want.",
-    cardClass:
-      "bg-[linear-gradient(165deg,rgba(250,255,245,0.98)_0%,rgba(244,252,236,0.98)_58%,rgba(255,248,238,0.98)_100%)]"
+    description: "Blind boxes, fan-favorite releases, and the figures collectors check most often.",
+    cardClass: "bg-[linear-gradient(180deg,rgba(255,248,247,0.92)_0%,rgba(255,255,255,0.92)_100%)]"
   },
   {
     href: "/calico",
     logoSrc: asset("/assets/logos/calico-critters-logo.png"),
     title: "Calico Critters Meadow",
-    description: "Tiny cozy worlds, soft cottagecore sets, and collectible comfort.",
-    cardClass:
-      "bg-[linear-gradient(165deg,rgba(247,253,238,0.98)_0%,rgba(255,248,238,0.98)_60%,rgba(241,249,232,0.98)_100%)]"
+    description: "Warm miniature sets, soft cottage shelves, and calm price reference browsing.",
+    cardClass: "bg-[linear-gradient(180deg,rgba(250,246,239,0.94)_0%,rgba(255,255,255,0.92)_100%)]"
   },
   {
     href: "/pop",
     logoSrc: asset("/assets/logos/funko-pop-logo.png"),
     title: "POP! World",
-    description: "Iconic pops, fun finds, and collectibles worth keeping tabs on.",
-    cardClass:
-      "bg-[linear-gradient(165deg,rgba(246,253,242,0.98)_0%,rgba(255,248,236,0.98)_58%,rgba(239,248,232,0.98)_100%)]"
+    description: "Iconic POP! releases, familiar franchises, and fast shelf tracking for collectors.",
+    cardClass: "bg-[linear-gradient(180deg,rgba(245,249,253,0.94)_0%,rgba(255,255,255,0.92)_100%)]"
   }
 ] as const;
 
@@ -41,23 +38,61 @@ export default async function HomePage() {
   const trending = await getTrending();
 
   return (
-    <main className="relative min-h-screen overflow-hidden px-4 py-6 md:px-8 md:py-8">
+    <main className="page-shell relative min-h-screen overflow-hidden px-4 py-6 md:px-8 md:py-8">
       <ThemeSetter universe="neutral" />
       <LandingIntroGate />
-      <BackgroundScene />
-      <div className="relative z-10 mx-auto flex min-h-screen w-full max-w-6xl flex-col">
+      <div className="page-content relative mx-auto flex min-h-screen w-full max-w-6xl flex-col">
         <header className="flex items-start justify-start pt-2">
           <WorldLink href="/" className="inline-flex">
-            <LogoMark compact className="drop-shadow-[0_8px_16px_rgba(31,78,51,0.16)]" />
+            <LogoMark compact className="drop-shadow-[0_14px_24px_rgba(83,71,56,0.08)]" />
           </WorldLink>
         </header>
 
         <div className="flex-1">
-          <div className="flex min-h-[38vh] items-end justify-center pt-6 sm:min-h-[40vh]">
+          <section className="surface-card relative mt-6 overflow-hidden rounded-[40px] px-6 py-10 sm:px-10 sm:py-14">
+            <div className="absolute inset-x-0 top-0 h-full bg-[radial-gradient(circle_at_top,rgba(251,209,160,0.16),transparent_42%)]" aria-hidden />
             <LandingHero />
-          </div>
+            <div className="mt-10 flex justify-center">
+              <Button asChild size="lg">
+                <WorldLink href="/popmart">
+                  Explore collectibles
+                  <ArrowRight className="h-4 w-4" />
+                </WorldLink>
+              </Button>
+            </div>
+          </section>
+
+          <section className="mt-8 grid gap-5 lg:grid-cols-[1.2fr_0.8fr]">
+            <div className="surface-card rounded-[32px] p-6 sm:p-8">
+              <p className="section-label">
+                <Sparkles className="h-3.5 w-3.5" />
+                Brand statement
+              </p>
+              <h2 className="mt-5 font-display text-3xl font-bold text-foreground sm:text-4xl">
+                The clear collector reference for the pieces you actually track.
+              </h2>
+              <p className="mt-4 max-w-2xl text-base leading-7 text-muted-foreground">
+                TRinket brings pricing, release context, save tools, and profile tracking into one calm place so browsing feels easy on every screen.
+              </p>
+            </div>
+            <div className="surface-subtle rounded-[32px] p-6 sm:p-8">
+              <p className="section-label">
+                <Star className="h-3.5 w-3.5" />
+                Why people use TRinket
+              </p>
+              <div className="mt-5 grid gap-3 text-sm text-muted-foreground">
+                <div className="rounded-[22px] bg-white/72 px-4 py-4">Check values without digging through noisy marketplaces.</div>
+                <div className="rounded-[22px] bg-white/72 px-4 py-4">Save owned, wanted, sold, and dream items in one shelf.</div>
+                <div className="rounded-[22px] bg-white/72 px-4 py-4">Return for watchlists, alerts, and future TRinket Club insights.</div>
+              </div>
+            </div>
+          </section>
 
           <section className="mx-auto mt-8 w-full max-w-6xl">
+            <div className="mb-5">
+              <p className="section-label">World selection</p>
+              <h2 className="mt-4 font-display text-3xl font-bold text-foreground">Choose your collectible world</h2>
+            </div>
             <div className="grid gap-5 md:grid-cols-2 xl:grid-cols-3">
               {WORLDS.map((world) => (
                 <PortalWorldCard
@@ -72,20 +107,20 @@ export default async function HomePage() {
             </div>
           </section>
 
-          <section className="mx-auto mt-7 w-full max-w-4xl rounded-[24px] border border-[#2b5f41]/10 bg-white/76 p-4 backdrop-blur">
-            <p className="inline-flex items-center gap-2 rounded-full bg-[#edf8e6] px-3 py-1 text-xs font-semibold uppercase tracking-[0.18em] text-[#29543c]">
+          <section className="surface-card mx-auto mt-8 w-full max-w-6xl rounded-[32px] p-6 sm:p-8">
+            <p className="section-label">
               <Sparkles className="h-3.5 w-3.5" />
               Trending picks
             </p>
-            <div className="mt-3 grid gap-3 sm:grid-cols-3">
+            <div className="mt-5 grid gap-4 sm:grid-cols-3">
               {trending.slice(0, 3).map((item) => (
                 <WorldLink
                   key={item.slug}
                   href={universeItemHref(item.release.universe.slug, item.slug)}
-                  className="rounded-2xl border border-[#2b5f41]/12 bg-white/90 px-4 py-3 text-left transition hover:-translate-y-0.5 hover:shadow-sm"
+                  className="rounded-[24px] border border-border bg-white/92 px-5 py-5 text-left transition hover:-translate-y-0.5 hover:shadow-[var(--shadow-soft)]"
                 >
-                  <p className="font-display text-xl font-semibold text-[#234f36]">{item.name}</p>
-                  <p className="text-xs font-semibold uppercase tracking-[0.14em] text-[#4a7157]">{item.release.name}</p>
+                  <p className="font-display text-xl font-bold text-foreground">{item.name}</p>
+                  <p className="mt-1 text-xs font-semibold uppercase tracking-[0.14em] text-muted-foreground">{item.release.name}</p>
                 </WorldLink>
               ))}
             </div>

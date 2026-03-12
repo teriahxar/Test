@@ -33,10 +33,10 @@ export function SearchBox({ items }: { items: DashboardItem[] }) {
         placeholder="Search a figure, set, or vibe"
         value={query}
         onChange={(event) => setQuery(event.target.value)}
-        className="h-12 rounded-full border-white/60 bg-white/80 pl-11"
+        className="h-12 rounded-full border-border bg-white/92 pl-11"
       />
       {open && suggestions.length ? (
-        <div className="absolute top-[calc(100%+0.5rem)] z-40 w-full rounded-[28px] border border-white/60 bg-card/95 p-2 shadow-vault backdrop-blur-xl">
+        <div className="absolute top-[calc(100%+0.5rem)] z-40 w-full rounded-[28px] border border-border bg-card/95 p-2 shadow-[var(--shadow-card)] backdrop-blur-xl">
           {suggestions.map((item) => (
             <Link
               key={item.id}
@@ -44,7 +44,7 @@ export function SearchBox({ items }: { items: DashboardItem[] }) {
               className="flex items-center gap-3 rounded-[18px] px-3 py-2 hover:bg-muted"
               onClick={() => setQuery("")}
             >
-              <div className="relative h-12 w-12 overflow-hidden rounded-[16px] bg-white/75">
+              <div className="relative h-12 w-12 overflow-hidden rounded-[16px] border border-border/60 bg-white/88">
                 <ItemImageFallback src={item.imageUrl} alt={item.name} fill className="object-cover" />
               </div>
               <div className="min-w-0">

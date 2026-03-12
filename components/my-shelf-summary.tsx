@@ -39,9 +39,9 @@ export function MyShelfSummary() {
   }, [entries, profile.dreamItems.length, watchlist.length]);
 
   return (
-    <section className="sticker-card rounded-[34px] p-6">
-      <p className="text-xs uppercase tracking-[0.22em] text-muted-foreground">My Shelf</p>
-      <h2 className="mt-2 font-display text-3xl font-semibold">Collection Snapshot</h2>
+    <section className="surface-card rounded-[34px] p-6">
+      <p className="section-label">My Shelf</p>
+      <h2 className="mt-4 font-display text-3xl font-semibold">Collection snapshot</h2>
       <div className="mt-4 grid gap-3 sm:grid-cols-2 xl:grid-cols-4">
         <StatChip label="Owned" value={`${summary.owned}`} />
         <StatChip label="Wanted" value={`${summary.wanted}`} />
@@ -49,17 +49,17 @@ export function MyShelfSummary() {
         <StatChip label="Dream" value={`${summary.dream}`} />
       </div>
       <div className="mt-5 grid gap-4 md:grid-cols-2">
-        <div className="rounded-[24px] border border-white/65 bg-white/75 p-4">
+        <div className="rounded-[24px] border border-border/70 bg-white/86 p-4">
           <p className="text-sm text-muted-foreground">Estimated collection value</p>
           <p className="mt-2 font-display text-3xl font-semibold">{formatCurrency(summary.estimatedValue)}</p>
           <p className="mt-2 text-sm text-muted-foreground">Favorite universe: {summary.favoriteUniverse}</p>
         </div>
-        <div className="rounded-[24px] border border-white/65 bg-white/75 p-4">
+        <div className="rounded-[24px] border border-border/70 bg-white/86 p-4">
           <p className="text-sm text-muted-foreground">Collector activity</p>
           <div className="mt-3 space-y-2 text-sm">
-            <p className="rounded-full bg-white/70 px-3 py-1.5">{summary.watchlist} items in watchlist</p>
-            <p className="rounded-full bg-white/70 px-3 py-1.5">{summary.owned + summary.wanted} shelf updates this season</p>
-            <p className="rounded-full bg-white/70 px-3 py-1.5">{summary.dream} dream targets active</p>
+            <p className="rounded-full bg-[#fff8f0] px-3 py-1.5">{summary.watchlist} items in watchlist</p>
+            <p className="rounded-full bg-[#fff8f0] px-3 py-1.5">{summary.owned + summary.wanted} shelf updates this season</p>
+            <p className="rounded-full bg-[#fff8f0] px-3 py-1.5">{summary.dream} dream targets active</p>
           </div>
         </div>
       </div>
@@ -69,7 +69,7 @@ export function MyShelfSummary() {
 
 function StatChip({ label, value }: { label: string; value: string }) {
   return (
-    <div className="rounded-[20px] border border-white/65 bg-white/75 px-4 py-3">
+    <div className="rounded-[20px] border border-border/70 bg-white/86 px-4 py-3">
       <p className="text-sm text-muted-foreground">{label}</p>
       <p className="mt-1 font-display text-2xl font-semibold">{value}</p>
     </div>

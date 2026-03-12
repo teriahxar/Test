@@ -1,13 +1,13 @@
 import type { Metadata } from "next";
 import type { ReactNode } from "react";
-import { Baloo_2, Quicksand } from "next/font/google";
+import { Nunito, Quicksand } from "next/font/google";
 import "@/app/globals.css";
 import { Providers } from "@/components/providers";
 
-const baloo = Baloo_2({
+const nunito = Nunito({
   subsets: ["latin"],
   variable: "--font-display",
-  weight: ["400", "500", "600", "700"]
+  weight: ["500", "600", "700", "800"]
 });
 
 const quicksand = Quicksand({
@@ -18,12 +18,12 @@ const quicksand = Quicksand({
 
 export const metadata: Metadata = {
   title: "TRinket",
-  description: "Your cozy collectible guide for PopMart, Calico Critters, and POP! worlds."
+  description: "A polished collector guide for PopMart, Calico Critters, and POP! worlds."
 };
 
 export default function RootLayout({ children }: { children: ReactNode }) {
   return (
-    <html lang="en" className={`${baloo.variable} ${quicksand.variable}`}>
+    <html lang="en" className={`${nunito.variable} ${quicksand.variable}`}>
       <body className="font-body">
         <Providers>{children}</Providers>
       </body>

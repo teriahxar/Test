@@ -64,11 +64,11 @@ export async function ItemDetailPage({
         }}
       />
       <section className="grid gap-6 xl:grid-cols-[0.92fr_1.08fr]">
-        <div className="sticker-card overflow-hidden rounded-[36px] p-4">
-          <div className="relative h-[440px] overflow-hidden rounded-[28px] bg-white/70">
+        <div className="surface-card overflow-hidden rounded-[36px] p-4">
+          <div className="relative h-[440px] overflow-hidden rounded-[28px] border border-border/60 bg-white/84">
             <ItemImageFallback src={data.item.imageUrl} alt={data.item.name} fill className="object-cover" />
           </div>
-          <div className="mt-4 rounded-[22px] bg-white/70 p-4 text-sm text-muted-foreground">
+          <div className="mt-4 rounded-[22px] border border-border/60 bg-white/84 p-4 text-sm text-muted-foreground">
             <p>
               Image credit: <span className="font-semibold text-foreground">{data.item.imageCreditText}</span>
             </p>
@@ -81,22 +81,22 @@ export async function ItemDetailPage({
           </div>
         </div>
         <div className="space-y-5">
-          <div className="sticker-card rounded-[36px] p-6">
+          <div className="surface-card rounded-[36px] p-6">
             <div className="flex flex-wrap items-center gap-3">
               <RarityBadge rarity={data.item.rarity} />
               <MarketHeatBadge heat={data.item.metrics.marketHeat} />
               <p className="text-xs uppercase tracking-[0.22em] text-muted-foreground">{data.item.release.name}</p>
             </div>
-            <h1 className="mt-4 font-display text-4xl font-semibold md:text-5xl">{data.item.name}</h1>
+            <h1 className="mt-4 font-display text-4xl font-bold md:text-5xl">{data.item.name}</h1>
             <p className="mt-3 text-sm leading-6 text-muted-foreground">
               Released {new Date(data.item.releaseDate).toLocaleDateString("en-US", { month: "long", day: "numeric", year: "numeric" })}.
             </p>
             <div className="mt-5 flex flex-wrap items-center gap-3">
               <ValuePill value={data.item.metrics.estimatedValue} confidence={data.item.metrics.confidence} />
-              <span className="rounded-full bg-white/70 px-4 py-2 text-sm font-semibold text-muted-foreground">
+              <span className="rounded-full border border-border/60 bg-white/84 px-4 py-2 text-sm font-semibold text-muted-foreground">
                 {formatPercent(data.item.metrics.sevenDayChange)} this week
               </span>
-              <span className="rounded-full bg-white/70 px-4 py-2 text-xs font-semibold text-muted-foreground">
+              <span className="rounded-full border border-border/60 bg-white/84 px-4 py-2 text-xs font-semibold text-muted-foreground">
                 last updated {new Date(data.item.metrics.lastUpdated).toLocaleString("en-US", { month: "short", day: "numeric", hour: "numeric", minute: "2-digit" })}
               </span>
             </div>
@@ -109,8 +109,8 @@ export async function ItemDetailPage({
               <ConfidenceMeter confidence={data.item.metrics.confidence} score={data.item.metrics.confidenceScore} />
             </div>
             <div className="mt-4 flex flex-wrap items-center gap-2 text-xs text-muted-foreground">
-              <span className="rounded-full bg-white/70 px-3 py-1">source: {data.item.metrics.sourceLabels.join(" + ")}</span>
-              <span className="rounded-full bg-white/70 px-3 py-1">sample points: {data.item.metrics.samplePoints}</span>
+              <span className="rounded-full border border-border/60 bg-white/84 px-3 py-1">source: {data.item.metrics.sourceLabels.join(" + ")}</span>
+              <span className="rounded-full border border-border/60 bg-white/84 px-3 py-1">sample points: {data.item.metrics.samplePoints}</span>
             </div>
             <div className="mt-5">
               <CollectionStatusPicker item={data.item} />
@@ -121,14 +121,14 @@ export async function ItemDetailPage({
       </section>
 
       <section className="grid gap-6 xl:grid-cols-[1.1fr_0.9fr]">
-        <div className="sticker-card rounded-[34px] p-6">
-          <p className="text-xs uppercase tracking-[0.22em] text-muted-foreground">Price history</p>
-          <h2 className="mt-2 font-display text-2xl font-semibold">Market mood over time</h2>
+        <div className="surface-card rounded-[34px] p-6">
+          <p className="section-label">Price history</p>
+          <h2 className="mt-4 font-display text-2xl font-semibold">Market movement over time</h2>
           <PriceChart data={chartData} />
         </div>
         <div className="space-y-6">
-          <div className="sticker-card rounded-[34px] p-6">
-            <p className="text-xs uppercase tracking-[0.22em] text-muted-foreground">Recent sold summary</p>
+          <div className="surface-card rounded-[34px] p-6">
+            <p className="section-label">Sold summary</p>
             <div className="mt-5 grid gap-3">
               <SummaryRow label="Sample points" value={`${data.item.metrics.samplePoints}`} />
               <SummaryRow label="Volatility" value={`${Math.round(data.item.metrics.volatility * 100)}%`} />
@@ -136,9 +136,9 @@ export async function ItemDetailPage({
               <SummaryRow label="Active listings" value={`${data.item.listings.length}`} />
             </div>
           </div>
-          <div className="sticker-card rounded-[34px] p-6">
+          <div className="surface-card rounded-[34px] p-6">
             <details open>
-              <summary className="cursor-pointer text-xs uppercase tracking-[0.22em] text-muted-foreground">How we estimate value</summary>
+              <summary className="cursor-pointer text-sm font-semibold text-foreground">How TRinket estimates value</summary>
               <p className="mt-3 text-sm text-muted-foreground">
                 TRinket uses a weighted average of recent sold price points with condition adjustments (Mint, Excellent, Good, Fair). Confidence increases with more data points and lower volatility.
               </p>
@@ -147,12 +147,12 @@ export async function ItemDetailPage({
               </p>
             </details>
           </div>
-          <div className="sticker-card rounded-[34px] p-6">
-            <p className="text-xs uppercase tracking-[0.22em] text-muted-foreground">Buy links</p>
-            <h2 className="mt-2 font-display text-2xl font-semibold">Collector checkout paths</h2>
+          <div className="surface-card rounded-[34px] p-6">
+            <p className="section-label">Where to buy</p>
+            <h2 className="mt-4 font-display text-2xl font-semibold">Collector checkout paths</h2>
             <div className="mt-4 space-y-3">
               {buyLinks.map((link) => (
-                <div key={link.label} className="rounded-[20px] bg-white/72 px-4 py-3">
+                <div key={link.label} className="rounded-[20px] border border-border/60 bg-white/84 px-4 py-3">
                   {link.url === "#" ? (
                     <span className="font-semibold text-muted-foreground">{link.label} - {link.note}</span>
                   ) : (
@@ -166,12 +166,12 @@ export async function ItemDetailPage({
             </div>
           </div>
           {tips.length ? (
-            <div className="sticker-card rounded-[34px] p-6">
-              <p className="text-xs uppercase tracking-[0.22em] text-muted-foreground">Authenticity tips</p>
-              <h2 className="mt-2 font-display text-2xl font-semibold">Quick legit check</h2>
+            <div className="surface-card rounded-[34px] p-6">
+              <p className="section-label">Authenticity tips</p>
+              <h2 className="mt-4 font-display text-2xl font-semibold">Quick legit check</h2>
               <ul className="mt-4 space-y-3 text-sm text-muted-foreground">
                 {tips.map((tip) => (
-                  <li key={tip} className="rounded-[22px] bg-white/70 px-4 py-3">
+                  <li key={tip} className="rounded-[22px] border border-border/60 bg-white/84 px-4 py-3">
                     {tip}
                   </li>
                 ))}
@@ -183,8 +183,8 @@ export async function ItemDetailPage({
 
       <section className="grid gap-6 xl:grid-cols-[1.1fr_0.9fr]">
         <div>
-          <p className="text-xs uppercase tracking-[0.22em] text-muted-foreground">Active listings</p>
-          <h2 className="mt-2 font-display text-2xl font-semibold">Current asking prices</h2>
+          <p className="section-label">Active listings</p>
+          <h2 className="mt-4 font-display text-2xl font-semibold">Current asking prices</h2>
           <div className="mt-4">
             <ListingsTable listings={data.item.listings.slice(0, 12)} />
           </div>
@@ -194,8 +194,8 @@ export async function ItemDetailPage({
 
       <section className="space-y-4">
         <div>
-          <p className="text-xs uppercase tracking-[0.22em] text-muted-foreground">Similar items</p>
-          <h2 className="mt-2 font-display text-2xl font-semibold">Same shelf, different vibe</h2>
+          <p className="section-label">Similar items</p>
+          <h2 className="mt-4 font-display text-2xl font-semibold">Same shelf, different vibe</h2>
         </div>
         <div className="grid gap-5 md:grid-cols-2 xl:grid-cols-4">
           {data.similar.map((item) => (
@@ -223,7 +223,7 @@ export function getItemStaticParams(universeSlug?: string) {
 
 function Metric({ label, value }: { label: string; value: string }) {
   return (
-    <div className="rounded-[24px] border border-white/50 bg-white/75 p-4">
+    <div className="rounded-[24px] border border-border/60 bg-white/84 p-4">
       <p className="text-sm text-muted-foreground">{label}</p>
       <p className="mt-2 font-display text-2xl font-semibold">{value}</p>
     </div>
@@ -232,7 +232,7 @@ function Metric({ label, value }: { label: string; value: string }) {
 
 function SummaryRow({ label, value }: { label: string; value: string }) {
   return (
-    <div className="flex items-center justify-between rounded-[20px] bg-white/70 px-4 py-3">
+    <div className="flex items-center justify-between rounded-[20px] border border-border/60 bg-white/84 px-4 py-3">
       <span className="text-sm text-muted-foreground">{label}</span>
       <span className="font-semibold">{value}</span>
     </div>

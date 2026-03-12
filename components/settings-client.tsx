@@ -16,9 +16,10 @@ export function SettingsClient() {
 
   return (
     <div className="grid gap-6 xl:grid-cols-[1fr_0.8fr]">
-      <section className="sticker-card rounded-[32px] p-6">
-        <p className="font-display text-2xl font-semibold">Theme preview switcher</p>
-        <p className="mt-2 text-sm text-muted-foreground">Preview a universe pack on hover, then pin it if you want a permanent vibe.</p>
+      <section className="surface-card rounded-[32px] p-6">
+        <p className="section-label">Theme previews</p>
+        <p className="mt-4 font-display text-2xl font-semibold">Preview world accents</p>
+        <p className="mt-2 text-sm text-muted-foreground">Preview a universe pack on hover, then pin it if you want a preferred look during future visits.</p>
         <div className="mt-6 grid gap-4 md:grid-cols-3">
           {Object.values(THEME_PACKS).map((theme) => (
             <button
@@ -30,7 +31,7 @@ export function SettingsClient() {
               onBlur={() => previewTheme(undefined)}
               onClick={() => pinTheme(theme.universeSlug)}
               className={`rounded-[26px] border p-4 text-left transition-all ${
-                pinnedUniverse === theme.universeSlug ? "border-primary bg-primary/10" : "border-border bg-white/75"
+                pinnedUniverse === theme.universeSlug ? "border-primary bg-primary/10" : "border-border bg-white/90"
               }`}
             >
               <p className="text-xs uppercase tracking-[0.22em] text-muted-foreground">{theme.id}</p>
@@ -44,8 +45,9 @@ export function SettingsClient() {
           </SparkleButton>
         </div>
       </section>
-      <section className="sticker-card rounded-[32px] p-6">
-        <p className="font-display text-2xl font-semibold">Accessibility + extras</p>
+      <section className="surface-card rounded-[32px] p-6">
+        <p className="section-label">Accessibility</p>
+        <p className="mt-4 font-display text-2xl font-semibold">Calm browsing controls</p>
         <div className="mt-6 space-y-4">
           <ToggleRow
             label="Reduced motion"
@@ -77,7 +79,7 @@ function ToggleRow({
   onToggle: () => void;
 }) {
   return (
-    <div className="flex items-center justify-between rounded-[24px] bg-white/75 px-4 py-4">
+    <div className="flex items-center justify-between rounded-[24px] border border-border/70 bg-white/90 px-4 py-4">
       <div>
         <p className="font-semibold">{label}</p>
         <p className="text-sm text-muted-foreground">{description}</p>

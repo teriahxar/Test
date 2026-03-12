@@ -25,7 +25,7 @@ export function ReleaseSwitcher({
     <div className={`relative ${pending ? "opacity-70" : ""}`}>
       <select
         aria-label="Select release"
-        className="h-12 appearance-none rounded-full border border-white/60 bg-white/80 px-4 pr-10 text-sm font-semibold shadow-sm outline-none ring-0"
+        className="h-12 appearance-none rounded-full border border-border bg-white/92 px-4 pr-10 text-sm font-semibold shadow-[var(--shadow-soft)] outline-none ring-0"
         value={currentRelease ?? "all"}
         onChange={(event) => {
           const value = event.target.value;

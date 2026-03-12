@@ -30,7 +30,7 @@ export function CollectionClient() {
 
   if (!entries.length) {
     return (
-      <div className="sticker-card rounded-[30px] p-10 text-center">
+      <div className="surface-card rounded-[30px] p-10 text-center">
         <p className="font-display text-2xl font-semibold">Your shelf is ready for its first collectible.</p>
         <p className="mt-2 text-muted-foreground">Mark items as Owned, Want, or Sold from any item page.</p>
       </div>
@@ -52,7 +52,7 @@ export function CollectionClient() {
         </div>
         <div className="grid gap-4 md:grid-cols-3">
           {summary.topMovers.map((entry) => (
-            <div key={entry.slug} className="sticker-card rounded-[28px] p-5">
+            <div key={entry.slug} className="surface-card rounded-[28px] p-5">
               <p className="font-display text-xl font-semibold">{entry.name}</p>
               <p className="mt-2 text-sm text-muted-foreground">{entry.status}</p>
               <p className="mt-4 text-2xl font-semibold text-primary">{formatPercent(entry.change7d)}</p>
@@ -71,9 +71,9 @@ export function CollectionClient() {
             <Link
               key={entry.slug}
               href={entryUniverseMap.get(entry.slug) ? universeItemHref(entryUniverseMap.get(entry.slug)!, entry.slug) : "/"}
-              className="sticker-card grid gap-4 rounded-[30px] p-5 md:grid-cols-[auto_1fr_auto_auto] md:items-center"
+              className="surface-card grid gap-4 rounded-[30px] p-5 md:grid-cols-[auto_1fr_auto_auto] md:items-center"
             >
-              <div className="relative h-20 w-20 overflow-hidden rounded-[20px] bg-white/70">
+              <div className="relative h-20 w-20 overflow-hidden rounded-[20px] border border-border/60 bg-white/80">
                 <ItemImageFallback src={entry.imageUrl} alt={entry.name} fill className="object-cover" />
               </div>
               <div>
@@ -95,7 +95,7 @@ export function CollectionClient() {
 
 function SummaryCard({ label, value }: { label: string; value: string }) {
   return (
-    <div className="sticker-card rounded-[28px] p-5">
+    <div className="surface-card rounded-[28px] p-5">
       <p className="text-sm text-muted-foreground">{label}</p>
       <p className="mt-2 font-display text-3xl font-semibold">{value}</p>
     </div>
