@@ -12,7 +12,7 @@ export function ValuePill({
       <span className="font-display text-lg font-semibold">
         <ValueCounter value={value} />
       </span>
-      <span className="rounded-full bg-[#e8f8ff] px-3 py-1 text-xs font-semibold capitalize text-[#3d6f92]">
+      <span className="rounded-full bg-[#eaf6ff] px-3 py-1 text-xs font-semibold capitalize text-[#4f7eaa]">
         {confidence}
       </span>
     </div>

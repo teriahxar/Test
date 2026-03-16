@@ -30,10 +30,10 @@ export function SearchBox({ items }: { items: DashboardItem[] }) {
       <Search className="pointer-events-none absolute left-4 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
       <Input
         aria-label="Search collectibles"
-        placeholder="Search a figure, set, or vibe"
+        placeholder="Search collectibles, series, or brands..."
         value={query}
         onChange={(event) => setQuery(event.target.value)}
-        className="h-12 rounded-full border-border bg-white/92 pl-11"
+        className="h-12 rounded-full border-border bg-white/92 pl-11 shadow-[0_14px_32px_rgba(220,232,244,0.8)] focus-visible:ring-[#eaf6ff]"
       />
       {open && suggestions.length ? (
         <div className="absolute top-[calc(100%+0.5rem)] z-40 w-full rounded-[28px] border border-border bg-card/95 p-2 shadow-[var(--shadow-card)] backdrop-blur-xl">
@@ -41,7 +41,7 @@ export function SearchBox({ items }: { items: DashboardItem[] }) {
             <Link
               key={item.id}
               href={universeItemHref(item.release.universe.slug, item.slug)}
-              className="flex items-center gap-3 rounded-[18px] px-3 py-2 hover:bg-muted"
+              className="flex items-center gap-3 rounded-[18px] px-3 py-2 transition hover:bg-[#f7fbff]"
               onClick={() => setQuery("")}
             >
               <div className="relative h-12 w-12 overflow-hidden rounded-[16px] border border-border/60 bg-white/88">

@@ -20,7 +20,7 @@ export function PortalWorldCard({
   return (
     <article
       className={cn(
-        "group surface-card rounded-[32px] p-7 transition-all duration-300 hover:-translate-y-1.5 hover:shadow-[0_24px_44px_rgba(126,201,255,0.16)]",
+        "group surface-card rounded-[32px] p-7 transition-all duration-300 hover:-translate-y-1.5 hover:shadow-[0_24px_44px_rgba(220,232,244,0.9)]",
         className
       )}
     >

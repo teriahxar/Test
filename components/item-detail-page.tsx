@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
+import { Sparkles } from "lucide-react";
 import { AlertForm } from "@/components/alert-form";
 import { AttributionModal } from "@/components/attribution-modal";
 import { CollectionStatusPicker } from "@/components/collection-status-picker";
@@ -47,8 +48,10 @@ export async function ItemDetailPage({
   }));
   const tips = AUTHENTICITY_TIPS[data.item.release.slug] ?? [];
   const buyLinks = [
-    { label: "Official product page", url: data.item.officialProductPageUrl, note: "Direct brand reference link", affiliate: false },
-    { label: "Collector partner link", url: "#", note: "Affiliate-ready slot for future partner marketplaces", affiliate: true }
+    { label: "Buy on eBay", url: "#", note: "Affiliate-ready marketplace link slot", affiliate: true },
+    { label: "Buy on Mercari", url: "#", note: "Affiliate-ready marketplace link slot", affiliate: true },
+    { label: "Buy on StockX", url: "#", note: "Affiliate-ready marketplace link slot", affiliate: true },
+    { label: "Official product page", url: data.item.officialProductPageUrl, note: "Direct brand reference link", affiliate: false }
   ] as const;
 
   return (
@@ -122,7 +125,7 @@ export async function ItemDetailPage({
 
       <section className="grid gap-6 xl:grid-cols-[1.1fr_0.9fr]">
         <div className="surface-card rounded-[34px] p-6">
-          <p className="section-label">Price history</p>
+          <p className="section-label sparkle-accent">Price history</p>
           <h2 className="mt-4 font-display text-2xl font-semibold">Market movement over time</h2>
           <PriceChart data={chartData} />
         </div>
@@ -148,19 +151,31 @@ export async function ItemDetailPage({
             </details>
           </div>
           <div className="surface-card rounded-[34px] p-6">
-            <p className="section-label">Where to buy</p>
+            <p className="section-label sparkle-accent">Where to buy</p>
             <h2 className="mt-4 font-display text-2xl font-semibold">Collector checkout paths</h2>
             <div className="mt-4 space-y-3">
               {buyLinks.map((link) => (
                 <div key={link.label} className="rounded-[20px] border border-border/60 bg-white/84 px-4 py-3">
                   {link.url === "#" ? (
-                    <span className="font-semibold text-muted-foreground">{link.label} - {link.note}</span>
+                    <span className="font-semibold text-muted-foreground">{link.label}</span>
                   ) : (
                     <Link href={link.url} target="_blank" className="font-semibold text-primary underline-offset-4 hover:underline">
                       {link.label}
                     </Link>
                   )}
                   <p className="mt-1 text-xs text-muted-foreground">{link.affiliate ? "Affiliate-ready slot" : link.note}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+          <div className="surface-card rounded-[34px] p-6">
+            <p className="section-label sparkle-accent">TRinket Club</p>
+            <h2 className="mt-4 font-display text-2xl font-semibold">Premium collector tools</h2>
+            <div className="mt-4 grid gap-3">
+              {["Price alerts", "Collection value tracking", "Portfolio analytics", "Rare drop notifications"].map((feature) => (
+                <div key={feature} className="flex items-center gap-3 rounded-[20px] border border-border/60 bg-white/84 px-4 py-3">
+                  <Sparkles className="h-4 w-4 text-[#9ebbe3]" />
+                  <span className="text-sm font-medium text-foreground">{feature}</span>
                 </div>
               ))}
             </div>

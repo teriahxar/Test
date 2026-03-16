@@ -10,10 +10,10 @@ const WORLD_LOGO_MAP: Record<string, string> = {
 export function WorldHero({ worldSlug, title, description }: { worldSlug: string; title: string; description: string }) {
   const accent =
     worldSlug === "pop-mart"
-      ? "from-[#e8f8ff] via-white to-[#f7fafc]"
+      ? "from-[#eaf6ff] via-white to-[#f7fbff]"
       : worldSlug === "calico-critters"
-        ? "from-[#f2fff8] via-white to-[#f7fafc]"
-        : "from-[#f5f1ff] via-white to-[#f7fafc]";
+        ? "from-[#e8fff6] via-white to-[#f7fbff]"
+        : "from-[#eee9ff] via-white to-[#f7fbff]";
 
   return (
     <section className={`surface-card rounded-[36px] bg-gradient-to-br ${accent} p-6 md:p-8`}>
@@ -23,7 +23,7 @@ export function WorldHero({ worldSlug, title, description }: { worldSlug: string
             <Image src={WORLD_LOGO_MAP[worldSlug] ?? asset("/assets/logos/trinket-logo.png")} alt={`${title} logo`} fill className="object-contain drop-shadow-[0_14px_26px_rgba(126,201,255,0.14)]" />
           </div>
         </div>
-        <p className="section-label mt-5">Collector category</p>
+        <p className="section-label sparkle-accent mt-5">Collector category</p>
         <h1 className="mt-4 font-display text-4xl font-bold leading-tight text-foreground md:text-5xl">{title}</h1>
         <p className="mt-3 max-w-3xl text-sm leading-6 text-muted-foreground md:text-base">{description}</p>
       </div>
