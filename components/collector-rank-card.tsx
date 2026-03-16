@@ -15,15 +15,15 @@ export function CollectorRankCard() {
     <section className="surface-card rounded-[30px] p-5">
       <p className="section-label">Collector rank</p>
       <div className="mt-3 flex items-center gap-4">
-        <div className="relative h-16 w-16 overflow-hidden rounded-full border border-border bg-[#fff8f0]">
+        <div className="relative h-16 w-16 overflow-hidden rounded-full border border-border bg-[#f7fbff]">
           <Image src={withBasePath(profile.avatarPath)} alt={`${profile.displayName} avatar`} fill className="object-contain p-2" />
         </div>
         <div>
-          <p className="font-display text-2xl font-semibold">{rank.name}</p>
+          <p className="text-2xl font-semibold text-[#2F3A45]">{rank.name}</p>
           <p className="text-sm text-muted-foreground">{profile.xp} XP</p>
         </div>
       </div>
-      <div className="mt-4 h-3 w-full overflow-hidden rounded-full bg-[#f4ede4]">
+      <div className="mt-4 h-3 w-full overflow-hidden rounded-full bg-[#eef5fb]">
         <div
           className="h-full rounded-full bg-[linear-gradient(90deg,#7ec9ff_0%,#a8e6cf_52%,#d9c6ff_100%)] transition-all duration-500"
           style={{ width: `${progress}%` }}

@@ -19,7 +19,7 @@ export function WatchlistClient() {
   if (!items.length) {
     return (
       <div className="surface-card rounded-[30px] p-10 text-center">
-        <p className="font-display text-2xl font-semibold">Your watchlist is empty right now.</p>
+        <p className="text-2xl font-semibold text-[#2F3A45]">Your watchlist is empty right now.</p>
         <p className="mt-2 text-muted-foreground">Save a collectible from any world to keep tabs on it here.</p>
       </div>
     );
@@ -34,7 +34,7 @@ export function WatchlistClient() {
               <ItemImageFallback src={item.imageUrl} alt={item.name} fill className="object-cover" />
             </div>
             <div>
-              <p className="font-display text-xl font-semibold">{item.name}</p>
+              <p className="text-xl font-semibold text-[#2F3A45]">{item.name}</p>
               <p className="mt-1 text-sm text-muted-foreground">
                 {item.universeSlug} · {item.releaseSlug}
               </p>
@@ -47,7 +47,7 @@ export function WatchlistClient() {
             <SparklineMini data={item.sparkline} />
             <div>
               <p className="text-sm text-muted-foreground">Current estimate</p>
-              <p className="font-display text-2xl font-semibold">{formatCurrency(item.estimatedValue)}</p>
+              <p className="text-2xl font-semibold text-[#2F3A45]">{formatCurrency(item.estimatedValue)}</p>
             </div>
           </div>
           <div className="grid gap-2 md:grid-cols-2 lg:grid-cols-1">

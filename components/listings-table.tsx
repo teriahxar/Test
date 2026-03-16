@@ -14,7 +14,7 @@ export function ListingsTable({ listings }: { listings: DashboardItem["listings"
     <div className="overflow-hidden rounded-[30px] border border-border/70 bg-white/90 shadow-[var(--shadow-card)]">
       <div className="overflow-x-auto">
         <table className="w-full min-w-[720px] text-left text-sm">
-          <thead className="bg-[#fff8f0] text-muted-foreground">
+          <thead className="bg-[#f7fbff] text-muted-foreground">
             <tr>
               <th className="px-4 py-3 font-semibold">Marketplace</th>
               <th className="px-4 py-3 font-semibold">Price</th>

@@ -90,7 +90,7 @@ export async function ItemDetailPage({
               <MarketHeatBadge heat={data.item.metrics.marketHeat} />
               <p className="text-xs uppercase tracking-[0.22em] text-muted-foreground">{data.item.release.name}</p>
             </div>
-            <h1 className="mt-4 font-display text-4xl font-bold md:text-5xl">{data.item.name}</h1>
+            <h1 className="mt-4 text-4xl font-semibold text-[#2F3A45] md:text-5xl">{data.item.name}</h1>
             <p className="mt-3 text-sm leading-6 text-muted-foreground">
               Released {new Date(data.item.releaseDate).toLocaleDateString("en-US", { month: "long", day: "numeric", year: "numeric" })}.
             </p>
@@ -126,7 +126,7 @@ export async function ItemDetailPage({
       <section className="grid gap-6 xl:grid-cols-[1.1fr_0.9fr]">
         <div className="surface-card rounded-[34px] p-6">
           <p className="section-label sparkle-accent">Price history</p>
-          <h2 className="mt-4 font-display text-2xl font-semibold">Market movement over time</h2>
+          <h2 className="mt-4 text-2xl font-semibold text-[#2F3A45]">Market movement over time</h2>
           <PriceChart data={chartData} />
         </div>
         <div className="space-y-6">
@@ -152,7 +152,7 @@ export async function ItemDetailPage({
           </div>
           <div className="surface-card rounded-[34px] p-6">
             <p className="section-label sparkle-accent">Where to buy</p>
-            <h2 className="mt-4 font-display text-2xl font-semibold">Collector checkout paths</h2>
+            <h2 className="mt-4 text-2xl font-semibold text-[#2F3A45]">Collector checkout paths</h2>
             <div className="mt-4 space-y-3">
               {buyLinks.map((link) => (
                 <div key={link.label} className="rounded-[20px] border border-border/60 bg-white/84 px-4 py-3">
@@ -170,7 +170,7 @@ export async function ItemDetailPage({
           </div>
           <div className="surface-card rounded-[34px] p-6">
             <p className="section-label sparkle-accent">TRinket Club</p>
-            <h2 className="mt-4 font-display text-2xl font-semibold">Premium collector tools</h2>
+            <h2 className="mt-4 text-2xl font-semibold text-[#2F3A45]">Premium collector tools</h2>
             <div className="mt-4 grid gap-3">
               {["Price alerts", "Collection value tracking", "Portfolio analytics", "Rare drop notifications"].map((feature) => (
                 <div key={feature} className="flex items-center gap-3 rounded-[20px] border border-border/60 bg-white/84 px-4 py-3">
@@ -183,7 +183,7 @@ export async function ItemDetailPage({
           {tips.length ? (
             <div className="surface-card rounded-[34px] p-6">
               <p className="section-label">Authenticity tips</p>
-              <h2 className="mt-4 font-display text-2xl font-semibold">Quick legit check</h2>
+              <h2 className="mt-4 text-2xl font-semibold text-[#2F3A45]">Quick legit check</h2>
               <ul className="mt-4 space-y-3 text-sm text-muted-foreground">
                 {tips.map((tip) => (
                   <li key={tip} className="rounded-[22px] border border-border/60 bg-white/84 px-4 py-3">
@@ -199,7 +199,7 @@ export async function ItemDetailPage({
       <section className="grid gap-6 xl:grid-cols-[1.1fr_0.9fr]">
         <div>
           <p className="section-label">Active listings</p>
-          <h2 className="mt-4 font-display text-2xl font-semibold">Current asking prices</h2>
+          <h2 className="mt-4 text-2xl font-semibold text-[#2F3A45]">Current asking prices</h2>
           <div className="mt-4">
             <ListingsTable listings={data.item.listings.slice(0, 12)} />
           </div>
@@ -210,7 +210,7 @@ export async function ItemDetailPage({
       <section className="space-y-4">
         <div>
           <p className="section-label">Similar items</p>
-          <h2 className="mt-4 font-display text-2xl font-semibold">Same shelf, different vibe</h2>
+          <h2 className="mt-4 text-2xl font-semibold text-[#2F3A45]">Same shelf, different vibe</h2>
         </div>
         <div className="grid gap-5 md:grid-cols-2 xl:grid-cols-4">
           {data.similar.map((item) => (
@@ -240,7 +240,7 @@ function Metric({ label, value }: { label: string; value: string }) {
   return (
     <div className="rounded-[24px] border border-border/60 bg-white/84 p-4">
       <p className="text-sm text-muted-foreground">{label}</p>
-      <p className="mt-2 font-display text-2xl font-semibold">{value}</p>
+      <p className="mt-2 text-2xl font-semibold text-[#2F3A45]">{value}</p>
     </div>
   );
 }

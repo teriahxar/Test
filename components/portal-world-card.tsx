@@ -29,7 +29,7 @@ export function PortalWorldCard({
           <Image src={withBasePath(logoSrc)} alt={`${title} logo`} fill className="object-contain drop-shadow-[0_14px_24px_rgba(126,201,255,0.12)]" />
         </div>
       </div>
-      <h3 className="mt-5 font-display text-3xl font-bold text-foreground">{title}</h3>
+      <h3 className="mt-5 text-2xl font-semibold text-[#2F3A45]">{title}</h3>
       <p className="mt-3 min-h-14 text-sm leading-6 text-muted-foreground">{description}</p>
       <Button asChild variant="primary" size="lg" className="mt-5 w-full">
         <WorldLink href={href}>

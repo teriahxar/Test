@@ -24,7 +24,7 @@ export function WorldHero({ worldSlug, title, description }: { worldSlug: string
           </div>
         </div>
         <p className="section-label sparkle-accent mt-5">Collector category</p>
-        <h1 className="mt-4 font-display text-4xl font-bold leading-tight text-foreground md:text-5xl">{title}</h1>
+        <h1 className="mt-4 text-4xl font-semibold leading-tight text-[#2F3A45] md:text-5xl">{title}</h1>
         <p className="mt-3 max-w-3xl text-sm leading-6 text-muted-foreground md:text-base">{description}</p>
       </div>
     </section>

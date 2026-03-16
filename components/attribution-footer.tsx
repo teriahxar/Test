@@ -4,14 +4,11 @@ import { AttributionFooterLink } from "@/components/attribution-footer-link";
 
 export function AttributionFooter() {
   return (
-    <footer className="mt-10 border-t border-white/30 bg-white/20 py-6 backdrop-blur-xl">
+    <footer className="mt-10 border-t border-border/70 bg-white/50 py-6 backdrop-blur-xl">
       <div className="container flex flex-col gap-4 text-sm text-muted-foreground md:flex-row md:items-center md:justify-between">
         <div>
-          <p className="font-semibold text-foreground">Image Attribution / Sources</p>
-          <p className="max-w-2xl text-sm">
-            TRinket uses local image files from this project and brand-safe fallback visuals when item photos are missing.
-            Official product pages are linked for source transparency and reference.
-          </p>
+          <p className="font-semibold text-foreground">TRinket</p>
+          <p className="max-w-2xl text-sm">Price tracking, saved shelves, and source references in one clean collectible space.</p>
         </div>
         <div className="flex flex-wrap gap-3">
           {IMAGE_ATTRIBUTION.map((source) => (

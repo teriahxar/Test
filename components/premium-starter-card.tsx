@@ -4,8 +4,8 @@ export function PremiumStarterCard() {
   return (
     <section className="surface-card rounded-[34px] p-6">
       <p className="section-label">TRinket Club</p>
-      <h2 className="mt-4 font-display text-3xl font-semibold">Premium features, introduced quietly</h2>
-      <p className="mt-2 text-sm text-muted-foreground">A tasteful membership layer for collectors who want deeper alerts, analytics, and profile polish without turning the core product into an upsell wall.</p>
+      <h2 className="mt-4 text-3xl font-semibold text-[#2F3A45]">Premium features, introduced quietly</h2>
+      <p className="mt-2 text-sm text-muted-foreground">A tasteful membership layer for deeper alerts, analytics, and collection value tracking.</p>
       <div className="mt-4 grid gap-3 md:grid-cols-2">
         <FeatureRow label="Advanced alert bundles" />
         <FeatureRow label="Deeper collection analytics" />

@@ -33,7 +33,7 @@ export function ItemCard({ item, compact = false }: { item: DashboardItem; compa
         <div className="flex items-start justify-between gap-3">
           <div>
             <div className="flex items-center gap-2">
-              <p className="font-display text-xl font-bold leading-tight">{item.name}</p>
+              <p className="text-xl font-semibold leading-tight text-[#2F3A45]">{item.name}</p>
               {isRare ? <Sparkles className="h-3.5 w-3.5 text-[#b6a7ef]" /> : null}
             </div>
             <p className="mt-1 text-sm text-muted-foreground">{item.release.name}</p>

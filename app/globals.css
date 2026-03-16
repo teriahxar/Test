@@ -71,7 +71,12 @@ h2,
 h3,
 h4,
 h5,
-h6,
+h6 {
+  font-family: var(--font-body), sans-serif;
+  color: #2f3a45;
+  letter-spacing: -0.03em;
+}
+
 .font-display {
   font-family: "The Seasons", "Cormorant Garamond", "Iowan Old Style", "Palatino Linotype", var(--font-display-inter), serif;
   color: #1f2933;

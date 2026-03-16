@@ -31,7 +31,7 @@ export function CollectionClient() {
   if (!entries.length) {
     return (
       <div className="surface-card rounded-[30px] p-10 text-center">
-        <p className="font-display text-2xl font-semibold">Your shelf is ready for its first collectible.</p>
+        <p className="text-2xl font-semibold text-[#2F3A45]">Your shelf is ready for its first collectible.</p>
         <p className="mt-2 text-muted-foreground">Mark items as Owned, Want, or Sold from any item page.</p>
       </div>
     );
@@ -48,12 +48,12 @@ export function CollectionClient() {
       <section className="space-y-4">
         <div>
           <p className="text-xs uppercase tracking-[0.24em] text-muted-foreground">Top movers</p>
-          <h2 className="mt-2 font-display text-2xl font-semibold">Most dramatic shifts in your collection</h2>
+          <h2 className="mt-2 text-2xl font-semibold text-[#2F3A45]">Most dramatic shifts in your collection</h2>
         </div>
         <div className="grid gap-4 md:grid-cols-3">
           {summary.topMovers.map((entry) => (
             <div key={entry.slug} className="surface-card rounded-[28px] p-5">
-              <p className="font-display text-xl font-semibold">{entry.name}</p>
+              <p className="text-xl font-semibold text-[#2F3A45]">{entry.name}</p>
               <p className="mt-2 text-sm text-muted-foreground">{entry.status}</p>
               <p className="mt-4 text-2xl font-semibold text-primary">{formatPercent(entry.change7d)}</p>
             </div>
@@ -64,7 +64,7 @@ export function CollectionClient() {
       <section className="space-y-4">
         <div>
           <p className="text-xs uppercase tracking-[0.24em] text-muted-foreground">All statuses</p>
-          <h2 className="mt-2 font-display text-2xl font-semibold">Owned, wanted, and sold pieces</h2>
+          <h2 className="mt-2 text-2xl font-semibold text-[#2F3A45]">Owned, wanted, sold, and dream pieces</h2>
         </div>
         <div className="space-y-4">
           {entries.map((entry) => (
@@ -77,12 +77,12 @@ export function CollectionClient() {
                 <ItemImageFallback src={entry.imageUrl} alt={entry.name} fill className="object-cover" />
               </div>
               <div>
-                <p className="font-display text-xl font-semibold">{entry.name}</p>
+                <p className="text-xl font-semibold text-[#2F3A45]">{entry.name}</p>
                 <p className="text-sm capitalize text-muted-foreground">{entry.status}</p>
               </div>
               <MarketHeatBadge heat={entry.heat} />
               <div className="text-right">
-                <p className="font-display text-xl font-semibold">{formatCurrency(entry.estimatedValue)}</p>
+                <p className="text-xl font-semibold text-[#2F3A45]">{formatCurrency(entry.estimatedValue)}</p>
                 <p className="text-sm text-muted-foreground">{formatPercent(entry.change7d)}</p>
               </div>
             </Link>
@@ -97,7 +97,7 @@ function SummaryCard({ label, value }: { label: string; value: string }) {
   return (
     <div className="surface-card rounded-[28px] p-5">
       <p className="text-sm text-muted-foreground">{label}</p>
-      <p className="mt-2 font-display text-3xl font-semibold">{value}</p>
+      <p className="mt-2 text-3xl font-semibold text-[#2F3A45]">{value}</p>
     </div>
   );
 }

@@ -39,6 +39,8 @@ const QUICK_LINKS = [
   { href: "/calico", label: "Calico Critters" }
 ] as const;
 
+const POPULAR_SEARCHES = ["Labubu", "Skullpanda", "Spider-Man Pop", "Sylvanian Families"] as const;
+
 export default async function HomePage() {
   const trending = await getTrending();
 
@@ -106,6 +108,25 @@ export default async function HomePage() {
               className={world.cardClass}
             />
           ))}
+        </div>
+      </section>
+
+      <section className="surface-subtle rounded-[32px] px-6 py-6 sm:px-8">
+        <div className="flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
+          <div>
+            <p className="section-label sparkle-accent">Popular searches</p>
+            <h2 className="mt-3 text-2xl font-semibold text-[#2F3A45]">Start from a collectible you already know</h2>
+          </div>
+          <div className="flex flex-wrap gap-3">
+            {POPULAR_SEARCHES.map((label) => (
+              <span
+                key={label}
+                className="rounded-full border border-border bg-white/70 px-4 py-2 text-sm font-medium text-[#5B6470] shadow-[var(--shadow-soft)]"
+              >
+                {label}
+              </span>
+            ))}
+          </div>
         </div>
       </section>
     </SiteShell>

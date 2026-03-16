@@ -15,12 +15,12 @@ export function CommunityStarterUi() {
     <div className="space-y-6">
       <section className="surface-card rounded-[34px] p-6">
         <p className="section-label">Profile</p>
-        <h2 className="mt-4 font-display text-3xl font-semibold">Profile, collector rank, and charms</h2>
+        <h2 className="mt-4 text-3xl font-semibold text-[#2F3A45]">Profile, collector rank, and charms</h2>
         <p className="mt-2 text-sm text-muted-foreground">A polished starter layer for identity, badges, and profile enhancements that can expand over time.</p>
         <div className="mt-4 grid gap-4 md:grid-cols-2">
           <div className="rounded-[24px] border border-border/70 bg-white/86 p-4">
             <p className="font-semibold">@{profile.username}</p>
-            <p className="mt-1 font-display text-2xl">{profile.displayName}</p>
+            <p className="mt-1 text-2xl font-semibold text-[#2F3A45]">{profile.displayName}</p>
             <p className="mt-2 text-sm text-muted-foreground">{profile.bio}</p>
             <p className="mt-3 text-xs text-muted-foreground">Frame: {profile.profileFrame} · Shelf: {profile.shelfBackground}</p>
           </div>
@@ -28,7 +28,7 @@ export function CommunityStarterUi() {
             <p className="text-sm text-muted-foreground">Charms</p>
             <div className="mt-2 flex flex-wrap gap-2">
               {profile.charms.map((charm) => (
-                <span key={charm} className="rounded-full bg-[#fff8f0] px-3 py-1 text-xs font-semibold">
+                <span key={charm} className="rounded-full bg-[#f2eeff] px-3 py-1 text-xs font-semibold text-[#5B6470]">
                   {charm}
                 </span>
               ))}
