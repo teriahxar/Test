@@ -4,11 +4,11 @@ import { AttributionFooterLink } from "@/components/attribution-footer-link";
 
 export function AttributionFooter() {
   return (
-    <footer className="mt-10 border-t border-border/70 bg-white/50 py-6 backdrop-blur-xl">
-      <div className="container flex flex-col gap-4 text-sm text-muted-foreground md:flex-row md:items-center md:justify-between">
+    <footer className="mt-14 border-t border-[#d6c9b5]/80 bg-[#faf7f2]/80 py-8">
+      <div className="container flex flex-col gap-5 text-sm text-[#5d554d] md:flex-row md:items-center md:justify-between">
         <div>
-          <p className="font-semibold text-foreground">TRinket</p>
-          <p className="max-w-2xl text-sm">Price tracking, saved shelves, and source references in one clean collectible space.</p>
+          <p className="font-display text-lg font-semibold text-[#2e2a26]">TRinket</p>
+          <p className="max-w-2xl">A warm collectible guide for browsing, saving, and checking what belongs on your shelf next.</p>
         </div>
         <div className="flex flex-wrap gap-3">
           {IMAGE_ATTRIBUTION.map((source) => (
@@ -16,7 +16,7 @@ export function AttributionFooter() {
               key={source.url}
               href={source.url}
               target="_blank"
-              className="rounded-full border border-border bg-card/70 px-4 py-2 text-foreground transition-colors hover:bg-card"
+              className="rounded-full border border-[#d6c9b5] bg-[#fffdf9] px-4 py-2 text-[#5d554d] transition hover:bg-[#fffaf4]"
             >
               {source.label}
             </Link>

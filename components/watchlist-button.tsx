@@ -11,7 +11,13 @@ export function WatchlistButton({
   onClick: () => void;
 }) {
   return (
-    <Button variant={saved ? "secondary" : "tertiary"} size="sm" className="h-9 px-3 text-xs" onClick={onClick} aria-label={saved ? "Remove from watchlist" : "Save to watchlist"}>
+    <Button
+      variant={saved ? "secondary" : "tertiary"}
+      size="sm"
+      className="h-9 px-3 text-xs font-semibold"
+      onClick={onClick}
+      aria-label={saved ? "Remove from watchlist" : "Save to watchlist"}
+    >
       <Heart className={`h-4 w-4 ${saved ? "fill-current" : ""}`} />
       {saved ? "Saved" : "Save"}
     </Button>

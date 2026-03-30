@@ -42,13 +42,13 @@ export type ReleaseThemeOverride = {
 
 export const ITEM_BACKGROUND_STYLES: Record<string, string> = {
   sparkleGradient:
-    "radial-gradient(circle at 18% 18%, rgba(234, 246, 255, 0.95), transparent 22%), radial-gradient(circle at 82% 12%, rgba(238, 233, 255, 0.62), transparent 18%), linear-gradient(180deg, rgba(255,255,255,0.99), rgba(247,251,255,0.98))",
+    "radial-gradient(circle at 18% 18%, rgba(232, 196, 186, 0.3), transparent 22%), radial-gradient(circle at 82% 12%, rgba(196, 206, 190, 0.24), transparent 18%), linear-gradient(180deg, rgba(255,251,246,0.99), rgba(250,247,242,0.98))",
   skyCandy:
-    "radial-gradient(circle at 14% 16%, rgba(234, 246, 255, 0.95), transparent 21%), radial-gradient(circle at 84% 12%, rgba(232, 255, 246, 0.72), transparent 18%), linear-gradient(180deg, rgba(247,251,255,0.99), rgba(255,255,255,0.97))",
+    "radial-gradient(circle at 14% 16%, rgba(196, 206, 190, 0.3), transparent 21%), radial-gradient(circle at 84% 12%, rgba(250, 247, 242, 0.8), transparent 18%), linear-gradient(180deg, rgba(255,251,246,0.99), rgba(250,247,242,0.97))",
   meadowGingham:
-    "radial-gradient(circle at 16% 18%, rgba(232, 255, 246, 0.82), transparent 21%), radial-gradient(circle at 80% 12%, rgba(234, 246, 255, 0.76), transparent 18%), linear-gradient(180deg, rgba(255,255,255,0.99), rgba(247,251,255,0.97))",
+    "radial-gradient(circle at 16% 18%, rgba(196, 206, 190, 0.26), transparent 21%), radial-gradient(circle at 80% 12%, rgba(214, 201, 181, 0.22), transparent 18%), linear-gradient(180deg, rgba(255,251,246,0.99), rgba(250,247,242,0.97))",
   forestPaper:
-    "radial-gradient(circle at 16% 18%, rgba(232, 255, 246, 0.78), transparent 21%), radial-gradient(circle at 82% 12%, rgba(238, 233, 255, 0.52), transparent 18%), linear-gradient(180deg, rgba(255,255,255,0.99), rgba(247,251,255,0.97))"
+    "radial-gradient(circle at 16% 18%, rgba(196, 206, 190, 0.28), transparent 21%), radial-gradient(circle at 82% 12%, rgba(232, 196, 186, 0.18), transparent 18%), linear-gradient(180deg, rgba(255,251,246,0.99), rgba(250,247,242,0.97))"
 };
 
 export const THEME_PACKS: Record<string, ThemePack> = {
@@ -255,33 +255,33 @@ export function getResolvedTheme(universeSlug: string, releaseSlug?: string) {
 
 export function buildThemeVariables(universeSlug: string, releaseSlug?: string, itemOverride?: { accent?: string; bgStyle?: string }) {
   const theme = getResolvedTheme(universeSlug, releaseSlug);
-  const brandAccent = "264 100% 96%";
-  const deepMoss = "210 24% 16%";
+  const brandAccent = "14 51% 82%";
+  const deepMoss = "24 10% 16%";
   const unifiedBackgroundStyle =
-    "radial-gradient(circle at 16% 16%, rgba(234, 246, 255, 0.88), transparent 22%), radial-gradient(circle at 82% 11%, rgba(232, 255, 246, 0.78), transparent 18%), linear-gradient(180deg, rgba(247,251,255,0.99), rgba(255,255,255,0.98))";
+    "radial-gradient(circle at 16% 16%, rgba(232, 196, 186, 0.18), transparent 22%), radial-gradient(circle at 82% 11%, rgba(196, 206, 190, 0.2), transparent 18%), linear-gradient(180deg, rgba(250,248,244,0.99), rgba(250,247,242,0.98))";
 
   return {
-    "--background": theme.background,
-    "--foreground": theme.foreground,
-    "--card": theme.card,
-    "--card-foreground": theme.cardForeground,
+    "--background": "36 33% 97%",
+    "--foreground": "24 10% 16%",
+    "--card": "40 43% 97%",
+    "--card-foreground": "24 10% 16%",
     "--primary": deepMoss,
-    "--primary-foreground": "0 0% 100%",
-    "--secondary": theme.secondary,
-    "--secondary-foreground": theme.secondaryForeground,
+    "--primary-foreground": "40 43% 97%",
+    "--secondary": "89 15% 78%",
+    "--secondary-foreground": "24 10% 16%",
     "--accent": brandAccent,
     "--accent-foreground": deepMoss,
-    "--muted": theme.muted,
-    "--muted-foreground": theme.mutedForeground,
-    "--border": theme.border,
-    "--input": theme.input,
-    "--ring": deepMoss,
+    "--muted": "36 38% 95%",
+    "--muted-foreground": "30 9% 35%",
+    "--border": "34 31% 77%",
+    "--input": "36 38% 95%",
+    "--ring": "27 61% 55%",
     "--destructive": theme.destructive,
     "--destructive-foreground": theme.destructiveForeground,
-    "--radius": theme.radius,
-    "--shadow-card": theme.shadowCard,
-    "--shadow-glow": theme.shadowGlow,
-    "--bg-style": unifiedBackgroundStyle,
+    "--radius": "24px",
+    "--shadow-card": "0 18px 40px rgba(132, 108, 84, 0.1)",
+    "--shadow-glow": "0 0 0 5px rgba(212, 133, 74, 0.14)",
+    "--bg-style": itemOverride?.bgStyle ?? theme.bgStyle ?? unifiedBackgroundStyle,
     "--chart-stroke": theme.chartStroke,
     "--chart-grid": theme.chartGrid
   } as Record<string, string>;

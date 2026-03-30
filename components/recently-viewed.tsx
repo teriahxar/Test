@@ -22,19 +22,23 @@ export function RecentlyViewed({ items }: { items: DashboardItem[] }) {
   return (
     <section className="space-y-4">
       <div>
-        <p className="text-xs uppercase tracking-[0.24em] text-muted-foreground">Recently viewed</p>
-        <h2 className="mt-2 font-display text-2xl font-semibold">You were clearly onto something</h2>
+        <p className="section-label">Recently viewed</p>
+        <h2 className="mt-4 font-display text-3xl font-semibold text-[#2e2a26]">Pieces worth another look</h2>
       </div>
       <div className="flex gap-4 overflow-x-auto pb-2">
         {recentItems.map((item) => (
-          <Link key={item.id} href={universeItemHref(item.release.universe.slug, item.slug)} className="sticker-card min-w-[240px] rounded-[28px] p-3">
-            <div className="relative h-40 w-full overflow-hidden rounded-[22px] bg-white/70">
+          <Link
+            key={item.id}
+            href={universeItemHref(item.release.universe.slug, item.slug)}
+            className="sticker-card min-w-[240px] rounded-[24px] p-3"
+          >
+            <div className="relative h-40 w-full overflow-hidden rounded-[18px] border border-[#d6c9b5] bg-[#fffdf9]">
               <ItemImageFallback src={item.imageUrl} alt={item.name} fill className="object-cover" />
             </div>
             <div className="mt-3 flex items-start justify-between gap-2">
               <div>
-                <p className="font-display text-lg font-semibold">{item.name}</p>
-                <p className="text-sm text-muted-foreground">{item.release.name}</p>
+                <p className="font-display text-lg font-semibold text-[#2e2a26]">{item.name}</p>
+                <p className="text-sm text-[#5d554d]">{item.release.name}</p>
               </div>
               <MarketHeatBadge heat={item.metrics.marketHeat} />
             </div>

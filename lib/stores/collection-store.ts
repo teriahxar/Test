@@ -4,7 +4,7 @@ import { create } from "zustand";
 import { persist } from "zustand/middleware";
 import { withBasePath } from "@/lib/utils";
 
-export type CollectionStatus = "owned" | "want" | "sold";
+export type CollectionStatus = "owned" | "wanted" | "sold" | "dream";
 
 export type CollectionEntry = {
   slug: string;
@@ -49,10 +49,14 @@ export const useCollectionStore = create<CollectionState>()(
         const state = persistedState as CollectionState;
         return {
           ...state,
-          entries: (state.entries ?? []).map((entry) => ({
-            ...entry,
-            imageUrl: withBasePath(entry.imageUrl)
-          }))
+          entries: (state.entries ?? []).map((entry) => {
+            const legacyStatus = String((entry as { status?: unknown }).status ?? "owned");
+            return {
+              ...entry,
+              status: legacyStatus === "want" ? "wanted" : (legacyStatus as CollectionStatus),
+              imageUrl: withBasePath(entry.imageUrl)
+            };
+          })
         };
       }
     }

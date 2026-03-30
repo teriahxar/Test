@@ -11,7 +11,6 @@ import { ListingsTable } from "@/components/listings-table";
 import { MarketHeatBadge } from "@/components/market-heat-badge";
 import { PriceChart } from "@/components/price-chart";
 import { RarityBadge } from "@/components/rarity-badge";
-import { ShareableItemCard } from "@/components/shareable-item-card";
 import { SiteShell } from "@/components/site-shell";
 import { ThemeSetter } from "@/components/theme-setter";
 import { ValuePill } from "@/components/value-pill";
@@ -41,7 +40,6 @@ export async function ItemDetailPage({
   }
 
   const activeThemeUniverse = themeUniverseSlug ?? universeSlug ?? data.item.release.universe.slug;
-
   const chartData = data.item.pricePoints.slice(-24).map((point) => ({
     timestamp: new Date(point.timestamp).toLocaleDateString("en-US", { month: "short", day: "numeric" }),
     value: Number(point.price.toFixed(2))
@@ -66,41 +64,43 @@ export async function ItemDetailPage({
           bgStyle: ITEM_BACKGROUND_STYLES[data.item.itemBgStyle] ?? ITEM_BACKGROUND_STYLES.sparkleGradient
         }}
       />
+
       <section className="grid gap-6 xl:grid-cols-[0.92fr_1.08fr]">
-        <div className="surface-card overflow-hidden rounded-[36px] p-4">
-          <div className="relative h-[440px] overflow-hidden rounded-[28px] border border-border/60 bg-white/84">
+        <div className="surface-card overflow-hidden rounded-[32px] p-4">
+          <div className="relative h-[440px] overflow-hidden rounded-[26px] border border-[#d6c9b5] bg-[#fffdf9]">
             <ItemImageFallback src={data.item.imageUrl} alt={data.item.name} fill className="object-cover" />
           </div>
-          <div className="mt-4 rounded-[22px] border border-border/60 bg-white/84 p-4 text-sm text-muted-foreground">
+          <div className="mt-4 rounded-[22px] border border-[#d6c9b5] bg-[#fffdf9] p-4 text-sm text-[#5d554d]">
             <p>
-              Image credit: <span className="font-semibold text-foreground">{data.item.imageCreditText}</span>
+              Image credit: <span className="font-semibold text-[#2e2a26]">{data.item.imageCreditText}</span>
             </p>
             <div className="mt-2 flex flex-wrap items-center gap-3">
-              <Link href={data.item.officialProductPageUrl} target="_blank" className="font-semibold text-primary underline-offset-4 hover:underline">
+              <Link href={data.item.officialProductPageUrl} target="_blank" className="font-semibold text-[#7b4a35] underline-offset-4 hover:underline">
                 Official product page
               </Link>
               <AttributionModal />
             </div>
           </div>
         </div>
+
         <div className="space-y-5">
-          <div className="surface-card rounded-[36px] p-6">
+          <div className="surface-card rounded-[32px] p-6">
             <div className="flex flex-wrap items-center gap-3">
               <RarityBadge rarity={data.item.rarity} />
               <MarketHeatBadge heat={data.item.metrics.marketHeat} />
-              <p className="text-xs uppercase tracking-[0.22em] text-muted-foreground">{data.item.release.name}</p>
+              <p className="section-label">{data.item.release.name}</p>
             </div>
-            <h1 className="mt-4 text-4xl font-semibold text-[#2F3A45] md:text-5xl">{data.item.name}</h1>
-            <p className="mt-3 text-sm leading-6 text-muted-foreground">
+            <h1 className="mt-4 font-display text-4xl font-semibold text-[#2e2a26] md:text-5xl">{data.item.name}</h1>
+            <p className="mt-3 text-sm leading-6 text-[#5d554d]">
               Released {new Date(data.item.releaseDate).toLocaleDateString("en-US", { month: "long", day: "numeric", year: "numeric" })}.
             </p>
             <div className="mt-5 flex flex-wrap items-center gap-3">
               <ValuePill value={data.item.metrics.estimatedValue} confidence={data.item.metrics.confidence} />
-              <span className="rounded-full border border-border/60 bg-white/84 px-4 py-2 text-sm font-semibold text-muted-foreground">
+              <span className="rounded-full border border-[#d6c9b5] bg-[#fffdf9] px-4 py-2 text-sm font-semibold text-[#5d554d]">
                 {formatPercent(data.item.metrics.sevenDayChange)} this week
               </span>
-              <span className="rounded-full border border-border/60 bg-white/84 px-4 py-2 text-xs font-semibold text-muted-foreground">
-                last updated {new Date(data.item.metrics.lastUpdated).toLocaleString("en-US", { month: "short", day: "numeric", hour: "numeric", minute: "2-digit" })}
+              <span className="rounded-full border border-[#d6c9b5] bg-[#fffdf9] px-4 py-2 text-xs font-semibold text-[#8f7661]">
+                updated {new Date(data.item.metrics.lastUpdated).toLocaleString("en-US", { month: "short", day: "numeric", hour: "numeric", minute: "2-digit" })}
               </span>
             </div>
             <div className="mt-5 grid gap-4 sm:grid-cols-3">
@@ -111,9 +111,9 @@ export async function ItemDetailPage({
             <div className="mt-5">
               <ConfidenceMeter confidence={data.item.metrics.confidence} score={data.item.metrics.confidenceScore} />
             </div>
-            <div className="mt-4 flex flex-wrap items-center gap-2 text-xs text-muted-foreground">
-              <span className="rounded-full border border-border/60 bg-white/84 px-3 py-1">source: {data.item.metrics.sourceLabels.join(" + ")}</span>
-              <span className="rounded-full border border-border/60 bg-white/84 px-3 py-1">sample points: {data.item.metrics.samplePoints}</span>
+            <div className="mt-4 flex flex-wrap items-center gap-2 text-xs text-[#8f7661]">
+              <span className="rounded-full border border-[#d6c9b5] bg-[#fffdf9] px-3 py-1">source: {data.item.metrics.sourceLabels.join(" + ")}</span>
+              <span className="rounded-full border border-[#d6c9b5] bg-[#fffdf9] px-3 py-1">sample points: {data.item.metrics.samplePoints}</span>
             </div>
             <div className="mt-5">
               <CollectionStatusPicker item={data.item} />
@@ -124,14 +124,14 @@ export async function ItemDetailPage({
       </section>
 
       <section className="grid gap-6 xl:grid-cols-[1.1fr_0.9fr]">
-        <div className="surface-card rounded-[34px] p-6">
+        <div className="surface-card rounded-[30px] p-6">
           <p className="section-label sparkle-accent">Price history</p>
-          <h2 className="mt-4 text-2xl font-semibold text-[#2F3A45]">Market movement over time</h2>
+          <h2 className="mt-4 font-display text-3xl font-semibold text-[#2e2a26]">Market movement over time</h2>
           <PriceChart data={chartData} />
         </div>
         <div className="space-y-6">
-          <div className="surface-card rounded-[34px] p-6">
-            <p className="section-label">Sold summary</p>
+          <div className="surface-card rounded-[30px] p-6">
+            <p className="section-label">Quick read</p>
             <div className="mt-5 grid gap-3">
               <SummaryRow label="Sample points" value={`${data.item.metrics.samplePoints}`} />
               <SummaryRow label="Volatility" value={`${Math.round(data.item.metrics.volatility * 100)}%`} />
@@ -139,54 +139,46 @@ export async function ItemDetailPage({
               <SummaryRow label="Active listings" value={`${data.item.listings.length}`} />
             </div>
           </div>
-          <div className="surface-card rounded-[34px] p-6">
-            <details open>
-              <summary className="cursor-pointer text-sm font-semibold text-foreground">How TRinket estimates value</summary>
-              <p className="mt-3 text-sm text-muted-foreground">
-                TRinket uses a weighted average of recent sold price points with condition adjustments (Mint, Excellent, Good, Fair). Confidence increases with more data points and lower volatility.
-              </p>
-              <p className="mt-2 text-sm text-muted-foreground">
-                This MVP uses mocked marketplace data and should not be treated as real-time market advice.
-              </p>
-            </details>
-          </div>
-          <div className="surface-card rounded-[34px] p-6">
+
+          <div className="surface-card rounded-[30px] p-6">
             <p className="section-label sparkle-accent">Where to buy</p>
-            <h2 className="mt-4 text-2xl font-semibold text-[#2F3A45]">Collector checkout paths</h2>
+            <h2 className="mt-4 font-display text-3xl font-semibold text-[#2e2a26]">Collector checkout paths</h2>
             <div className="mt-4 space-y-3">
               {buyLinks.map((link) => (
-                <div key={link.label} className="rounded-[20px] border border-border/60 bg-white/84 px-4 py-3">
+                <div key={link.label} className="rounded-[20px] border border-[#d6c9b5] bg-[#fffdf9] px-4 py-3">
                   {link.url === "#" ? (
-                    <span className="font-semibold text-muted-foreground">{link.label}</span>
+                    <span className="font-semibold text-[#2e2a26]">{link.label}</span>
                   ) : (
-                    <Link href={link.url} target="_blank" className="font-semibold text-primary underline-offset-4 hover:underline">
+                    <Link href={link.url} target="_blank" className="font-semibold text-[#7b4a35] underline-offset-4 hover:underline">
                       {link.label}
                     </Link>
                   )}
-                  <p className="mt-1 text-xs text-muted-foreground">{link.affiliate ? "Affiliate-ready slot" : link.note}</p>
+                  <p className="mt-1 text-xs text-[#5d554d]">{link.affiliate ? "Affiliate-ready slot" : link.note}</p>
                 </div>
               ))}
             </div>
           </div>
-          <div className="surface-card rounded-[34px] p-6">
+
+          <div className="surface-card rounded-[30px] p-6">
             <p className="section-label sparkle-accent">TRinket Club</p>
-            <h2 className="mt-4 text-2xl font-semibold text-[#2F3A45]">Premium collector tools</h2>
+            <h2 className="mt-4 font-display text-3xl font-semibold text-[#2e2a26]">Premium collector tools</h2>
             <div className="mt-4 grid gap-3">
-              {["Price alerts", "Collection value tracking", "Portfolio analytics", "Rare drop notifications"].map((feature) => (
-                <div key={feature} className="flex items-center gap-3 rounded-[20px] border border-border/60 bg-white/84 px-4 py-3">
-                  <Sparkles className="h-4 w-4 text-[#9ebbe3]" />
-                  <span className="text-sm font-medium text-foreground">{feature}</span>
+              {["Advanced alerts", "Collection value tracking", "Portfolio analytics", "Expanded save features"].map((feature) => (
+                <div key={feature} className="flex items-center gap-3 rounded-[20px] border border-[#d6c9b5] bg-[#fffdf9] px-4 py-3">
+                  <Sparkles className="h-4 w-4 text-[#d4854a]" />
+                  <span className="text-sm font-medium text-[#2e2a26]">{feature}</span>
                 </div>
               ))}
             </div>
           </div>
+
           {tips.length ? (
-            <div className="surface-card rounded-[34px] p-6">
+            <div className="surface-card rounded-[30px] p-6">
               <p className="section-label">Authenticity tips</p>
-              <h2 className="mt-4 text-2xl font-semibold text-[#2F3A45]">Quick legit check</h2>
-              <ul className="mt-4 space-y-3 text-sm text-muted-foreground">
+              <h2 className="mt-4 font-display text-3xl font-semibold text-[#2e2a26]">Quick legit check</h2>
+              <ul className="mt-4 space-y-3 text-sm text-[#5d554d]">
                 {tips.map((tip) => (
-                  <li key={tip} className="rounded-[22px] border border-border/60 bg-white/84 px-4 py-3">
+                  <li key={tip} className="rounded-[22px] border border-[#d6c9b5] bg-[#fffdf9] px-4 py-3">
                     {tip}
                   </li>
                 ))}
@@ -196,21 +188,18 @@ export async function ItemDetailPage({
         </div>
       </section>
 
-      <section className="grid gap-6 xl:grid-cols-[1.1fr_0.9fr]">
-        <div>
-          <p className="section-label">Active listings</p>
-          <h2 className="mt-4 text-2xl font-semibold text-[#2F3A45]">Current asking prices</h2>
-          <div className="mt-4">
-            <ListingsTable listings={data.item.listings.slice(0, 12)} />
-          </div>
+      <section>
+        <p className="section-label">Active listings</p>
+        <h2 className="mt-4 font-display text-3xl font-semibold text-[#2e2a26]">Current asking prices</h2>
+        <div className="mt-4">
+          <ListingsTable listings={data.item.listings.slice(0, 12)} />
         </div>
-        <ShareableItemCard item={data.item} />
       </section>
 
       <section className="space-y-4">
         <div>
           <p className="section-label">Similar items</p>
-          <h2 className="mt-4 text-2xl font-semibold text-[#2F3A45]">Same shelf, different vibe</h2>
+          <h2 className="mt-4 font-display text-3xl font-semibold text-[#2e2a26]">Same shelf, different mood</h2>
         </div>
         <div className="grid gap-5 md:grid-cols-2 xl:grid-cols-4">
           {data.similar.map((item) => (
@@ -238,18 +227,18 @@ export function getItemStaticParams(universeSlug?: string) {
 
 function Metric({ label, value }: { label: string; value: string }) {
   return (
-    <div className="rounded-[24px] border border-border/60 bg-white/84 p-4">
-      <p className="text-sm text-muted-foreground">{label}</p>
-      <p className="mt-2 text-2xl font-semibold text-[#2F3A45]">{value}</p>
+    <div className="rounded-[24px] border border-[#d6c9b5] bg-[#fffdf9] p-4">
+      <p className="text-sm text-[#8f7661]">{label}</p>
+      <p className="mt-2 text-2xl font-semibold text-[#2e2a26]">{value}</p>
     </div>
   );
 }
 
 function SummaryRow({ label, value }: { label: string; value: string }) {
   return (
-    <div className="flex items-center justify-between rounded-[20px] border border-border/60 bg-white/84 px-4 py-3">
-      <span className="text-sm text-muted-foreground">{label}</span>
-      <span className="font-semibold">{value}</span>
+    <div className="flex items-center justify-between rounded-[20px] border border-[#d6c9b5] bg-[#fffdf9] px-4 py-3">
+      <span className="text-sm text-[#5d554d]">{label}</span>
+      <span className="font-semibold text-[#2e2a26]">{value}</span>
     </div>
   );
 }

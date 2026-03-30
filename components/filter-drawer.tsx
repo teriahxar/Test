@@ -33,24 +33,24 @@ export function FilterDrawer({
       <DialogTrigger asChild>
         <SparkleButton variant="outline">
           <SlidersHorizontal className="h-4 w-4" />
-          Filter
+          Filters
         </SparkleButton>
       </DialogTrigger>
       <DialogContent className="rounded-[34px]">
         <div className="space-y-6">
           <div>
             <p className="section-label">Filters</p>
-            <h2 className="mt-4 font-display text-2xl font-semibold">Refine this world</h2>
+            <h2 className="mt-4 font-display text-2xl font-semibold text-[#2e2a26]">Refine this world</h2>
           </div>
           <FilterSection
-            label="Release / series"
+            label="Series"
             options={releases}
             active={filters.release}
             onChange={(value) => setFilters({ ...filters, release: filters.release === value ? undefined : value })}
           />
           <FilterSection
             label="Rarity"
-            options={["Common", "Rare", "Ultra Rare", "Chase", "Secret", "Limited"]}
+            options={["Common", "Rare", "Ultra Rare", "Chase", "Secret", "Limited", "Exclusive"]}
             active={filters.rarity}
             onChange={(value) => setFilters({ ...filters, rarity: filters.rarity === value ? undefined : value })}
           />
@@ -73,27 +73,23 @@ export function FilterDrawer({
             onChange={(value) => setFilters({ ...filters, tag: filters.tag === value ? undefined : value })}
           />
           <div className="space-y-3">
-            <p className="text-sm font-semibold">Price range</p>
+            <p className="text-sm font-semibold text-[#2e2a26]">Price range</p>
             <div className="grid grid-cols-2 gap-3">
               <input
                 type="number"
                 min={0}
                 placeholder="Min"
                 value={filters.minPrice ?? ""}
-                onChange={(event) =>
-                  setFilters({ ...filters, minPrice: event.target.value ? Number(event.target.value) : undefined })
-                }
-                className="h-10 rounded-full border border-border bg-white/90 px-4 text-sm"
+                onChange={(event) => setFilters({ ...filters, minPrice: event.target.value ? Number(event.target.value) : undefined })}
+                className="warm-focus h-11 rounded-full border border-[#d6c9b5] bg-[#fffdf9] px-4 text-sm outline-none"
               />
               <input
                 type="number"
                 min={0}
                 placeholder="Max"
                 value={filters.maxPrice ?? ""}
-                onChange={(event) =>
-                  setFilters({ ...filters, maxPrice: event.target.value ? Number(event.target.value) : undefined })
-                }
-                className="h-10 rounded-full border border-border bg-white/90 px-4 text-sm"
+                onChange={(event) => setFilters({ ...filters, maxPrice: event.target.value ? Number(event.target.value) : undefined })}
+                className="warm-focus h-11 rounded-full border border-[#d6c9b5] bg-[#fffdf9] px-4 text-sm outline-none"
               />
             </div>
           </div>
@@ -119,7 +115,7 @@ function FilterSection({
 }) {
   return (
     <div className="space-y-3">
-      <p className="text-sm font-semibold">{label}</p>
+      <p className="text-sm font-semibold text-[#2e2a26]">{label}</p>
       <div className="flex flex-wrap gap-2">
         {options.map((option) => (
           <button
@@ -127,7 +123,7 @@ function FilterSection({
             type="button"
             onClick={() => onChange(option)}
             className={`rounded-full border px-4 py-2 text-sm font-semibold transition-colors ${
-              active === option ? "border-primary bg-primary text-primary-foreground" : "border-border bg-white/90"
+              active === option ? "border-[#e8c4ba] bg-[#f3ddd5] text-[#7b4a35]" : "border-[#d6c9b5] bg-[#fffdf9] text-[#5d554d]"
             }`}
           >
             {option}

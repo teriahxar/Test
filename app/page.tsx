@@ -1,6 +1,6 @@
-import { Search, Sparkles } from "lucide-react";
+import { Leaf, Sparkles } from "lucide-react";
+import { HomeRecentlyViewed } from "@/components/home-recently-viewed";
 import { ItemCard } from "@/components/item-card";
-import { LandingIntroGate } from "@/components/landing-intro-gate";
 import { NavSearch } from "@/components/nav-search";
 import { PortalWorldCard } from "@/components/portal-world-card";
 import { SiteShell } from "@/components/site-shell";
@@ -14,22 +14,22 @@ const WORLDS = [
     href: "/popmart",
     logoSrc: asset("/assets/logos/popmart-logo.png"),
     title: "PopMart",
-    description: "Blind boxes, fast-moving grails, and polished price checks.",
-    cardClass: "bg-[radial-gradient(circle_at_top,rgba(126,201,255,0.14),transparent_44%),rgba(255,255,255,0.74)]"
+    description: "Blind-box favorites, character lines, and fast-moving grails.",
+    cardClass: "bg-[linear-gradient(180deg,rgba(196,206,190,0.68),rgba(250,247,242,0.92))]"
   },
   {
     href: "/pop",
     logoSrc: asset("/assets/logos/funko-pop-logo.png"),
     title: "Funko Pop",
-    description: "Shelf staples, franchise favorites, and easy market discovery.",
-    cardClass: "bg-[radial-gradient(circle_at_top,rgba(217,198,255,0.16),transparent_44%),rgba(255,255,255,0.74)]"
+    description: "Shelf staples, fandom icons, and easy box-window browsing.",
+    cardClass: "bg-[linear-gradient(180deg,rgba(232,196,186,0.72),rgba(250,247,242,0.92))]"
   },
   {
     href: "/calico",
     logoSrc: asset("/assets/logos/calico-critters-logo.png"),
     title: "Calico Critters",
-    description: "Soft miniature worlds with calm, collectible tracking.",
-    cardClass: "bg-[radial-gradient(circle_at_top,rgba(168,230,207,0.18),transparent_44%),rgba(255,255,255,0.74)]"
+    description: "Cozy meadow sets, tiny details, and cottage-soft collecting.",
+    cardClass: "bg-[linear-gradient(180deg,rgba(214,201,181,0.58),rgba(250,247,242,0.95))]"
   }
 ] as const;
 
@@ -45,21 +45,18 @@ export default async function HomePage() {
   const trending = await getTrending();
 
   return (
-    <SiteShell className="space-y-8 pb-12 page-enter">
+    <SiteShell className="space-y-10 pb-12 page-enter">
       <ThemeSetter universe="neutral" />
-      <LandingIntroGate />
 
-      <section className="surface-card relative overflow-hidden rounded-[40px] px-6 py-10 sm:px-10 sm:py-14">
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,rgba(234,246,255,0.96),transparent_34%),radial-gradient(circle_at_bottom_right,rgba(232,255,246,0.72),transparent_24%),radial-gradient(circle_at_85%_12%,rgba(238,233,255,0.56),transparent_22%)]" aria-hidden />
+      <section className="paper-panel relative overflow-hidden rounded-[36px] px-6 py-10 sm:px-10 sm:py-14">
+        <div className="soft-grid absolute inset-0 opacity-25" aria-hidden />
+        <div className="absolute inset-x-0 top-0 h-24 bg-[radial-gradient(circle_at_top,rgba(232,196,186,0.22),transparent_70%)]" aria-hidden />
         <div className="relative mx-auto max-w-4xl text-center">
-          <p className="font-display text-5xl font-semibold tracking-[-0.04em] text-[#1F2933] sm:text-6xl">TRinket</p>
-          <p className="mt-3 text-lg text-[#374151]">Track collectible values</p>
+          <p className="font-display text-5xl font-semibold tracking-[-0.05em] text-[#2e2a26] sm:text-7xl">TRinket</p>
+          <p className="mt-4 text-lg text-[#5d554d]">Track collectible values fast.</p>
 
           <div className="mx-auto mt-8 max-w-3xl">
-            <NavSearch
-              className="w-full"
-              inputClassName="h-16 rounded-[999px] bg-white/86 px-6 pl-14 text-base shadow-[0_24px_60px_rgba(220,232,244,0.95)]"
-            />
+            <NavSearch className="w-full" inputClassName="h-16 rounded-full border-[#d6c9b5] bg-[#fffdf9]/95 px-6 pl-14 text-base" />
           </div>
 
           <div className="mt-5 flex flex-wrap items-center justify-center gap-3">
@@ -67,7 +64,7 @@ export default async function HomePage() {
               <WorldLink
                 key={item.href}
                 href={item.href}
-                className="inline-flex items-center rounded-full border border-border bg-white/52 px-4 py-2 text-sm font-semibold text-[#1F2933] backdrop-blur-xl transition hover:-translate-y-0.5 hover:bg-white/78"
+                className="ribbon-chip inline-flex items-center rounded-full px-4 py-2 text-sm font-semibold transition hover:-translate-y-0.5 hover:bg-[#fffaf4]"
               >
                 {item.label}
               </WorldLink>
@@ -80,7 +77,7 @@ export default async function HomePage() {
         <div className="flex items-center gap-3">
           <div className="section-label sparkle-accent">
             <Sparkles className="h-3.5 w-3.5" />
-            Trending Now
+            Trending now
           </div>
         </div>
         <div className="grid gap-5 md:grid-cols-2 xl:grid-cols-4">
@@ -93,7 +90,7 @@ export default async function HomePage() {
       <section className="space-y-4">
         <div className="flex items-center gap-3">
           <div className="section-label">
-            <Search className="h-3.5 w-3.5" />
+            <Leaf className="h-3.5 w-3.5" />
             Browse worlds
           </div>
         </div>
@@ -111,18 +108,17 @@ export default async function HomePage() {
         </div>
       </section>
 
-      <section className="surface-subtle rounded-[32px] px-6 py-6 sm:px-8">
+      <HomeRecentlyViewed />
+
+      <section className="surface-card rounded-[28px] px-6 py-6 sm:px-8">
         <div className="flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
           <div>
             <p className="section-label sparkle-accent">Popular searches</p>
-            <h2 className="mt-3 text-2xl font-semibold text-[#2F3A45]">Start from a collectible you already know</h2>
+            <h2 className="mt-4 font-display text-3xl font-semibold text-[#2e2a26]">Begin with a collectible you already love</h2>
           </div>
           <div className="flex flex-wrap gap-3">
             {POPULAR_SEARCHES.map((label) => (
-              <span
-                key={label}
-                className="rounded-full border border-border bg-white/70 px-4 py-2 text-sm font-medium text-[#5B6470] shadow-[var(--shadow-soft)]"
-              >
+              <span key={label} className="ribbon-chip px-4 py-2 text-sm font-medium">
                 {label}
               </span>
             ))}

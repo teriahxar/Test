@@ -1,16 +1,16 @@
 import type { Metadata } from "next";
 import type { ReactNode } from "react";
-import { Inter } from "next/font/google";
+import { DM_Sans, Fraunces } from "next/font/google";
 import "@/app/globals.css";
 import { Providers } from "@/components/providers";
 
-const interDisplay = Inter({
+const fraunces = Fraunces({
   subsets: ["latin"],
-  variable: "--font-display-inter",
+  variable: "--font-display",
   display: "swap"
 });
 
-const interBody = Inter({
+const dmSans = DM_Sans({
   subsets: ["latin"],
   variable: "--font-body",
   display: "swap"
@@ -23,7 +23,7 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: { children: ReactNode }) {
   return (
-    <html lang="en" className={`${interDisplay.variable} ${interBody.variable}`}>
+    <html lang="en" className={`${fraunces.variable} ${dmSans.variable}`}>
       <body className="font-body">
         <Providers>{children}</Providers>
       </body>

@@ -11,10 +11,10 @@ const readableCondition: Record<Condition, string> = {
 
 export function ListingsTable({ listings }: { listings: DashboardItem["listings"] }) {
   return (
-    <div className="overflow-hidden rounded-[30px] border border-border/70 bg-white/90 shadow-[var(--shadow-card)]">
+    <div className="overflow-hidden rounded-[30px] border border-[#d6c9b5] bg-[#fffdf9] shadow-[var(--shadow-card)]">
       <div className="overflow-x-auto">
         <table className="w-full min-w-[720px] text-left text-sm">
-          <thead className="bg-[#f7fbff] text-muted-foreground">
+          <thead className="bg-[#faf7f2] text-[#8f7661]">
             <tr>
               <th className="px-4 py-3 font-semibold">Marketplace</th>
               <th className="px-4 py-3 font-semibold">Price</th>
@@ -25,11 +25,11 @@ export function ListingsTable({ listings }: { listings: DashboardItem["listings"
           </thead>
           <tbody>
             {listings.map((listing) => (
-              <tr key={listing.id} className="border-t border-border/70">
-                <td className="px-4 py-3 font-semibold">{listing.marketplace}</td>
-                <td className="px-4 py-3">{formatCurrency(listing.price)}</td>
-                <td className="px-4 py-3">{readableCondition[listing.condition]}</td>
-                <td className="px-4 py-3 text-muted-foreground">
+              <tr key={listing.id} className="border-t border-[#e6dccd]">
+                <td className="px-4 py-3 font-semibold text-[#2e2a26]">{listing.marketplace}</td>
+                <td className="px-4 py-3 text-[#2e2a26]">{formatCurrency(listing.price)}</td>
+                <td className="px-4 py-3 text-[#5d554d]">{readableCondition[listing.condition]}</td>
+                <td className="px-4 py-3 text-[#5d554d]">
                   {new Date(listing.timestamp).toLocaleString("en-US", {
                     month: "short",
                     day: "numeric",
@@ -38,8 +38,8 @@ export function ListingsTable({ listings }: { listings: DashboardItem["listings"
                   })}
                 </td>
                 <td className="px-4 py-3">
-                  <a href={listing.url} className="font-semibold text-primary underline-offset-4 hover:underline">
-                    Placeholder
+                  <a href={listing.url} className="font-semibold text-[#7b4a35] underline-offset-4 hover:underline">
+                    Open
                   </a>
                 </td>
               </tr>

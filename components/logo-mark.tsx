@@ -8,9 +8,9 @@ export function LogoMark({ className, compact = false }: { className?: string; c
       <Image
         src={asset("/assets/logos/trinket-logo.png")}
         alt="TRinket logo"
-        width={compact ? 138 : 248}
-        height={compact ? 50 : 90}
-        className={cn(compact ? "h-[50px] w-auto" : "h-[90px] w-auto")}
+        width={compact ? 124 : 220}
+        height={compact ? 46 : 82}
+        className={cn(compact ? "h-[46px] w-auto" : "h-[82px] w-auto")}
         priority
       />
     </div>

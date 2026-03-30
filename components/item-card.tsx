@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { Sparkles, TrendingDown, TrendingUp } from "lucide-react";
+import { BookmarkPlus, TrendingDown, TrendingUp } from "lucide-react";
 import type { DashboardItem } from "@/lib/types";
 import { formatPercent } from "@/lib/utils";
 import { useToastStore } from "@/lib/stores/toast-store";
@@ -18,25 +18,27 @@ export function ItemCard({ item, compact = false }: { item: DashboardItem; compa
   const push = useToastStore((state) => state.push);
   const isSaved = watchlist.some((entry) => entry.slug === item.slug);
   const TrendIcon = item.metrics.sevenDayChange >= 0 ? TrendingUp : TrendingDown;
-  const isRare = item.rarity === "rare" || item.rarity === "ultra rare";
+
   return (
-    <article className="surface-card group relative overflow-hidden rounded-[30px] p-5 transition-all duration-300 hover:-translate-y-1.5 hover:shadow-[0_26px_56px_rgba(31,41,51,0.1)]">
-      <div className="pointer-events-none absolute right-4 top-4 opacity-0 transition duration-300 group-hover:opacity-100">
-        <Sparkles className="h-4 w-4 text-[#9ebbe3]" />
-      </div>
-      <Link href={universeItemHref(item.release.universe.slug, item.slug)} className="block overflow-hidden rounded-[24px] border border-border/70 bg-[#f7fbff]">
-        <div className={`relative w-full ${compact ? "h-40" : "h-56"}`}>
-          <ItemImageFallback src={item.imageUrl} alt={item.name} fill showComingSoon className="object-cover transition-transform duration-500 group-hover:scale-[1.03]" />
+    <article className="group relative overflow-hidden rounded-[18px] border border-[#d6c9b5] bg-[#faf7f2] p-4 shadow-[0_2px_8px_rgba(180,150,120,0.08)] transition duration-300 hover:-translate-y-1 hover:shadow-[0_16px_28px_rgba(132,108,84,0.12)]">
+      <div className="absolute inset-x-0 top-0 h-20 bg-[radial-gradient(circle_at_top,rgba(232,196,186,0.18),transparent_65%)] opacity-80" aria-hidden />
+      <Link href={universeItemHref(item.release.universe.slug, item.slug)} className="block">
+        <div className={`relative overflow-hidden rounded-[16px] border border-[#d6c9b5] bg-[#fffdf9] ${compact ? "h-40" : "h-56"}`}>
+          <ItemImageFallback
+            src={item.imageUrl}
+            alt={item.name}
+            fill
+            showComingSoon
+            className="object-cover transition-transform duration-500 group-hover:scale-[1.03]"
+          />
         </div>
       </Link>
-      <div className="mt-4 space-y-3.5">
+
+      <div className="mt-4 space-y-3">
         <div className="flex items-start justify-between gap-3">
           <div>
-            <div className="flex items-center gap-2">
-              <p className="text-xl font-semibold leading-tight text-[#2F3A45]">{item.name}</p>
-              {isRare ? <Sparkles className="h-3.5 w-3.5 text-[#b6a7ef]" /> : null}
-            </div>
-            <p className="mt-1 text-sm text-muted-foreground">{item.release.name}</p>
+            <p className="font-display text-[1.35rem] font-semibold leading-tight text-[#2e2a26]">{item.name}</p>
+            <p className="mt-1 text-sm text-[#5d554d]">{item.release.name}</p>
           </div>
           <RarityBadge rarity={item.rarity} />
         </div>
@@ -44,8 +46,10 @@ export function ItemCard({ item, compact = false }: { item: DashboardItem; compa
         <div className="flex items-center justify-between gap-3">
           <ValuePill value={item.metrics.estimatedValue} confidence={item.metrics.confidence} />
           <span
-            className={`inline-flex items-center gap-1 rounded-full px-2.5 py-1 text-xs font-semibold ${
-              item.metrics.sevenDayChange >= 0 ? "bg-[#eaf6ff] text-[#4f7eaa]" : "bg-[#f2f4f7] text-[#65758a]"
+            className={`inline-flex items-center gap-1 rounded-full border px-3 py-1 text-xs font-semibold shadow-[var(--shadow-soft)] ${
+              item.metrics.sevenDayChange >= 0
+                ? "border-[#c4cebe] bg-[#eef2e9] text-[#566452]"
+                : "border-[#e8c4ba] bg-[#f5dfd5] text-[#8a5239]"
             }`}
           >
             <TrendIcon className="h-3.5 w-3.5" />
@@ -53,8 +57,14 @@ export function ItemCard({ item, compact = false }: { item: DashboardItem; compa
           </span>
         </div>
 
-        <div className="flex items-center justify-between">
-          <p className="text-xs font-semibold uppercase tracking-[0.16em] text-muted-foreground">Estimated value</p>
+        <div className="flex items-center justify-between gap-3 border-t border-[#e6dccd] pt-3">
+          <div>
+            <p className="text-[11px] font-semibold uppercase tracking-[0.16em] text-[#8f7661]">Current value</p>
+            <p className="mt-1 inline-flex items-center gap-1 text-sm text-[#5d554d]">
+              <BookmarkPlus className="h-3.5 w-3.5 text-[#d4854a]" />
+              Save for alerts
+            </p>
+          </div>
           <WatchlistButton
             saved={isSaved}
             onClick={() => {

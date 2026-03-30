@@ -14,7 +14,7 @@ export function MyShelfSummary() {
 
   const summary = useMemo(() => {
     const owned = entries.filter((entry) => entry.status === "owned");
-    const wanted = entries.filter((entry) => entry.status === "want");
+    const wanted = entries.filter((entry) => entry.status === "wanted");
     const sold = entries.filter((entry) => entry.status === "sold");
     const estimatedValue = owned.reduce((sum, entry) => sum + entry.estimatedValue, 0);
 

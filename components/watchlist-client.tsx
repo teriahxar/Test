@@ -1,4 +1,4 @@
-﻿"use client";
+"use client";
 
 import Link from "next/link";
 import { Trash2 } from "lucide-react";
@@ -19,8 +19,8 @@ export function WatchlistClient() {
   if (!items.length) {
     return (
       <div className="surface-card rounded-[30px] p-10 text-center">
-        <p className="text-2xl font-semibold text-[#2F3A45]">Your watchlist is empty right now.</p>
-        <p className="mt-2 text-muted-foreground">Save a collectible from any world to keep tabs on it here.</p>
+        <p className="font-display text-3xl font-semibold text-[#2e2a26]">Your watchlist is still waiting for its first piece.</p>
+        <p className="mt-2 text-[#5d554d]">Save any collectible to keep value notes and alert ranges close by.</p>
       </div>
     );
   }
@@ -28,14 +28,14 @@ export function WatchlistClient() {
   return (
     <div className="space-y-4">
       {items.map((item) => (
-        <div key={item.slug} className="surface-card grid gap-4 rounded-[30px] p-5 lg:grid-cols-[1.5fr_0.7fr_1fr_auto]">
+        <div key={item.slug} className="surface-card grid gap-4 rounded-[28px] p-5 lg:grid-cols-[1.5fr_0.8fr_1fr_auto]">
           <Link href={universeItemHref(item.universeSlug, item.slug)} className="flex items-center gap-4">
-            <div className="relative h-24 w-24 overflow-hidden rounded-[20px] border border-border/60 bg-white/80">
+            <div className="relative h-24 w-24 overflow-hidden rounded-[18px] border border-[#d6c9b5] bg-[#fffdf9]">
               <ItemImageFallback src={item.imageUrl} alt={item.name} fill className="object-cover" />
             </div>
             <div>
-              <p className="text-xl font-semibold text-[#2F3A45]">{item.name}</p>
-              <p className="mt-1 text-sm text-muted-foreground">
+              <p className="font-display text-2xl font-semibold text-[#2e2a26]">{item.name}</p>
+              <p className="mt-1 text-sm text-[#5d554d]">
                 {item.universeSlug} · {item.releaseSlug}
               </p>
               <div className="mt-2">
@@ -46,8 +46,8 @@ export function WatchlistClient() {
           <div className="flex items-center gap-4">
             <SparklineMini data={item.sparkline} />
             <div>
-              <p className="text-sm text-muted-foreground">Current estimate</p>
-              <p className="text-2xl font-semibold text-[#2F3A45]">{formatCurrency(item.estimatedValue)}</p>
+              <p className="text-sm text-[#8f7661]">Current estimate</p>
+              <p className="text-2xl font-semibold text-[#2e2a26]">{formatCurrency(item.estimatedValue)}</p>
             </div>
           </div>
           <div className="grid gap-2 md:grid-cols-2 lg:grid-cols-1">
@@ -55,7 +55,7 @@ export function WatchlistClient() {
               aria-label={`Alert below value for ${item.name}`}
               placeholder="Alert below"
               defaultValue={item.alert.below?.toString() ?? ""}
-              className="h-11 bg-white/90"
+              className="h-11 bg-[#fffdf9]"
               onBlur={(event) =>
                 updateAlert(item.slug, {
                   ...item.alert,
@@ -67,7 +67,7 @@ export function WatchlistClient() {
               aria-label={`Alert above value for ${item.name}`}
               placeholder="Alert above"
               defaultValue={item.alert.above?.toString() ?? ""}
-              className="h-11 bg-white/90"
+              className="h-11 bg-[#fffdf9]"
               onBlur={(event) =>
                 updateAlert(item.slug, {
                   ...item.alert,
@@ -84,4 +84,3 @@ export function WatchlistClient() {
     </div>
   );
 }
-

@@ -1,41 +1,33 @@
 import Link from "next/link";
-import { Heart, Layers, UserRound } from "lucide-react";
+import { Heart, Layers3, UserRound } from "lucide-react";
 import { LogoMark } from "@/components/logo-mark";
 import { NavSearch } from "@/components/nav-search";
 
+const NAV_ITEMS = [
+  { href: "/watchlist", label: "Watchlist", icon: Heart },
+  { href: "/collection", label: "My Shelf", icon: Layers3 },
+  { href: "/settings", label: "Sign In", icon: UserRound }
+] as const;
+
 export function GlobalNav() {
   return (
-    <header className="sticky top-0 z-40 border-b border-border/70 bg-[rgba(247,251,255,0.82)] backdrop-blur-2xl">
+    <header className="sticky top-0 z-40 border-b border-[#d6c9b5]/80 bg-[#faf8f4]/92 backdrop-blur-xl">
       <div className="container grid gap-4 py-4 lg:grid-cols-[auto_minmax(0,1fr)_auto] lg:items-center">
         <Link href="/" className="inline-flex items-center justify-self-start">
           <LogoMark compact />
         </Link>
-        <NavSearch
-          className="w-full"
-          inputClassName="h-14 bg-[rgba(255,255,255,0.82)] px-6 pl-14 text-base shadow-[0_18px_44px_rgba(219,232,243,0.9)]"
-        />
+        <NavSearch className="w-full" inputClassName="h-14 rounded-full bg-[#fffdf9]/94" />
         <nav className="flex flex-wrap items-center justify-start gap-2 lg:justify-end">
+          {NAV_ITEMS.map(({ href, label, icon: Icon }) => (
             <Link
-              href="/watchlist"
-              className="inline-flex items-center gap-2 rounded-full border border-border bg-white/45 px-4 py-2.5 text-sm font-semibold text-foreground shadow-[var(--shadow-soft)] backdrop-blur-xl transition-all hover:-translate-y-0.5 hover:bg-white/74"
+              key={href}
+              href={href}
+              className="inline-flex items-center gap-2 rounded-full border border-[#d6c9b5] bg-[#fffdf9]/88 px-4 py-2.5 text-sm font-medium text-[#5d554d] shadow-[var(--shadow-soft)] transition hover:-translate-y-0.5 hover:bg-[#fffaf4]"
             >
-              <Heart className="h-4 w-4 text-[#7ec9ff]" />
-              Watchlist
+              <Icon className="h-4 w-4 text-[#d4854a]" />
+              {label}
             </Link>
-            <Link
-              href="/collection"
-              className="inline-flex items-center gap-2 rounded-full border border-border bg-white/45 px-4 py-2.5 text-sm font-semibold text-foreground shadow-[var(--shadow-soft)] backdrop-blur-xl transition-all hover:-translate-y-0.5 hover:bg-white/74"
-            >
-              <Layers className="h-4 w-4 text-[#a8e6cf]" />
-              My Shelf
-            </Link>
-            <Link
-              href="/settings"
-              className="inline-flex items-center gap-2 rounded-full border border-border bg-white/45 px-4 py-2.5 text-sm font-semibold text-foreground shadow-[var(--shadow-soft)] backdrop-blur-xl transition-all hover:-translate-y-0.5 hover:bg-white/74"
-            >
-              <UserRound className="h-4 w-4 text-[#d9c6ff]" />
-              Sign In
-            </Link>
+          ))}
         </nav>
       </div>
     </header>

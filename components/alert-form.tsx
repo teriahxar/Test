@@ -19,11 +19,11 @@ export function AlertForm({ item }: { item: DashboardItem }) {
 
   return (
     <div className="sticker-card rounded-[30px] p-5">
-      <p className="font-display text-2xl font-semibold">Watchlist + alerts</p>
-      <p className="mt-2 text-sm text-muted-foreground">Save local reminders for when this collectible gets extra tempting.</p>
+      <p className="font-display text-3xl font-semibold text-[#2e2a26]">Watchlist and alerts</p>
+      <p className="mt-2 text-sm text-[#5d554d]">Save a note for the price points that would make this piece worth revisiting.</p>
       <div className="mt-5 grid gap-3">
-        <Input placeholder="Alert me below..." value={below} onChange={(event) => setBelow(event.target.value)} className="h-12 bg-white/80" />
-        <Input placeholder="Alert me above..." value={above} onChange={(event) => setAbove(event.target.value)} className="h-12 bg-white/80" />
+        <Input placeholder="Alert me below..." value={below} onChange={(event) => setBelow(event.target.value)} className="h-12 bg-[#fffdf9]" />
+        <Input placeholder="Alert me above..." value={above} onChange={(event) => setAbove(event.target.value)} className="h-12 bg-[#fffdf9]" />
       </div>
       <div className="mt-4 flex flex-wrap gap-3">
         <SparkleButton
@@ -49,7 +49,7 @@ export function AlertForm({ item }: { item: DashboardItem }) {
               updateAlert(item.slug, nextAlert);
             }
 
-            push({ title: "Saved! We’ll keep an eye out ✨", description: item.name });
+            push({ title: "Alert saved", description: item.name });
           }}
         >
           Save alert

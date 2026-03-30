@@ -25,7 +25,7 @@ export function ReleaseSwitcher({
     <div className={`relative ${pending ? "opacity-70" : ""}`}>
       <select
         aria-label="Select release"
-        className="h-12 appearance-none rounded-full border border-border bg-white/92 px-4 pr-10 text-sm font-semibold shadow-[var(--shadow-soft)] outline-none ring-0"
+        className="warm-focus h-12 appearance-none rounded-full border border-[#d6c9b5] bg-[#fffdf9] px-4 pr-10 text-sm font-semibold text-[#2e2a26] shadow-[var(--shadow-soft)] outline-none ring-0"
         value={currentRelease ?? "all"}
         onChange={(event) => {
           const value = event.target.value;
@@ -48,7 +48,7 @@ export function ReleaseSwitcher({
           </option>
         ))}
       </select>
-      <ChevronDown className="pointer-events-none absolute right-4 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
+      <ChevronDown className="pointer-events-none absolute right-4 top-1/2 h-4 w-4 -translate-y-1/2 text-[#8f7661]" />
     </div>
   );
 }

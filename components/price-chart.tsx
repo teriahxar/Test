@@ -24,10 +24,10 @@ export function PriceChart({ data }: { data: Point[] }) {
           <YAxis tickFormatter={(value) => `$${value}`} tickLine={false} axisLine={false} width={48} fontSize={12} />
           <Tooltip
             contentStyle={{
-              background: "rgba(255,255,255,0.96)",
+              background: "rgba(255,253,249,0.98)",
               borderRadius: 20,
-              border: "1px solid rgba(255,255,255,0.7)",
-              boxShadow: "0 12px 24px rgba(0,0,0,0.08)"
+              border: "1px solid rgba(214,201,181,0.9)",
+              boxShadow: "0 12px 24px rgba(132,108,84,0.12)"
             }}
             formatter={(value: number) => formatCurrency(value)}
           />

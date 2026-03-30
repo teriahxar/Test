@@ -6,7 +6,6 @@ import { useMemo, useState } from "react";
 import { useSearchParams } from "next/navigation";
 import type { DashboardData } from "@/lib/types";
 import { formatPercent, hashString } from "@/lib/utils";
-import { CollectorRankCard } from "@/components/collector-rank-card";
 import { FilterDrawer, type DashboardFilters } from "@/components/filter-drawer";
 import { ItemCard } from "@/components/item-card";
 import { ReleaseSwitcher } from "@/components/release-switcher";
@@ -74,22 +73,22 @@ export function DashboardClient({ data }: { data: DashboardData }) {
     <div className="space-y-8">
       <WorldHero worldSlug={data.universe.slug} title={data.universe.name} description={data.universe.description} />
 
-      <section className="surface-card rounded-[32px] p-4 md:p-5">
-        <div className="flex flex-col gap-3 xl:flex-row xl:items-center xl:justify-between">
+      <section className="surface-card rounded-[28px] p-4 md:p-5">
+        <div className="flex flex-col gap-4 xl:flex-row xl:items-center xl:justify-between">
           <div className="flex flex-wrap items-center gap-2">
             <ReleaseSwitcher universeSlug={data.universe.slug} releases={data.universe.releases} currentRelease={currentRelease} />
             <FilterDrawer filters={filters} setFilters={setFilters} tags={tags} releases={data.universe.releases.map((release) => release.name)} />
-            <Link href="/collection" className="vault-button-secondary inline-flex h-11 items-center rounded-full px-4 text-sm font-semibold">
+            <Link href="/collection" className="ribbon-chip inline-flex h-11 items-center px-4 text-sm font-semibold">
               My Shelf
             </Link>
           </div>
           <div className="flex flex-col gap-3 sm:flex-row sm:items-center">
             <SearchBox items={data.items} />
-            <div className="inline-flex rounded-full border border-border bg-white/90 p-1 shadow-[var(--shadow-soft)]">
+            <div className="inline-flex rounded-full border border-[#d6c9b5] bg-[#fffdf9] p-1 shadow-[var(--shadow-soft)]">
               <button
                 type="button"
                 aria-label="Grid view"
-                className={`rounded-full p-2 ${layout === "grid" ? "bg-primary text-primary-foreground" : "text-muted-foreground"}`}
+                className={`rounded-full p-2 ${layout === "grid" ? "bg-[#f3ddd5] text-[#7b4a35]" : "text-[#8f7661]"}`}
                 onClick={() => setLayout("grid")}
               >
                 <LayoutGrid className="h-4 w-4" />
@@ -97,7 +96,7 @@ export function DashboardClient({ data }: { data: DashboardData }) {
               <button
                 type="button"
                 aria-label="List view"
-                className={`rounded-full p-2 ${layout === "list" ? "bg-primary text-primary-foreground" : "text-muted-foreground"}`}
+                className={`rounded-full p-2 ${layout === "list" ? "bg-[#f3ddd5] text-[#7b4a35]" : "text-[#8f7661]"}`}
                 onClick={() => setLayout("list")}
               >
                 <Rows3 className="h-4 w-4" />
@@ -107,27 +106,31 @@ export function DashboardClient({ data }: { data: DashboardData }) {
         </div>
       </section>
 
-      <CollectorRankCard />
+      <section className="grid gap-4 lg:grid-cols-3">
+        <InfoPanel title="Collector mood" value={data.universe.name} detail="A calm guide for checking values, saving favorites, and exploring releases." />
+        <InfoPanel title="Tracked pieces" value={`${data.items.length}`} detail="A tidy grid of items with search, filtering, and save states built in." />
+        <InfoPanel title="Weekly pulse" value={formatPercent(trending[0]?.metrics.sevenDayChange ?? 0)} detail="A quick read on what collectors are revisiting most right now." />
+      </section>
 
       <Tabs defaultValue="trending" className="space-y-5">
-        <TabsList className="bg-white/90">
+        <TabsList className="bg-[#fffdf9]">
           <TabsTrigger value="trending">Trending</TabsTrigger>
           <TabsTrigger value="movers">Movers</TabsTrigger>
           <TabsTrigger value="new">New</TabsTrigger>
           <TabsTrigger value="all">All</TabsTrigger>
         </TabsList>
         <TabsContent value="trending">
-          <CategoryHeader title="Trending picks" subtitle="Favorites people are saving most this week." />
+          <CategoryHeader title="Trending now" subtitle="A strong starting shelf for this world right now." />
           <MarketGrid items={trending} layout={layout} />
         </TabsContent>
         <TabsContent value="movers">
-          <CategoryHeader title="Biggest movers" subtitle="Seven-day price shifts worth watching." />
+          <CategoryHeader title="Biggest movers" subtitle="Pieces seeing the sharpest seven-day shifts." />
           <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-4">
             {movers.map((item) => (
-              <div key={item.id} className="surface-card rounded-[24px] p-4">
-                <p className="font-display text-xl font-bold">{item.name}</p>
-                <p className="mt-1 text-xs uppercase tracking-[0.16em] text-muted-foreground">{item.release.name}</p>
-                <p className="mt-3 inline-flex rounded-full bg-[#eaf6ff] px-3 py-1 text-sm font-semibold text-[#4f7eaa]">
+              <div key={item.id} className="surface-card rounded-[22px] p-4">
+                <p className="font-display text-xl font-semibold text-[#2e2a26]">{item.name}</p>
+                <p className="mt-1 text-xs uppercase tracking-[0.16em] text-[#8f7661]">{item.release.name}</p>
+                <p className="mt-3 inline-flex rounded-full border border-[#e8c4ba] bg-[#f5dfd5] px-3 py-1 text-sm font-semibold text-[#8a5239]">
                   {formatPercent(item.metrics.sevenDayChange)}
                 </p>
               </div>
@@ -135,7 +138,7 @@ export function DashboardClient({ data }: { data: DashboardData }) {
           </div>
         </TabsContent>
         <TabsContent value="new">
-          <CategoryHeader title="New drops" subtitle="Fresh additions and recent release windows." />
+          <CategoryHeader title="Fresh arrivals" subtitle="Recent releases and newer additions to browse first." />
           <MarketGrid items={newDrops} layout={layout} />
         </TabsContent>
         <TabsContent value="all">
@@ -144,8 +147,8 @@ export function DashboardClient({ data }: { data: DashboardData }) {
             <MarketGrid items={filteredItems} layout={layout} />
           ) : (
             <div className="surface-card rounded-[26px] p-8 text-center">
-              <p className="font-display text-2xl font-semibold">No matches in this shelf right now.</p>
-              <p className="mt-2 text-muted-foreground">Adjust one filter and try again.</p>
+              <p className="font-display text-2xl font-semibold text-[#2e2a26]">Nothing matches this shelf yet.</p>
+              <p className="mt-2 text-[#5d554d]">Try easing one filter or searching a different line.</p>
             </div>
           )}
         </TabsContent>
@@ -157,18 +160,23 @@ export function DashboardClient({ data }: { data: DashboardData }) {
 function CategoryHeader({ title, subtitle }: { title: string; subtitle: string }) {
   return (
     <div className="mb-4">
-      <h2 className="font-display text-2xl font-semibold">{title}</h2>
-      <p className="text-sm text-muted-foreground">{subtitle}</p>
+      <p className="section-label">Curated shelf</p>
+      <h2 className="mt-4 font-display text-3xl font-semibold text-[#2e2a26]">{title}</h2>
+      <p className="text-sm text-[#5d554d]">{subtitle}</p>
     </div>
   );
 }
 
 function MarketGrid({ items, layout }: { items: DashboardData["items"]; layout: "grid" | "list" }) {
+  return <div className={layout === "grid" ? "grid gap-5 md:grid-cols-2 xl:grid-cols-4" : "grid gap-4"}>{items.map((item) => <ItemCard key={item.id} item={item} compact={layout === "list"} />)}</div>;
+}
+
+function InfoPanel({ title, value, detail }: { title: string; value: string; detail: string }) {
   return (
-    <div className={layout === "grid" ? "grid gap-5 md:grid-cols-2 xl:grid-cols-4" : "grid gap-4"}>
-      {items.map((item) => (
-        <ItemCard key={item.id} item={item} compact={layout === "list"} />
-      ))}
+    <div className="surface-card rounded-[22px] p-5">
+      <p className="text-xs uppercase tracking-[0.16em] text-[#8f7661]">{title}</p>
+      <p className="mt-3 font-display text-2xl font-semibold text-[#2e2a26]">{value}</p>
+      <p className="mt-2 text-sm text-[#5d554d]">{detail}</p>
     </div>
   );
 }

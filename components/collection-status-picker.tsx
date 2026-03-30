@@ -1,14 +1,15 @@
 "use client";
 
-import { BookmarkCheck, ShoppingBag, Tag } from "lucide-react";
+import { BookmarkCheck, ShoppingBag, Star, Tag } from "lucide-react";
 import type { DashboardItem } from "@/lib/types";
 import { useCollectionStore, type CollectionStatus } from "@/lib/stores/collection-store";
 import { useToastStore } from "@/lib/stores/toast-store";
 
 const statusMeta: Record<CollectionStatus, { label: string; icon: typeof BookmarkCheck }> = {
   owned: { label: "Owned", icon: BookmarkCheck },
-  want: { label: "Want", icon: ShoppingBag },
-  sold: { label: "Sold", icon: Tag }
+  wanted: { label: "Wanted", icon: ShoppingBag },
+  sold: { label: "Sold", icon: Tag },
+  dream: { label: "Dream", icon: Star }
 };
 
 export function CollectionStatusPicker({ item }: { item: DashboardItem }) {
@@ -30,7 +31,7 @@ export function CollectionStatusPicker({ item }: { item: DashboardItem }) {
             onClick={() => {
               if (active) {
                 removeStatus(item.slug);
-                push({ title: "Collection updated", description: `${item.name} cleared from collection mode` });
+                push({ title: "Collection updated", description: `${item.name} cleared from your shelf` });
                 return;
               }
 
@@ -43,10 +44,10 @@ export function CollectionStatusPicker({ item }: { item: DashboardItem }) {
                 heat: item.metrics.marketHeat,
                 status
               });
-              push({ title: "Collection updated", description: `${item.name} marked ${statusMeta[status].label.toLowerCase()} ✨` });
+              push({ title: "Collection updated", description: `${item.name} marked ${statusMeta[status].label.toLowerCase()} ✦` });
             }}
             className={`inline-flex items-center gap-2 rounded-full border px-4 py-2 text-sm font-semibold transition-all ${
-              active ? "border-primary bg-primary text-primary-foreground" : "border-border bg-card/75 hover:bg-white/90"
+              active ? "border-[#e8c4ba] bg-[#f3ddd5] text-[#7b4a35]" : "border-[#d6c9b5] bg-[#fffdf9] text-[#5d554d] hover:bg-[#fffaf4]"
             }`}
           >
             <Icon className="h-4 w-4" />
