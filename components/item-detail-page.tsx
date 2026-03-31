@@ -119,7 +119,7 @@ export async function ItemDetailPage({
               <CollectionStatusPicker item={data.item} />
             </div>
           </div>
-          <AlertForm item={data.item} />
+          <AlertForm />
         </div>
       </section>
 

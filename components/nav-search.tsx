@@ -22,30 +22,28 @@ export function NavSearch({
 
   return (
     <div className={cn("relative w-full", className)}>
-      <Search className="pointer-events-none absolute left-5 top-1/2 h-4 w-4 -translate-y-1/2 text-[#8f7661]" />
+      <Search className="pointer-events-none absolute left-5 top-1/2 h-4 w-4 -translate-y-1/2 text-[#8B6F47]" />
       <input
         aria-label="Search collectibles"
         placeholder={placeholder}
         value={query}
         onChange={(event) => setQuery(event.target.value)}
         className={cn(
-          "warm-focus h-12 w-full rounded-full border border-[#d6c9b5] bg-[#fffdf9]/92 pl-12 pr-5 text-sm text-[#2e2a26] outline-none shadow-[var(--shadow-soft)] placeholder:text-[#8f7661]",
+          "warm-focus h-12 w-full rounded-full border border-[#E8E0D4] bg-[#FFFCF8] pl-12 pr-5 text-sm text-[#2C2418] outline-none placeholder:text-[#5D554D]",
           inputClassName
         )}
       />
       {results.length ? (
-        <div className="absolute top-[calc(100%+0.55rem)] z-50 w-full rounded-[26px] border border-[#d6c9b5] bg-[#fffdf9]/97 p-2 shadow-[var(--shadow-card)]">
+        <div className="absolute top-[calc(100%+0.55rem)] z-50 w-full rounded-[16px] border border-[#E8E0D4] bg-[#FFFCF8] p-2">
           {results.map((item) => (
             <Link
               key={item.slug}
               href={universeItemHref(item.universeSlug, item.slug)}
-              className="block rounded-[18px] px-4 py-3 transition hover:bg-[#faf7f2]"
+              className="block rounded-[12px] px-4 py-3 transition hover:bg-[#F5EDE0]"
               onClick={() => setQuery("")}
             >
-              <p className="font-semibold text-[#2e2a26]">{item.name}</p>
-              <p className="mt-1 text-xs text-[#8f7661]">
-                {item.releaseName} · {item.universeName}
-              </p>
+              <p className="font-semibold text-[#2C2418]">{item.name}</p>
+              <p className="mt-1 text-xs text-[#5D554D]">{item.releaseName} · {item.universeName}</p>
             </Link>
           ))}
         </div>

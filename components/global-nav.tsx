@@ -11,20 +11,20 @@ const NAV_ITEMS = [
 
 export function GlobalNav() {
   return (
-    <header className="sticky top-0 z-40 border-b border-[#d6c9b5]/80 bg-[#faf8f4]/92 backdrop-blur-xl">
+    <header className="sticky top-0 z-40 border-b border-[#E8E0D4] bg-[#FAF8F4]">
       <div className="container grid gap-4 py-4 lg:grid-cols-[auto_minmax(0,1fr)_auto] lg:items-center">
         <Link href="/" className="inline-flex items-center justify-self-start">
           <LogoMark compact />
         </Link>
-        <NavSearch className="w-full" inputClassName="h-14 rounded-full bg-[#fffdf9]/94" />
+        <NavSearch className="w-full" inputClassName="h-14 rounded-full border-[#E8E0D4] bg-[#FFFCF8]" />
         <nav className="flex flex-wrap items-center justify-start gap-2 lg:justify-end">
           {NAV_ITEMS.map(({ href, label, icon: Icon }) => (
             <Link
               key={href}
               href={href}
-              className="inline-flex items-center gap-2 rounded-full border border-[#d6c9b5] bg-[#fffdf9]/88 px-4 py-2.5 text-sm font-medium text-[#5d554d] shadow-[var(--shadow-soft)] transition hover:-translate-y-0.5 hover:bg-[#fffaf4]"
+              className="inline-flex items-center gap-2 rounded-full border border-[#E8E0D4] bg-[#FFFCF8] px-4 py-2.5 text-sm font-medium text-[#5D554D] transition hover:bg-[#F5EDE0]"
             >
-              <Icon className="h-4 w-4 text-[#d4854a]" />
+              <Icon className="h-4 w-4 text-[#8B6F47]" />
               {label}
             </Link>
           ))}
