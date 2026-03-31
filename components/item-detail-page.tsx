@@ -66,11 +66,11 @@ export async function ItemDetailPage({
       />
 
       <section className="grid gap-6 xl:grid-cols-[0.92fr_1.08fr]">
-        <div className="surface-card overflow-hidden rounded-[32px] p-4">
-          <div className="relative h-[440px] overflow-hidden rounded-[26px] border border-[#d6c9b5] bg-[#fffdf9]">
-            <ItemImageFallback src={data.item.imageUrl} alt={data.item.name} fill className="object-cover" />
+        <div className="panel-card overflow-hidden rounded-[20px] p-4">
+          <div className="panel-frame relative h-[440px] overflow-hidden">
+            <ItemImageFallback src={data.item.imageUrl} alt={data.item.name} fill className="h-full w-full object-cover" />
           </div>
-          <div className="mt-4 rounded-[22px] border border-[#d6c9b5] bg-[#fffdf9] p-4 text-sm text-[#5d554d]">
+          <div className="panel-frame mt-4 p-4 text-sm text-[#5d554d]">
             <p>
               Image credit: <span className="font-semibold text-[#2e2a26]">{data.item.imageCreditText}</span>
             </p>
@@ -84,7 +84,7 @@ export async function ItemDetailPage({
         </div>
 
         <div className="space-y-5">
-          <div className="surface-card rounded-[32px] p-6">
+          <div className="panel-card rounded-[20px] p-6">
             <div className="flex flex-wrap items-center gap-3">
               <RarityBadge rarity={data.item.rarity} />
               <MarketHeatBadge heat={data.item.metrics.marketHeat} />
@@ -96,10 +96,10 @@ export async function ItemDetailPage({
             </p>
             <div className="mt-5 flex flex-wrap items-center gap-3">
               <ValuePill value={data.item.metrics.estimatedValue} confidence={data.item.metrics.confidence} />
-              <span className="rounded-full border border-[#d6c9b5] bg-[#fffdf9] px-4 py-2 text-sm font-semibold text-[#5d554d]">
+              <span className="rounded-full border border-[#E8E0D4] bg-[#FFFCF8] px-4 py-2 text-sm font-semibold text-[#5d554d]">
                 {formatPercent(data.item.metrics.sevenDayChange)} this week
               </span>
-              <span className="rounded-full border border-[#d6c9b5] bg-[#fffdf9] px-4 py-2 text-xs font-semibold text-[#8f7661]">
+              <span className="rounded-full border border-[#E8E0D4] bg-[#FFFCF8] px-4 py-2 text-xs font-semibold text-[#8f7661]">
                 updated {new Date(data.item.metrics.lastUpdated).toLocaleString("en-US", { month: "short", day: "numeric", hour: "numeric", minute: "2-digit" })}
               </span>
             </div>
@@ -112,8 +112,8 @@ export async function ItemDetailPage({
               <ConfidenceMeter confidence={data.item.metrics.confidence} score={data.item.metrics.confidenceScore} />
             </div>
             <div className="mt-4 flex flex-wrap items-center gap-2 text-xs text-[#8f7661]">
-              <span className="rounded-full border border-[#d6c9b5] bg-[#fffdf9] px-3 py-1">source: {data.item.metrics.sourceLabels.join(" + ")}</span>
-              <span className="rounded-full border border-[#d6c9b5] bg-[#fffdf9] px-3 py-1">sample points: {data.item.metrics.samplePoints}</span>
+              <span className="rounded-full border border-[#E8E0D4] bg-[#FFFCF8] px-3 py-1">source: {data.item.metrics.sourceLabels.join(" + ")}</span>
+              <span className="rounded-full border border-[#E8E0D4] bg-[#FFFCF8] px-3 py-1">sample points: {data.item.metrics.samplePoints}</span>
             </div>
             <div className="mt-5">
               <CollectionStatusPicker item={data.item} />
@@ -124,13 +124,13 @@ export async function ItemDetailPage({
       </section>
 
       <section className="grid gap-6 xl:grid-cols-[1.1fr_0.9fr]">
-        <div className="surface-card rounded-[30px] p-6">
+        <div className="panel-card rounded-[20px] p-6">
           <p className="section-label sparkle-accent">Price history</p>
           <h2 className="mt-4 font-display text-3xl font-semibold text-[#2e2a26]">Market movement over time</h2>
           <PriceChart data={chartData} />
         </div>
         <div className="space-y-6">
-          <div className="surface-card rounded-[30px] p-6">
+          <div className="panel-card rounded-[20px] p-6">
             <p className="section-label">Quick read</p>
             <div className="mt-5 grid gap-3">
               <SummaryRow label="Sample points" value={`${data.item.metrics.samplePoints}`} />
@@ -140,12 +140,12 @@ export async function ItemDetailPage({
             </div>
           </div>
 
-          <div className="surface-card rounded-[30px] p-6">
+          <div className="panel-card rounded-[20px] p-6">
             <p className="section-label sparkle-accent">Where to buy</p>
             <h2 className="mt-4 font-display text-3xl font-semibold text-[#2e2a26]">Collector checkout paths</h2>
             <div className="mt-4 space-y-3">
               {buyLinks.map((link) => (
-                <div key={link.label} className="rounded-[20px] border border-[#d6c9b5] bg-[#fffdf9] px-4 py-3">
+                <div key={link.label} className="panel-frame px-4 py-3">
                   {link.url === "#" ? (
                     <span className="font-semibold text-[#2e2a26]">{link.label}</span>
                   ) : (
@@ -159,12 +159,12 @@ export async function ItemDetailPage({
             </div>
           </div>
 
-          <div className="surface-card rounded-[30px] p-6">
+          <div className="panel-card rounded-[20px] p-6">
             <p className="section-label sparkle-accent">TRinket Club</p>
             <h2 className="mt-4 font-display text-3xl font-semibold text-[#2e2a26]">Premium collector tools</h2>
             <div className="mt-4 grid gap-3">
               {["Advanced alerts", "Collection value tracking", "Portfolio analytics", "Expanded save features"].map((feature) => (
-                <div key={feature} className="flex items-center gap-3 rounded-[20px] border border-[#d6c9b5] bg-[#fffdf9] px-4 py-3">
+                <div key={feature} className="panel-frame flex items-center gap-3 px-4 py-3">
                   <Sparkles className="h-4 w-4 text-[#d4854a]" />
                   <span className="text-sm font-medium text-[#2e2a26]">{feature}</span>
                 </div>
@@ -173,12 +173,12 @@ export async function ItemDetailPage({
           </div>
 
           {tips.length ? (
-            <div className="surface-card rounded-[30px] p-6">
+            <div className="panel-card rounded-[20px] p-6">
               <p className="section-label">Authenticity tips</p>
               <h2 className="mt-4 font-display text-3xl font-semibold text-[#2e2a26]">Quick legit check</h2>
               <ul className="mt-4 space-y-3 text-sm text-[#5d554d]">
                 {tips.map((tip) => (
-                  <li key={tip} className="rounded-[22px] border border-[#d6c9b5] bg-[#fffdf9] px-4 py-3">
+                  <li key={tip} className="panel-frame px-4 py-3">
                     {tip}
                   </li>
                 ))}
@@ -227,7 +227,7 @@ export function getItemStaticParams(universeSlug?: string) {
 
 function Metric({ label, value }: { label: string; value: string }) {
   return (
-    <div className="rounded-[24px] border border-[#d6c9b5] bg-[#fffdf9] p-4">
+    <div className="panel-frame p-4">
       <p className="text-sm text-[#8f7661]">{label}</p>
       <p className="mt-2 text-2xl font-semibold text-[#2e2a26]">{value}</p>
     </div>
@@ -236,7 +236,7 @@ function Metric({ label, value }: { label: string; value: string }) {
 
 function SummaryRow({ label, value }: { label: string; value: string }) {
   return (
-    <div className="flex items-center justify-between rounded-[20px] border border-[#d6c9b5] bg-[#fffdf9] px-4 py-3">
+    <div className="panel-frame flex items-center justify-between px-4 py-3">
       <span className="text-sm text-[#5d554d]">{label}</span>
       <span className="font-semibold text-[#2e2a26]">{value}</span>
     </div>

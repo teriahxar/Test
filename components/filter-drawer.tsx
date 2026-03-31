@@ -81,7 +81,7 @@ export function FilterDrawer({
                 placeholder="Min"
                 value={filters.minPrice ?? ""}
                 onChange={(event) => setFilters({ ...filters, minPrice: event.target.value ? Number(event.target.value) : undefined })}
-                className="warm-focus h-11 rounded-full border border-[#d6c9b5] bg-[#fffdf9] px-4 text-sm outline-none"
+                className="warm-focus h-11 rounded-full border border-[#E8E0D4] bg-[#FFFCF8] px-4 text-sm outline-none"
               />
               <input
                 type="number"
@@ -89,7 +89,7 @@ export function FilterDrawer({
                 placeholder="Max"
                 value={filters.maxPrice ?? ""}
                 onChange={(event) => setFilters({ ...filters, maxPrice: event.target.value ? Number(event.target.value) : undefined })}
-                className="warm-focus h-11 rounded-full border border-[#d6c9b5] bg-[#fffdf9] px-4 text-sm outline-none"
+                className="warm-focus h-11 rounded-full border border-[#E8E0D4] bg-[#FFFCF8] px-4 text-sm outline-none"
               />
             </div>
           </div>
@@ -123,7 +123,7 @@ function FilterSection({
             type="button"
             onClick={() => onChange(option)}
             className={`rounded-full border px-4 py-2 text-sm font-semibold transition-colors ${
-              active === option ? "border-[#e8c4ba] bg-[#f3ddd5] text-[#7b4a35]" : "border-[#d6c9b5] bg-[#fffdf9] text-[#5d554d]"
+              active === option ? "border-[#C4A882] bg-[#F5EDE0] text-[#8B6F47]" : "border-[#E8E0D4] bg-[#FFFCF8] text-[#5D554D]"
             }`}
           >
             {option}

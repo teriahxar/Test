@@ -73,7 +73,7 @@ export function DashboardClient({ data }: { data: DashboardData }) {
     <div className="space-y-8">
       <WorldHero worldSlug={data.universe.slug} title={data.universe.name} description={data.universe.description} />
 
-      <section className="surface-card rounded-[28px] p-4 md:p-5">
+      <section className="panel-card rounded-[20px] p-4 md:p-5">
         <div className="flex flex-col gap-4 xl:flex-row xl:items-center xl:justify-between">
           <div className="flex flex-wrap items-center gap-2">
             <ReleaseSwitcher universeSlug={data.universe.slug} releases={data.universe.releases} currentRelease={currentRelease} />
@@ -84,11 +84,11 @@ export function DashboardClient({ data }: { data: DashboardData }) {
           </div>
           <div className="flex flex-col gap-3 sm:flex-row sm:items-center">
             <SearchBox items={data.items} />
-            <div className="inline-flex rounded-full border border-[#d6c9b5] bg-[#fffdf9] p-1 shadow-[var(--shadow-soft)]">
+            <div className="inline-flex rounded-full border border-[#E8E0D4] bg-[#FFFCF8] p-1 shadow-[var(--shadow-soft)]">
               <button
                 type="button"
                 aria-label="Grid view"
-                className={`rounded-full p-2 ${layout === "grid" ? "bg-[#f3ddd5] text-[#7b4a35]" : "text-[#8f7661]"}`}
+                className={`rounded-full p-2 ${layout === "grid" ? "bg-[#F5EDE0] text-[#8B6F47]" : "text-[#8f7661]"}`}
                 onClick={() => setLayout("grid")}
               >
                 <LayoutGrid className="h-4 w-4" />
@@ -96,7 +96,7 @@ export function DashboardClient({ data }: { data: DashboardData }) {
               <button
                 type="button"
                 aria-label="List view"
-                className={`rounded-full p-2 ${layout === "list" ? "bg-[#f3ddd5] text-[#7b4a35]" : "text-[#8f7661]"}`}
+                className={`rounded-full p-2 ${layout === "list" ? "bg-[#F5EDE0] text-[#8B6F47]" : "text-[#8f7661]"}`}
                 onClick={() => setLayout("list")}
               >
                 <Rows3 className="h-4 w-4" />
@@ -127,7 +127,7 @@ export function DashboardClient({ data }: { data: DashboardData }) {
           <CategoryHeader title="Biggest movers" subtitle="Pieces seeing the sharpest seven-day shifts." />
           <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-4">
             {movers.map((item) => (
-              <div key={item.id} className="surface-card rounded-[22px] p-4">
+              <div key={item.id} className="panel-card rounded-[20px] p-4">
                 <p className="font-display text-xl font-semibold text-[#2e2a26]">{item.name}</p>
                 <p className="mt-1 text-xs uppercase tracking-[0.16em] text-[#8f7661]">{item.release.name}</p>
                 <p className="mt-3 inline-flex rounded-full border border-[#e8c4ba] bg-[#f5dfd5] px-3 py-1 text-sm font-semibold text-[#8a5239]">
@@ -146,7 +146,7 @@ export function DashboardClient({ data }: { data: DashboardData }) {
           {filteredItems.length ? (
             <MarketGrid items={filteredItems} layout={layout} />
           ) : (
-            <div className="surface-card rounded-[26px] p-8 text-center">
+            <div className="panel-card rounded-[20px] p-8 text-center">
               <p className="font-display text-2xl font-semibold text-[#2e2a26]">Nothing matches this shelf yet.</p>
               <p className="mt-2 text-[#5d554d]">Try easing one filter or searching a different line.</p>
             </div>
@@ -173,7 +173,7 @@ function MarketGrid({ items, layout }: { items: DashboardData["items"]; layout: 
 
 function InfoPanel({ title, value, detail }: { title: string; value: string; detail: string }) {
   return (
-    <div className="surface-card rounded-[22px] p-5">
+    <div className="panel-card rounded-[20px] p-5">
       <p className="text-xs uppercase tracking-[0.16em] text-[#8f7661]">{title}</p>
       <p className="mt-3 font-display text-2xl font-semibold text-[#2e2a26]">{value}</p>
       <p className="mt-2 text-sm text-[#5d554d]">{detail}</p>

@@ -15,8 +15,8 @@ const WORLD_THEME_MAP: Record<string, string> = {
 
 export function WorldHero({ worldSlug, title, description }: { worldSlug: string; title: string; description: string }) {
   return (
-    <section className={`rounded-[16px] border-2 border-[#8B6F47] p-6 ${WORLD_THEME_MAP[worldSlug] ?? WORLD_THEME_MAP["calico-critters"]}`}>
-      <div className="flex h-24 w-60 items-center justify-center rounded-[12px] border border-[#8B6F47]/20 bg-[#FFFCF8] px-4">
+    <section className={`panel-card rounded-[20px] border-[#8B6F47] p-6 ${WORLD_THEME_MAP[worldSlug] ?? WORLD_THEME_MAP["calico-critters"]}`}>
+      <div className="panel-frame flex h-24 w-60 items-center justify-center border-[#8B6F47]/20 px-4">
         <div className="relative h-14 w-48">
           <Image src={WORLD_LOGO_MAP[worldSlug] ?? asset("/assets/logos/trinket-logo.png")} alt={`${title} logo`} fill className="object-contain" />
         </div>

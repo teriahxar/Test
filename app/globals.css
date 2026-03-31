@@ -21,8 +21,10 @@
   --destructive: 5 69% 58%;
   --destructive-foreground: 0 0% 98%;
   --radius: 16px;
-  --shadow-card: none;
-  --shadow-soft: none;
+  --radius-panel: 20px;
+  --radius-frame: 18px;
+  --shadow-card: 0 10px 24px rgba(92, 72, 46, 0.06);
+  --shadow-soft: 0 4px 12px rgba(92, 72, 46, 0.05);
   --shadow-glow: 0 0 0 2px rgba(196, 168, 130, 0.35);
   --chart-stroke: #8b6f47;
   --chart-grid: rgba(139, 111, 71, 0.12);
@@ -81,7 +83,34 @@ h6 {
 .paper-panel {
   background: #fffcf8;
   border: 1px solid #e8e0d4;
-  box-shadow: none;
+  box-shadow: var(--shadow-card);
+}
+
+.panel-card {
+  background: #fffcf8;
+  border: 1px solid #e8e0d4;
+  border-radius: var(--radius-panel);
+  box-shadow: var(--shadow-card);
+}
+
+.panel-frame {
+  background: #fffaf4;
+  border: 1px solid #e8e0d4;
+  border-radius: var(--radius-frame);
+  box-shadow: var(--shadow-soft);
+}
+
+.panel-button {
+  border-radius: 9999px;
+  border: 1px solid #c4a882;
+  background: rgba(255, 252, 248, 0.88);
+  color: #8b6f47;
+  transition: background-color 180ms ease, border-color 180ms ease, transform 180ms ease;
+}
+
+.panel-button:hover {
+  background: #f5ede0;
+  transform: translateY(-1px);
 }
 
 .section-label {

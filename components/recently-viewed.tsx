@@ -30,10 +30,10 @@ export function RecentlyViewed({ items }: { items: DashboardItem[] }) {
           <Link
             key={item.id}
             href={universeItemHref(item.release.universe.slug, item.slug)}
-            className="sticker-card min-w-[240px] rounded-[24px] p-3"
+            className="panel-card min-w-[240px] rounded-[20px] p-3"
           >
-            <div className="relative h-40 w-full overflow-hidden rounded-[18px] border border-[#d6c9b5] bg-[#fffdf9]">
-              <ItemImageFallback src={item.imageUrl} alt={item.name} fill className="object-cover" />
+            <div className="panel-frame relative h-40 w-full overflow-hidden">
+              <ItemImageFallback src={item.imageUrl} alt={item.name} fill className="h-full w-full object-cover" />
             </div>
             <div className="mt-3 flex items-start justify-between gap-2">
               <div>

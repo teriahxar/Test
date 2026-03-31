@@ -14,7 +14,7 @@ export function AttributionModal() {
       <DialogContent>
         <h3 className="font-display text-2xl font-semibold">Image policy</h3>
         <p className="mt-3 text-sm text-muted-foreground">
-          TRinket uses local project assets for logos and item visuals. If an item photo is unavailable, TRinket shows a clean neutral display slot instead of generated placeholder art.
+          TRinket uses local project assets for logos and item visuals. If an item photo is unavailable, TRinket shows the TRinket logo with an "Image coming soon" label instead of placeholder art.
         </p>
         <p className="mt-3 text-sm text-muted-foreground">
           Do not reuse brand imagery without permission. Replace local assets only with approved or licensed files and keep source credits in sync.

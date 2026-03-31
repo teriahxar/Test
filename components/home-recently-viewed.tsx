@@ -32,10 +32,10 @@ export function HomeRecentlyViewed() {
           <Link
             key={item.slug}
             href={universeItemHref(release.universe.slug, item.slug)}
-            className="surface-card rounded-[22px] p-4 transition hover:-translate-y-0.5"
+            className="panel-card rounded-[20px] p-4 transition hover:-translate-y-0.5"
           >
-            <div className="relative h-40 overflow-hidden rounded-[16px] border border-[#d6c9b5] bg-[#fffdf9]">
-              <ItemImageFallback src={item.imageLocalPath} alt={item.name} fill className="object-cover" />
+            <div className="panel-frame relative h-40 overflow-hidden">
+              <ItemImageFallback src={item.imageLocalPath} alt={item.name} fill className="h-full w-full object-cover" />
             </div>
             <p className="mt-4 font-display text-xl font-semibold text-[#2e2a26]">{item.name}</p>
             <p className="mt-1 text-sm text-[#5d554d]">{release.name}</p>
